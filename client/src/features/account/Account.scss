@@ -1,0 +1,37 @@
+@import "./../../app/util/variables";
+
+
+.login-form,
+.register-form {
+  height: 100vh;
+  width: 100%;
+  background-color: $light-background;
+
+  .card{
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  & .img {
+    width: 100%;
+    max-height: 600px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  & .form-label {
+    font-size: .8rem;
+  }
+
+  & input[type=text] {
+    &:focus {
+      border-color: $accent-color;
+      box-shadow: none;
+      background-color: transparent;
+    }
+
+
+  }
+}
+
+
+

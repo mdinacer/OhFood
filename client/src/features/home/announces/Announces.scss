@@ -1,0 +1,32 @@
+.announces header {
+  color: white;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.announces carousel {
+  width: 100%;
+  height: 100%;
+}
+
+.announces img {
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+}
+
+.announces .title {
+  font-size: 5em;
+  font-weight: 800;
+}
+
+.announces h1 {
+  font-size: 3em;
+  font-weight: 800;
+}
+
+.announces .carousel-caption {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}

@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+@import "./app/util/variables";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", Courier, monospace;
+  font-size: 16px;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.btn-outline-dark:focus {
+  box-shadow: none;
+}
+
+.form-check-input {
+  &:focus {
+    border-color: $accent-color;
+    outline: 0;
+    box-shadow: none;
+  }
+
+  &:checked {
+    background-color: $accent-color;
+    border-color: $accent-color;
+
+    &:focus {
+      border-color: $accent-color;
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem $accent-color;
+      font-weight: bold;
+    }
+  }
+}

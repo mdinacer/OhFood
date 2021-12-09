@@ -1,0 +1,15 @@
+@import "./../../app/util/variables";
+.main-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  background-color: $light-background;
+}
+
+#home {
+  background-color: black;
+}
+
+section {
+  width: 100%;
+  scroll-snap-align: start;
+}

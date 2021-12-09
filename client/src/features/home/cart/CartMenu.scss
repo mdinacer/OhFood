@@ -1,0 +1,12 @@
+@import "./../../../app/util/variables";
+
+.basket-menu {
+  & p {
+    margin-bottom: 0;
+  }
+
+  & .totals {
+    color: white;
+    background-color: $dark-background;
+  }
+}

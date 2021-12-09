@@ -1,0 +1,86 @@
+.catalog {
+  margin-top: 70px;
+  min-height: 80vh;
+  width: 100%;
+
+
+}
+
+.catalog .card {
+  cursor: pointer;
+}
+
+.catalog img {
+  height: 210px;
+  object-fit: contain;
+  object-position: top;
+}
+
+.catalog .btn {
+  border-radius: 0;
+}
+
+.btn:focus,
+.btn:active {
+  box-shadow: none;
+}
+
+.modal img {
+  max-height: 70vh;
+  object-fit: contain;
+  object-position: center;
+}
+
+.catalog .list-group-item {
+  background-color: transparent;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 400;
+  border: none;
+  transform: scale(1);
+  transition: all 250ms ease-in-out;
+
+  &::first-letter {
+    font-size: 1.5rem;
+  }
+
+  &.active {
+    font-size: 1.5rem;
+    color: black;
+    background: transparent;
+  }
+
+  &:hover {
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    font-weight: 800;
+    border: none;
+    transform: scale(1.1);
+  }
+}
+
+@media (min-width: 992px) {
+  .catalog .card-title {
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0;
+    transition: all 250ms ease-in;
+  }
+
+  .catalog .card-title:hover {
+    font-weight: 800;
+    letter-spacing: 0.1rem;
+  }
+
+  .catalog .card img {
+    transform: scale(1);
+    filter: grayscale(0.5);
+    transition: all 250ms ease-in;
+  }
+
+  .catalog .card img:hover {
+    filter: grayscale(0);
+    transform: scale(1.1);
+  }
+}
