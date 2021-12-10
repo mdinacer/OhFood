@@ -56,7 +56,7 @@ export default function Header() {
         variant="dark"
         sticky="top"
       >
-        <Container className={"me-1"}>
+        <Container>
           <Navbar.Brand as={Link} to="/">
             <span className="mx-1">Oh!</span>Food
           </Navbar.Brand>
