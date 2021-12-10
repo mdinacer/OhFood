@@ -4,6 +4,7 @@ export default function Hero() {
   return (
     <div className="hero position-relative hero-container d-flex flex-column justify-content-end align-items-start pb-5 ps-5">
       <video
+        autoPlay
         muted
         loop
         src="/videos/serving.mp4"
