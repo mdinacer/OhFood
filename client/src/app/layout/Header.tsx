@@ -118,13 +118,13 @@ export default function Header() {
             ) : (
               <>
                 <NavDropdown title={user.email} id="basic-nav-dropdown">
-                  <NavDropdown.Item as={Link} to="/profiles">
+                  <NavDropdown.Item as={Link} to="#">
                     Profile
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/profiles">
+                  <NavDropdown.Item as={Link} to="#">
                     Orders
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/profiles">
+                  <NavDropdown.Item as={Link} to="#">
                     Reservations
                   </NavDropdown.Item>
                   <NavDropdown.Divider />

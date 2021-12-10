@@ -1,8 +1,13 @@
 @import "./../../app/util/variables";
 
 .product-details {
+  background-color: $light-background;
   height: 100vh;
   width: 100%;
+
+  & .product-details-container {
+    background-color: $light-background;
+  }
 
   & .quantity {
     & .btn-dark {
