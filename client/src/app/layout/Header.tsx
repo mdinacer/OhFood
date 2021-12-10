@@ -25,10 +25,10 @@ const homeTags = [
 
 const links = [
   { name: "Home", path: "/" },
-  { name: "Contact", path: "/contact" },
-  { name: "About", path: "/about" },
-  { name: "Profile", path: "/profile" },
-  { name: "Gallery", path: "/gallery" },
+  { name: "Contact", path: "#" },
+  { name: "About", path: "#" },
+  { name: "Profile", path: "#" },
+  { name: "Gallery", path: "#" },
 ];
 
 export default function Header() {
