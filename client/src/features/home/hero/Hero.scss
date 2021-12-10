@@ -14,6 +14,10 @@
   object-fit: cover;
   object-position: top;
   opacity: 1;
+
+  &:after{
+
+  }
 }
 
 .hero video {
@@ -38,9 +42,11 @@
 }
 
 .hero .text {
+  background:rgba(0,0,0,.5);
   color: white;
   position: relative;
   z-index: 10;
+  width: 100%;
 }
 
 .hero .text h2 {

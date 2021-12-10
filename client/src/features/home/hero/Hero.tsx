@@ -2,14 +2,14 @@ import "./Hero.scss";
 
 export default function Hero() {
   return (
-    <div className="hero position-relative hero-container d-flex flex-column justify-content-end align-items-start pb-5 ps-5">
+    <div className="hero position-relative hero-container d-flex flex-column justify-content-end align-items-start pb-5 ">
       <video
         autoPlay
         muted
         loop
         src="/videos/serving.mp4"
         className="d-none d-md-block"
-      ></video>
+      />
 
       <img
         src="/images/hero2.jpg"
@@ -17,9 +17,9 @@ export default function Hero() {
         className="hero-image d-sm-block d-md-none"
       />
 
-      <div className="overlay d-none d-md-block"></div>
+      <div className="overlay "></div>
 
-      <div className="text d-flex flex-column justify-content-center align-items-start my-5 mx-3 ">
+      <div className="text d-flex flex-column justify-content-center align-items-start my-5 py-4 ps-5 ">
         <h2>Never Stop</h2>
         <h3>
           <span>Exploring</span> the tastes

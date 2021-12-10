@@ -1,24 +1,29 @@
 @import "./../../../app/util/variables";
 
-.featured {
+.featured{
   position: relative;
   background-color: $dark-background;
   height: 100%;
+
+  & header {
+    color: white;
+  }
+
+  & card {
+    background: transparent;
+    color: black;
+  }
+
+  & img {
+    height: 210px;
+    object-fit: contain;
+    object-position: top;
+  }
 }
 
-.featured header {
-  color: white;
-}
 
-.featured card {
-  color: black;
-}
 
-.featured img {
-  height: 210px;
-  object-fit: contain;
-  object-position: top;
-}
+
 
 @media (min-width: 992px) {
   .featured {

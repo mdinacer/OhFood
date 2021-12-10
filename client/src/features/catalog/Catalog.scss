@@ -1,9 +1,9 @@
+@import "./../../app/util/variables";
+
 .catalog {
   margin-top: 70px;
   min-height: 80vh;
   width: 100%;
-
-
 }
 
 .catalog .card {
@@ -31,56 +31,109 @@
   object-position: center;
 }
 
-.catalog .list-group-item {
-  background-color: transparent;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  cursor: pointer;
-  font-weight: 400;
-  border: none;
-  transform: scale(1);
-  transition: all 250ms ease-in-out;
 
-  &::first-letter {
-    font-size: 1.5rem;
-  }
 
-  &.active {
-    font-size: 1.5rem;
-    color: black;
-    background: transparent;
-  }
+@media (min-width: 426px) {
 
-  &:hover {
-    font-size: 1rem;
-    letter-spacing: 0.3em;
-    font-weight: 800;
-    border: none;
-    transform: scale(1.1);
+  .catalog {
+    & .card-title {
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0;
+      transition: all 250ms ease-in;
+    }
+
+    & .card-title:hover {
+      font-weight: 800;
+      letter-spacing: 0.1rem;
+    }
+
+    & .card img {
+      transform: scale(1);
+      filter: grayscale(0.5);
+      transition: all 250ms ease-in;
+    }
+
+    & .card img:hover {
+      filter: grayscale(0);
+      transform: scale(1.1);
+    }
+
+    & .list-group-item {
+      background-color: transparent;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 400;
+      border: none;
+      transform: scale(1);
+      transition: all 250ms ease-in-out;
+      min-width: 125px;
+      text-align: center;
+
+      &::first-letter {
+        font-size: 1.5rem;
+      }
+
+      &.active {
+        font-size: 1.5rem;
+        color: black;
+        background: transparent;
+      }
+
+      &:hover {
+        font-size: 1rem;
+        letter-spacing: 0.3em;
+        font-weight: 800;
+        border: none;
+        transform: scale(1.1);
+      }
+    }
   }
 }
 
-@media (min-width: 992px) {
-  .catalog .card-title {
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0;
-    transition: all 250ms ease-in;
+@media (max-width: 425px) {
+
+  .catalog{
+    & .card-body{
+      border-bottom: 1px solid black;
+      padding-bottom: 5px;
+    }
+
+    & .card-title{
+      font-size: 1rem;
+    }
+
+    & .card-text{
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+    & .list-group-item {
+      border: none;
+      border-bottom: 1px solid transparent;
+      background-color: transparent;
+
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 400;
+
+      transition: all 250ms ease-in-out;
+      text-align: center;
+
+
+
+      &.active {
+        border-bottom: 1px solid $accent-color;
+        text-transform: uppercase;
+        color: black;
+        font-weight: 800;
+      }
+
+      &:hover {
+        font-size: 1rem;
+      }
+    }
   }
 
-  .catalog .card-title:hover {
-    font-weight: 800;
-    letter-spacing: 0.1rem;
-  }
-
-  .catalog .card img {
-    transform: scale(1);
-    filter: grayscale(0.5);
-    transition: all 250ms ease-in;
-  }
-
-  .catalog .card img:hover {
-    filter: grayscale(0);
-    transform: scale(1.1);
-  }
 }
+
