@@ -1,0 +1,9 @@
+.home {
+  //scroll-snap-type: y mandatory;
+  //overflow-y: scroll;
+  background-color: black;
+
+  & section {
+    //scroll-snap-align: start;
+  }
+}

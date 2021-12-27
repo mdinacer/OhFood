@@ -1,0 +1,48 @@
+.account {
+  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
+  font-family: "Montserrat", Courier, monospace;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgb(0, 0, 0)),
+  url("/images/backgrounds/account_bg.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: top;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+
+  & input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: none;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  & a {
+    text-decoration: none;
+    color: white;
+  }
+
+  & .login-form {
+    color: black;
+    background: rgba(164, 164, 164, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(112, 113, 140, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+  }
+}

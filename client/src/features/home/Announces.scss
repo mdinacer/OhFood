@@ -1,0 +1,39 @@
+.announces {
+  width: 100%;
+  height: 100vh;
+  color: white;
+  font-family: "Montserrat", Courier, monospace;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgb(0, 0, 0)),
+  url("/images/backgrounds/sections/announces_section_bg.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: top;
+  background-size: cover;
+
+  & .item-container {
+    height: 70vh;
+    overflow: hidden;
+
+    position: relative;
+    & .item-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  & .text-container {
+    width: 100%;
+    color: white;
+    background: rgba(0, 0, 0, 0.35);
+    box-shadow: 0 8px 32px 0 rgba(15, 18, 66, 0.37);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    transition: all 250ms ease-in-out;
+  }
+}

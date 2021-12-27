@@ -1,27 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.3ea24a46.chunk.css",
-    "main.js": "/static/js/main.29c62f0b.chunk.js",
-    "main.js.map": "/static/js/main.29c62f0b.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.e23af68e.js",
-    "runtime-main.js.map": "/static/js/runtime-main.e23af68e.js.map",
-    "static/css/2.3a879c66.chunk.css": "/static/css/2.3a879c66.chunk.css",
-    "static/js/2.a2d862b6.chunk.js": "/static/js/2.a2d862b6.chunk.js",
-    "static/js/2.a2d862b6.chunk.js.map": "/static/js/2.a2d862b6.chunk.js.map",
-    "static/js/3.80f65acd.chunk.js": "/static/js/3.80f65acd.chunk.js",
-    "static/js/3.80f65acd.chunk.js.map": "/static/js/3.80f65acd.chunk.js.map",
+    "main.css": "/static/css/main.c0e99896.css",
+    "main.js": "/static/js/main.8c871b29.js",
+    "static/js/787.72dbbc7e.chunk.js": "/static/js/787.72dbbc7e.chunk.js",
+    "static/media/specialities_section_bg.jpg": "/static/media/specialities_section_bg.7f0db34419a22f78a06c.jpg",
+    "static/media/product_details_bg.jpg": "/static/media/product_details_bg.517e43b1c5ef5f3882cf.jpg",
+    "static/media/announces_section_bg.jpg": "/static/media/announces_section_bg.a3b59ae747fc155ab8cd.jpg",
+    "static/media/gallery_section_bg.jpg": "/static/media/gallery_section_bg.9258111ab68237e5eb19.jpg",
+    "static/media/account_bg.jpg": "/static/media/account_bg.c9ba97caffeaf9389174.jpg",
+    "static/media/payment_section_bg.jpg": "/static/media/payment_section_bg.c7713552cb14809d712e.jpg",
+    "static/media/contact_section_bg.jpg": "/static/media/contact_section_bg.91fcf2754ce16a519d5d.jpg",
+    "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "static/css/2.3a879c66.chunk.css.map": "/static/css/2.3a879c66.chunk.css.map",
-    "static/css/main.3ea24a46.chunk.css.map": "/static/css/main.3ea24a46.chunk.css.map",
-    "static/js/2.a2d862b6.chunk.js.LICENSE.txt": "/static/js/2.a2d862b6.chunk.js.LICENSE.txt",
-    "static/media/ProductDetails.scss": "/static/media/product_details_bg.79b6a03c.jpg",
-    "static/media/slick-theme.css": "/static/media/slick.c94f7671.ttf"
+    "main.c0e99896.css.map": "/static/css/main.c0e99896.css.map",
+    "main.8c871b29.js.map": "/static/js/main.8c871b29.js.map",
+    "787.72dbbc7e.chunk.js.map": "/static/js/787.72dbbc7e.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.e23af68e.js",
-    "static/css/2.3a879c66.chunk.css",
-    "static/js/2.a2d862b6.chunk.js",
-    "static/css/main.3ea24a46.chunk.css",
-    "static/js/main.29c62f0b.chunk.js"
+    "static/css/main.c0e99896.css",
+    "static/js/main.8c871b29.js"
   ]
 }
