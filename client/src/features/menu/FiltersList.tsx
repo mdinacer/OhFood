@@ -41,7 +41,7 @@ export default function FiltersList({productTypes, handleTypeChanged, handleSort
             </List>
 
             <List subheader={<li/>}>
-                <ListSubheader color={"primary"}>Ordre</ListSubheader>
+                <ListSubheader color={"primary"}>Sort</ListSubheader>
                 {sortOptions.map((option) => (
                     <ListItemButton
                         key={option.value}

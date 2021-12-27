@@ -1,5 +1,5 @@
 export const sortOptions = [
-    {value: 'name', label: 'Alphabetique'},
-    {value: 'priceDesc', label: 'Plus Cher'},
-    {value: 'price', label: 'Moins Cher'},
+    {value: 'name', label: 'Alphabetical'},
+    {value: 'priceDesc', label: 'Price: Descending'},
+    {value: 'price', label: 'Price: Ascending'},
 ]

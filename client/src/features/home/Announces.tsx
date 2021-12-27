@@ -66,7 +66,7 @@ export default function Announces() {
                     mb: 2,
                 }}
             >
-                Nos services
+                Our Services
             </Typography>
             <Box sx={{overflow: "hidden", py: 3}}>
                 <Carousel>

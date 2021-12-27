@@ -11,7 +11,7 @@ import "./MenuPage.scss";
 import FiltersList from "./FiltersList";
 import SearchBar from "./SearchBar";
 
-const newItem = {name: "Tout", id: 0, pictureUrl: "/images/backgrounds/product_details_bg.jpg"};
+const newItem = {name: "All", id: 0, pictureUrl: "/images/backgrounds/product_details_bg.jpg"};
 
 
 export default function MenuPage() {
@@ -70,7 +70,7 @@ export default function MenuPage() {
                      handleSortChanged={handleSortChanged}/>
     )
 
-    if (!typesLoaded) return <LoadingComponent message='Chargment...'/>
+    if (!typesLoaded) return <LoadingComponent />
 
     return (
         <Box className={"menu"} sx={{
@@ -105,7 +105,7 @@ export default function MenuPage() {
                         <Container sx={{height: "100%"}}>
                             {productsLoaded ? (
                                 <ProductList products={products} metaData={metaData}/>
-                            ) : (<LoadingComponent message='Chargment...'/>)}
+                            ) : (<LoadingComponent />)}
                         </Container>
                     </Grid>
                 </Grid>

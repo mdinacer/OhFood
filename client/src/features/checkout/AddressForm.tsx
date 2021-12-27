@@ -17,7 +17,7 @@ export default function AddressForm() {
                     <AppTextInput control={control} name='fullName' label='Full name' />
                 </Grid>
                 <Grid item xs={12} md={8}>
-                    <AppTextInput control={control} name='address1' label='Address line 1' />
+                    <AppTextInput control={control} name='address1' label='Address' />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>

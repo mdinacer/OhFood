@@ -3,6 +3,6 @@ export function getCookie(key: string) {
     return value ? value.pop() : "";
 }
 
-export function currencyFormat(amount: number, symbol: string = "$") {
-    return `${(amount / 100).toFixed(2)} ${symbol}`
+export function currencyFormat(amount: number, symbol: string, isStart : boolean = true) {
+    return isStart? `${symbol} ${amount}` : `${amount} ${symbol}`
 }

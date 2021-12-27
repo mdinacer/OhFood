@@ -18,6 +18,7 @@ import LoadingComponent from "../../app/layout/LoadingComponent";
 import {ProductTypeFull} from "../../app/models/productType";
 import "./Specialities.scss";
 import agent from "../../app/api/agent";
+import {currencyFormat} from "../../app/util/util";
 
 export default function Specialities() {
     const [collapsed, setCollapsed] = useState<{
@@ -93,9 +94,9 @@ export default function Specialities() {
                                 aria-label={`info about ${productType.name}`}
                             >
                                 {collapsed.title === productType.name ? (
-                                    <ExpandLessOutlined fontSize="large" color="primary"/>
+                                    <ExpandMoreOutlined fontSize="large" color="primary"/>
                                 ) : (
-                                    <ExpandMoreOutlined fontSize="large" color="inherit"/>
+                                    <ExpandLessOutlined fontSize="large" color="inherit"/>
                                 )}
                             </IconButton>
                         </Box>
@@ -139,10 +140,10 @@ export default function Specialities() {
                                                     }}
                                                 >
                                                     <Typography variant="body1">{product.name}</Typography>
-                                                    <Typography variant="subtitle1">{product.price > 0 ? `${product.price} DA` : "Free"}</Typography>
+                                                    <Typography variant="subtitle1">{product.price > 0 ? `${currencyFormat(product.price,"$")}` : "Free"}</Typography>
                                                 </Box>
                                             }
-                                            secondary={product.ingredients }
+                                            secondary={ <Typography variant="caption">{product.ingredients}</Typography> }
                                         />
                                     </ListItem>
                                 ))}
@@ -167,7 +168,7 @@ export default function Specialities() {
                     mb: 2,
                 }}
             >
-                Nos specialités
+                Our Specialities
             </Typography>
             <Box sx={{position: "relative"}}>
                 <Grid container spacing={2} sx={{py: 3}}>
@@ -185,7 +186,7 @@ export default function Specialities() {
                             variant="contained"
                             sx={{width: "100%", color: "white", fontSize: "1.2rem"}}
                         >
-                            Commander
+                            Order
                         </Button>
                     </Grid>
                 </Grid>

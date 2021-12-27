@@ -3,11 +3,11 @@ import {NavLink, useLocation} from "react-router-dom";
 import React from "react";
 
 const pages = [
-    {title: "Accueil", path: "/"},
+    {title: "Home", path: "/"},
     {title: "Menu", path: "/menu"},
     {title: "Gallery", path: "/gallery"},
-    {title: "A propos", path: "/about"},
-    {title: "Profile", path: "/profile"},
+    {title: "About us", path: "/about"},
+   // {title: "Profile", path: "/profile"},
 ];
 
 export default function PagesList() {

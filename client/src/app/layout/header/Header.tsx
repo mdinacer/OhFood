@@ -155,10 +155,10 @@ export default function Header() {
 
                 </Box>
                 <Stack sx={{mx: 2}}>
-                    <Button disableElevation variant={"contained"} sx={{color: "white"}}
-                            onClick={toggleDrawer("right", false)} href={"/checkout"}>Check Out</Button>
+                    {basket && basket.items.length > 0 && ( <Button disableElevation variant={"contained"} sx={{color: "white"}}
+                                                                    onClick={toggleDrawer("right", false)} href={"/checkout"}>Check Out</Button>)}
                     <Button disableElevation sx={{my: 1}} variant={"outlined"}
-                            onClick={toggleDrawer("right", false)}>Fermer</Button>
+                            onClick={toggleDrawer("right", false)}>Close</Button>
                 </Stack>
             </Drawer>
 

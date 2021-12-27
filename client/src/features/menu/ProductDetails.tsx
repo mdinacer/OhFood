@@ -67,7 +67,7 @@ export default function ProductDetails() {
 
     return (
         <Box className={"product-details"} display={"flex"} alignItems={"center"} justifyContent={"center"}
-             sx={{pb: {xs:7}}}>
+             sx={{pb: {xs: 7}}}>
             <Box sx={style}>
                 <Grid container>
                     <Grid item xs={12} md={6} sx={{overflow: "hidden"}}>
@@ -84,19 +84,19 @@ export default function ProductDetails() {
                             <Typography variant={"body2"} gutterBottom>{product.description}</Typography>
                             <Typography sx={{textTransform: "uppercase"}}
                                         variant={"caption"}>Ingredients:</Typography>
-                            <Typography variant={"body2"} gutterBottom>Frites - Fromage - V.H -
-                                Salade</Typography>
+                            <Typography variant={"body2"}
+                                        gutterBottom>{product.ingredients || "French Fries - Cheese - Minced Meat - Salad"}</Typography>
                             <Box display={"flex"} alignItems={"center"} justifyContent={"space-around"}
                                  sx={{py: 3}}>
                                 <Typography textAlign={"center"}
                                             variant={"h5"}>{product.price * quantity} DA</Typography>
                                 <QuantityStepper minValue={1} isRow={true} quantity={quantity} increase={increase}
-                                                 decrease={decrease}  loading={status.includes('pending')}/>
+                                                 decrease={decrease} loading={status.includes('pending')}/>
                             </Box>
 
                             <Stack direction={"row"} justifyContent={"space-between"}>
                                 <Button href={"/menu"} color={"inherit"} startIcon={<ChevronLeft/>}>
-                                    Retour
+                                    Back
                                 </Button>
                                 {item && <LoadingButton
                                     disableElevation

@@ -1,8 +1,9 @@
-import {Box, Container, Grid, IconButton, List, ListItem, ListItemText, Paper, Typography} from "@mui/material";
+import {Box, Button, Container, Grid, IconButton, List, ListItem, ListItemText, Paper, Typography} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../app/store/configureStore";
 import QuantityStepper from "../../app/components/QuantityStepper";
 import {addBasketItemAsync, removeBasketItemAsync} from "../../app/slices/basketSlice";
 import {DeleteForever} from "@mui/icons-material";
+import React from "react";
 
 export default function BasketPage() {
     const dispatch = useAppDispatch();
@@ -10,7 +11,11 @@ export default function BasketPage() {
     const subtotal = basket?.items.reduce((sum, item) => sum + (item.quantity * item.price), 0) ?? 0;
     const deliveryFee = subtotal > 10000 ? 0 : 500;
 
-    if (!basket) return <Typography variant='h3'>Your basket is empty</Typography>
+    if (!basket) return (
+        <Box minWidth={"50%"} height={"100%"} display={"flex"} alignItems={"center"} justifyContent={"center"}>
+            <Typography variant='h6'>Your basket is empty</Typography>
+        </Box>
+    )
     return (
         <Box className={"basket"} sx={{width: {md: 500, xs: "auto"}, py: 3}}
              height={"100%"} display={"flex"}
@@ -86,7 +91,9 @@ export default function BasketPage() {
             }}>
                 <Typography variant={"caption"}>Total</Typography>
                 <Typography variant={"h6"}>{subtotal} DA</Typography>
+
             </Container>
+
         </Box>
     )
 }

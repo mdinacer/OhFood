@@ -80,9 +80,9 @@ export default function Hero() {
                     commodi maxime a quo voluptate aliquam ipsa sapiente obcaecati fuga
                     amet!
                 </Typography>
-                <Button disableElevation variant="contained" href="#menu">
-                    Explore
-                </Button>
+                {/*<Button disableElevation variant="contained" href="#menu">*/}
+                {/*    Explore*/}
+                {/*</Button>*/}
             </Container>
         </Box>
     );

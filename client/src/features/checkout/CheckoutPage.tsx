@@ -28,15 +28,6 @@ export default function CheckoutPage() {
             case 1:
                 return <Review/>;
 
-            case 2:
-                return <>
-                    <Typography variant="subtitle1">
-                        Your order number is #{orderNumber}. We have emailed your order
-                        confirmation, and will send you an update when your order has
-                        shipped!
-                    </Typography>
-
-                </>
             default:
                 throw new Error('Unknown step');
         }
@@ -64,7 +55,7 @@ export default function CheckoutPage() {
         try {
             const orderNumber = await agent.Orders.create({saveAddress, shippingAddress});
             setOrderNumber(orderNumber);
-            setActiveStep(activeStep + 1);
+            //setActiveStep(activeStep + 1);
             dispatch(clearBasket());
 
         } catch (error) {
@@ -114,25 +105,35 @@ export default function CheckoutPage() {
                             ))}
                         </Stepper>
                         <>
-                            <form onSubmit={methods.handleSubmit(handleNext)}>
-                                {getStepContent(activeStep)}
-                                <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                                    {activeStep !== 0 && (
-                                        <Button onClick={handleBack} sx={{mt: 3, ml: 1}}>
-                                            Back
-                                        </Button>
-                                    )}
-                                    <LoadingButton
-                                        loading={loading}
-                                        disabled={submitDisabled()}
-                                        variant="contained"
-                                        type='submit'
-                                        sx={{mt: 3, ml: 1}}
-                                    >
-                                        {activeStep === 1 ? 'Place order' : 'Next'}
-                                    </LoadingButton>
-                                </Box>
-                            </form>
+                            {activeStep === steps.length ? (
+                                <>
+                                    <Typography variant="subtitle1">
+                                        Your order number is #{orderNumber}. We have emailed your order
+                                        confirmation, and will not send you an update when your order has
+                                        shipped!
+                                    </Typography>
+                                </>
+                            ) : (
+                                <form onSubmit={methods.handleSubmit(handleNext)}>
+                                    {getStepContent(activeStep)}
+                                    <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                        {activeStep !== 0 && (
+                                            <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                                                Back
+                                            </Button>
+                                        )}
+                                        <LoadingButton
+                                            loading={loading}
+                                            disabled={submitDisabled()}
+                                            variant="contained"
+                                            type='submit'
+                                            sx={{ mt: 3, ml: 1 }}
+                                        >
+                                            {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                        </LoadingButton>
+                                    </Box>
+                                </form>
+                            )}
                         </>
                     </Paper>
                 </FormProvider>

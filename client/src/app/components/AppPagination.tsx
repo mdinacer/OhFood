@@ -20,9 +20,9 @@ export default function AppPagination({metaData, onPageChange}: Props) {
     return (
         <Box display='flex' justifyContent='space-between' alignItems='center'  width={"100%"} sx={{flexDirection:{xs:"column", md:"row"} , my:3}}>
             <Typography variant={"body2"} gutterBottom>
-                Affichage {(currentPage - 1) * pageSize + 1} à {currentPage * pageSize > totalCount
+                Showing {(currentPage - 1) * pageSize + 1} to {currentPage * pageSize > totalCount
                     ? totalCount
-                    : currentPage * pageSize} de {totalCount} éléments
+                    : currentPage * pageSize} of {totalCount} items
             </Typography>
             {metaData && metaData.totalPages > 1 && (
                 <Pagination sx={{flexWrap:"nowrap", mb: {xs:7, md:1}, mt:{xs:2,md:0}}}

@@ -36,7 +36,7 @@ export default function Gallery() {
         <section className="gallery">
             <Container sx={{py: 4}}>
                 <Typography
-                    variant="h3"
+                    variant="h4"
                     sx={{
                         textTransform: "uppercase",
                         pt: 10,
@@ -44,7 +44,7 @@ export default function Gallery() {
                         color: "white",
                     }}
                 >
-                    Gallerie
+                    Photos Gallery
                 </Typography>
                 <ImageList
                     sx={{width: "100%", height: "100%", borderRadius: 3, py: 3}}
