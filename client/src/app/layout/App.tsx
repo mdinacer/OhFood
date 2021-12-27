@@ -40,10 +40,10 @@ export const DarkTheme = createTheme({
 });
 
 
-export const hubConnection = new signalR.HubConnectionBuilder()
-    .withUrl("http://localhost:5000/hubs/main")
-    .configureLogging(signalR.LogLevel.Information)
-    .build();
+// export const hubConnection = new signalR.HubConnectionBuilder()
+//     .withUrl("http://localhost:5000/hubs/main")
+//     .configureLogging(signalR.LogLevel.Information)
+//     .build();
 
 
 function App() {
@@ -52,7 +52,7 @@ function App() {
 
     const initApp = useCallback(async () => {
         try {
-            await hubConnection.start();
+            //await hubConnection.start();
             await dispatch(fetchCurrentUser());
             await dispatch(fetchBasketAsync());
         } catch (error) {
