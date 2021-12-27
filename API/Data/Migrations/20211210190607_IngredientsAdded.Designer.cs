@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20211210190607_IngredientsAdded")]
+    partial class IngredientsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,9 +37,6 @@ namespace API.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PictureUrl")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PublicId")
                         .HasColumnType("text");
 
                     b.Property<string>("Title")
@@ -62,6 +61,9 @@ namespace API.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ClientSecret")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PaymentIntentId")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -95,6 +97,23 @@ namespace API.Data.Migrations
                     b.ToTable("BasketItems");
                 });
 
+            modelBuilder.Entity("API.Entities.Ingredient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ingredients");
+                });
+
             modelBuilder.Entity("API.Entities.OrderAggregate.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -112,6 +131,10 @@ namespace API.Data.Migrations
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PaymentIntentId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -159,9 +182,6 @@ namespace API.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string>("Ingredients")
-                        .HasColumnType("text");
-
                     b.Property<int>("Inventory")
                         .HasColumnType("integer");
 
@@ -203,39 +223,9 @@ namespace API.Data.Migrations
                     b.Property<string>("PictureUrl")
                         .HasColumnType("text");
 
-                    b.Property<string>("PublicId")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.ToTable("ProductTypes");
-                });
-
-            modelBuilder.Entity("API.Entities.Reservation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("PartySize")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("API.Entities.Role", b =>
@@ -270,14 +260,14 @@ namespace API.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "067c3226-6df7-4bb8-9600-91760041efd8",
+                            ConcurrencyStamp = "564d7df8-6f46-4cb9-a962-a5245de20233",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "fa004944-ba0f-4502-97da-77472b1df4cf",
+                            ConcurrencyStamp = "a1c2fb42-4449-4541-accc-2c4d1d962fc8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -359,7 +349,15 @@ namespace API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Address2")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -367,9 +365,32 @@ namespace API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("UserAddress");
+                });
+
+            modelBuilder.Entity("IngredientProduct", b =>
+                {
+                    b.Property<int>("IngredientsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("IngredientsId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("IngredientProduct");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -505,11 +526,27 @@ namespace API.Data.Migrations
                                 .IsRequired()
                                 .HasColumnType("text");
 
+                            b1.Property<string>("Address2")
+                                .IsRequired()
+                                .HasColumnType("text");
+
                             b1.Property<string>("City")
                                 .IsRequired()
                                 .HasColumnType("text");
 
+                            b1.Property<string>("Country")
+                                .IsRequired()
+                                .HasColumnType("text");
+
                             b1.Property<string>("FullName")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("State")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("ZipCode")
                                 .IsRequired()
                                 .HasColumnType("text");
 
@@ -570,22 +607,26 @@ namespace API.Data.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("API.Entities.Reservation", b =>
-                {
-                    b.HasOne("API.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("API.Entities.UserAddress", b =>
                 {
                     b.HasOne("API.Entities.User", null)
                         .WithOne("Address")
                         .HasForeignKey("API.Entities.UserAddress", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IngredientProduct", b =>
+                {
+                    b.HasOne("API.Entities.Ingredient", null)
+                        .WithMany()
+                        .HasForeignKey("IngredientsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

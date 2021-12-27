@@ -109,15 +109,14 @@ namespace API.Controllers
 
         private async Task<Basket?> RetriveBasket(string? buyerId)
         {
-            if (string.IsNullOrEmpty(buyerId))
-            {
-                Response.Cookies.Delete("buyerId");
-                return null;
-            }
-            return await _context.Baskets
-                            .Include(basket => basket.Items)
-                            .ThenInclude(item => item.Product)
-                            .SingleOrDefaultAsync(basket => basket.BuyerId == buyerId);
+            if (!string.IsNullOrEmpty(buyerId))
+                return await _context.Baskets
+                    .Include(basket => basket.Items)
+                    .ThenInclude(item => item.Product)
+                    .ThenInclude(p => p.Type)
+                    .SingleOrDefaultAsync(basket => basket.BuyerId == buyerId);
+            Response.Cookies.Delete("buyerId");
+            return null;
         }
     }
 }

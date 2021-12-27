@@ -18,9 +18,9 @@ namespace API.Entities
 
         }
 
-        public BasketItem(int id, int quantity, int productId, Product product, int basketId, Basket basket)
+        public BasketItem( int quantity, int productId, Product product, int basketId, Basket basket)
         {
-            Id = id;
+           
             Quantity = quantity;
             ProductId = productId;
             Product = product;

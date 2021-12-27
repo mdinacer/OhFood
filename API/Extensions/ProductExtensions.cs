@@ -30,24 +30,12 @@ namespace API.Extensions
         }
 
 
-        public static IQueryable<Product> Filter(this IQueryable<Product> query, string? brands, string? types)
+        public static IQueryable<Product> Filter(this IQueryable<Product> query, int? type)
         {
-            var brandsList = !string.IsNullOrEmpty(brands)
-                ? new List<string>(brands.ToLower().Split(','))
-                : null;
-
-            var typesList = !string.IsNullOrEmpty(types)
-                ? new List<string>(types.ToLower().Split(','))
-                : null;
-
-            if (brandsList != null && brandsList.Any())
-                query = query.Where(p => brandsList.Contains(p.Brand.ToLower()));
-
-            if (typesList != null && typesList.Any())
-                query = query.Where(p => typesList.Contains(p.Type.ToLower()));
+            if (type is >= 0)
+                query = query.Where(p => p.TypeId == type);
 
             return query;
         }
     }
-
 }

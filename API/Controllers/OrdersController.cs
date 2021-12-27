@@ -3,7 +3,9 @@ using API.DTO;
 using API.Entities;
 using API.Entities.OrderAggregate;
 using API.Extensions;
+using API.Hubs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
@@ -11,10 +13,12 @@ namespace API.Controllers
     public class OrdersController : BaseApiController
     {
         private readonly StoreContext _context;
-        public OrdersController(StoreContext context)
+        private readonly IHubContext<MainHub> _hub;
+
+        public OrdersController(StoreContext context, IHubContext<MainHub> hub)
         {
             _context = context;
-
+            _hub = hub;
         }
 
         [HttpGet]
@@ -44,7 +48,7 @@ namespace API.Controllers
         {
             var buyerId = User.Identity.Name;
             var basket = await _context.Baskets
-                .RetriveBasketWithItems(buyerId)
+                .RetrieveBasketWithItems(buyerId)
                 .FirstOrDefaultAsync();
 
             if (basket == null)
@@ -60,7 +64,6 @@ namespace API.Controllers
                     ProductId = productItem.Id,
                     Name = productItem.Name,
                     PictureUrl = productItem.PictureUrl,
-
                 };
 
                 var orderItem = new OrderItem
@@ -83,7 +86,6 @@ namespace API.Controllers
                 ShippingAddress = orderDto.ShippingAddress,
                 Subtotal = subtotal,
                 DeliveryFee = deliveryFee,
-                PaymentIntentId = basket.PaymentIntentId!,
             };
 
             _context.Orders.Add(order);
@@ -99,17 +101,19 @@ namespace API.Controllers
                 {
                     FullName = orderDto.ShippingAddress.FullName,
                     Address1 = orderDto.ShippingAddress.Address1,
-                    Address2 = orderDto.ShippingAddress.Address2,
+                    //Address2 = orderDto.ShippingAddress.Address2,
                     City = orderDto.ShippingAddress.City,
-                    State = orderDto.ShippingAddress.State,
-                    ZipCode = orderDto.ShippingAddress.ZipCode,
-                    Country = orderDto.ShippingAddress.Country,
+                    //State = orderDto.ShippingAddress.State,
+                    //ZipCode = orderDto.ShippingAddress.ZipCode,
+                    //Country = orderDto.ShippingAddress.Country,
                 };
 
                 user.Address = address;
             }
 
             var success = await _context.SaveChangesAsync() > 0;
+            
+            await _hub.Clients.Group("Admin").SendAsync("OrderAdded",orderDto);
 
             return success
                 ? CreatedAtRoute("GetOrder", new { id = order.Id }, order.Id)

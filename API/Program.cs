@@ -3,6 +3,7 @@ using API.Data;
 using API.Entities;
 using API.Extensions;
 using API.Helpers;
+using API.Hubs;
 using API.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -19,21 +20,13 @@ builder.Services.AddSwaggerConfig();
 
 builder.Services.AddDbContextConfig(builder.Configuration);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "LocalhostPolicy",
-    builder =>
-    {
-        builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
-        .WithOrigins("http://localhost:3000", "http://192.168.1.*:3000");
-    });
-});
+builder.Services.AddCors();
 
 builder.Services.AddIdentityCore<User>(opt =>
-{
-    opt.User.RequireUniqueEmail = true;
-    opt.Password.RequireNonAlphanumeric = false;
-})
+    {
+        opt.User.RequireUniqueEmail = true;
+        opt.Password.RequireNonAlphanumeric = false;
+    })
     .AddRoles<Role>()
     .AddEntityFrameworkStores<StoreContext>();
 
@@ -46,12 +39,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:TokenKey"]))
+            IssuerSigningKey =
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:TokenKey"]))
         };
     });
 builder.Services.AddAuthorization();
 builder.Services.AddCustomServices();
-
 
 
 // Create and migrate database
@@ -76,13 +69,24 @@ app.UseDefaultFiles();
 
 app.UseStaticFiles();
 
-app.UseCors("LocalhostPolicy");
+app.UseCors(opt =>
+{
+    opt.WithOrigins("http://localhost:3000","http://127.0.0.1:3000")
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
+});
+
+
 
 app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
 app.MapFallbackToController("Index", "Fallback");
+
+app.MapHub<MainHub>("/hubs/main");
 
 app.Run();

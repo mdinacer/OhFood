@@ -5,6 +5,7 @@ using API.Extensions;
 using API.Helpers;
 using API.Services;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,15 +26,17 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<Product>>> GetProducts([FromQuery] ProductParams productParams)
+        public async Task<ActionResult<PagedList<ProductDto>>> GetProducts([FromQuery] ProductParams productParams)
         {
             var query = _context.Products
-                .Filter(productParams.Brands, productParams.Types)
+                .Filter(productParams.ProductType)
                 .Search(productParams.SearchTerm)
                 .Sort(productParams.OrderBy)
+                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
                 .AsQueryable();
 
-            var products = await PagedList<Product>.ToPagedList(query, productParams.PageNumber, productParams.PageSize);
+            var products =
+                await PagedList<ProductDto>.ToPagedList(query, productParams.PageNumber, productParams.PageSize);
 
             // Using HttpExtensions
             Response.AddPaginationHeader(products.MetaData);
@@ -41,24 +44,38 @@ namespace API.Controllers
             return products;
         }
 
+
         [HttpGet("{id:int}", Name = "GetProduct")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
             var product = await _context.Products.SingleOrDefaultAsync(p => p.Id == id);
 
             return product != null ? product : NotFound();
-
-
         }
 
-        [HttpGet("filters")]
-        public async Task<IActionResult> GetFilters()
+        [HttpGet("types")]
+        public async Task<ActionResult<ProductTypeDto>> GetProductTypes()
         {
-            var brands = await _context.Products.Select(p => p.Brand).Distinct().ToListAsync();
-            var types = await _context.Products.Select(p => p.Type).Distinct().ToListAsync();
+            var types = await _context.ProductTypes
+                .OrderBy(t => t.Name)
+                .ProjectTo<ProductTypeDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
 
-            return Ok(new { brands, types });
+            return Ok(types);
         }
+
+        [HttpGet("typesFull")]
+        public async Task<ActionResult<ProductTypeDto>> GetProductTypesWithProducts()
+        {
+            var types = await _context.ProductTypes
+                .Include(pt => pt.Products)
+                .OrderBy(t => t.Name)
+                .ProjectTo<ProductTypeFullDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return Ok(types);
+        }
+
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
@@ -115,7 +132,6 @@ namespace API.Controllers
             return success
                 ? Ok(product)
                 : BadRequest(new ProblemDetails { Title = "Problem updating product" });
-
         }
 
         [Authorize(Roles = "Admin")]
@@ -136,7 +152,6 @@ namespace API.Controllers
             return success
                 ? Ok()
                 : BadRequest(new ProblemDetails { Title = "Problem deleting product" });
-
         }
     }
 }

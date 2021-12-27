@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20211227155411_PaymentRemovedAgain")]
+    partial class PaymentRemovedAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,14 +272,14 @@ namespace API.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "067c3226-6df7-4bb8-9600-91760041efd8",
+                            ConcurrencyStamp = "f3d2f9fe-a0b8-494c-b3dd-e4e8bdfb7972",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "fa004944-ba0f-4502-97da-77472b1df4cf",
+                            ConcurrencyStamp = "23d9e4a1-0118-4d82-8678-90bc2158cade",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -359,11 +361,27 @@ namespace API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Address2")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ZipCode")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -505,11 +523,27 @@ namespace API.Data.Migrations
                                 .IsRequired()
                                 .HasColumnType("text");
 
+                            b1.Property<string>("Address2")
+                                .IsRequired()
+                                .HasColumnType("text");
+
                             b1.Property<string>("City")
                                 .IsRequired()
                                 .HasColumnType("text");
 
+                            b1.Property<string>("Country")
+                                .IsRequired()
+                                .HasColumnType("text");
+
                             b1.Property<string>("FullName")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("State")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("ZipCode")
                                 .IsRequired()
                                 .HasColumnType("text");
 

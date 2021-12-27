@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20211227120320_AddedPaymentService")]
+    partial class AddedPaymentService
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,6 +66,9 @@ namespace API.Data.Migrations
                     b.Property<string>("ClientSecret")
                         .HasColumnType("text");
 
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Baskets");
@@ -112,6 +117,9 @@ namespace API.Data.Migrations
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("text");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -270,14 +278,14 @@ namespace API.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "067c3226-6df7-4bb8-9600-91760041efd8",
+                            ConcurrencyStamp = "ca7df909-4bbf-429e-a06e-6dbfa5ae21c5",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "fa004944-ba0f-4502-97da-77472b1df4cf",
+                            ConcurrencyStamp = "806589f4-66c7-42ca-b2be-26ce9fa9a575",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -359,11 +367,27 @@ namespace API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Address2")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ZipCode")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -505,11 +529,27 @@ namespace API.Data.Migrations
                                 .IsRequired()
                                 .HasColumnType("text");
 
+                            b1.Property<string>("Address2")
+                                .IsRequired()
+                                .HasColumnType("text");
+
                             b1.Property<string>("City")
                                 .IsRequired()
                                 .HasColumnType("text");
 
+                            b1.Property<string>("Country")
+                                .IsRequired()
+                                .HasColumnType("text");
+
                             b1.Property<string>("FullName")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("State")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("ZipCode")
                                 .IsRequired()
                                 .HasColumnType("text");
 

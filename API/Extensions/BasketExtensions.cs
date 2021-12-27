@@ -6,32 +6,41 @@ namespace API.Extensions
 {
     public static class BasketExtensions
     {
-        public static BasketDto? ToBasketDto(this Basket basket)
+        public static BasketDto ToBasketDto(this Basket basket)
         {
-            if (basket == null) return null;
-            return new BasketDto
+            var items = basket.Items.Select(item => new BasketItemDto
+            {
+                ProductId = item.ProductId,
+                Name = item.Product.Name,
+                Type = item.Product.Type.Name,
+                PictureUrl = item.Product.PictureUrl,
+                Price = item.Product.Price,
+                Quantity = item.Quantity
+            }).ToList();
+            var basketDto = new BasketDto
             {
                 Id = basket.Id,
                 BuyerId = basket.BuyerId,
-                PaymentIntentId = basket.PaymentIntentId,
                 ClientSecret = basket.ClientSecret,
                 Items = basket.Items.Select(item => new BasketItemDto
                 {
                     ProductId = item.ProductId,
                     Name = item.Product.Name,
-                    Brand = item.Product.Brand,
-                    Type = item.Product.Type,
+                    Type = item.Product.Type.Name,
                     PictureUrl = item.Product.PictureUrl,
                     Price = item.Product.Price,
                     Quantity = item.Quantity
                 }).ToList()
             };
+
+            return basketDto;
         }
 
-        public static IQueryable<Basket> RetriveBasketWithItems(this IQueryable<Basket> query, string buyerId)
+        public static IQueryable<Basket> RetrieveBasketWithItems(this IQueryable<Basket> query, string buyerId)
         {
             return query.Include(b => b.Items)
-                .ThenInclude(i => i.Product)
+                .ThenInclude(item => item.Product)
+                .ThenInclude(p => p.Type)
                 .Where(b => b.BuyerId == buyerId);
         }
     }
