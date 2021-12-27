@@ -30,6 +30,8 @@ public static class DbInitializer
 
         if (!context.Products.Any())
         {
+            const string ingredients = "Ingredient 1 - Ingredient 2 - Ingredient 3 - Ingredient 4 - Ingredient 5";
+            
             var sandwich = new ProductType
             {
                 Name = "Burger",
@@ -38,40 +40,42 @@ public static class DbInitializer
                 {
                     new()
                     {
-                        Name = "Le Basic",
+                        Name = "The Basic",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 200,
+                        Price = 5,
                         PictureUrl = "/images/products/sandwich.png",
-
-
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                     new()
                     {
-                        Name = "Le Classic",
+                        Name = "The Classic",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 250,
+                        Price = 6,
                         PictureUrl = "/images/products/sandwich.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                     new()
                     {
-                        Name = "Le Moderne",
+                        Name = "The Modern",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 250,
+                        Price = 7,
                         PictureUrl = "/images/products/sandwich.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                     new()
                     {
-                        Name = "Le Detroit",
+                        Name = "Detroit",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 300,
+                        Price = 8,
                         PictureUrl = "/images/products/sandwich.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                     new()
@@ -79,8 +83,9 @@ public static class DbInitializer
                         Name = "Big Tasty Burger",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 600,
+                        Price = 9,
                         PictureUrl = "/images/products/sandwich.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
 
@@ -89,8 +94,9 @@ public static class DbInitializer
                         Name = "Big Bang Burger",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 600,
+                        Price = 10,
                         PictureUrl = "/images/products/sandwich.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                 }
@@ -104,49 +110,54 @@ public static class DbInitializer
                 {
                     new()
                     {
-                        Name = "La Margerita",
+                        Name = "The Margerita",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 400,
+                        Price = 10,
                         PictureUrl = "/images/products/pizza.png",
+                        Ingredients = ingredients,
                         Inventory = 100,
                     },
                     new()
                     {
-                        Name = "La Vegan",
+                        Name = "The Vegan",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 500,
+                        Price = 12,
                         PictureUrl = "/images/products/pizza.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                     new()
                     {
-                        Name = "L'Océane",
+                        Name = "Océanea",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 600,
+                        Price = 15,
                         PictureUrl = "/images/products/pizza.png",
-                        Inventory = 100
-                    },
-
-                    new()
-                    {
-                        Name = "La Fermière",
-                        Description =
-                            "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 700,
-                        PictureUrl = "/images/products/pizza.png",
-                        Inventory = 100
+                        Inventory = 100,
+                        Ingredients = ingredients,
                     },
 
                     new()
                     {
-                        Name = "La Fumata",
+                        Name = "The Farmer",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 700,
+                        Price = 17,
                         PictureUrl = "/images/products/pizza.png",
+                        Inventory = 100,
+                        Ingredients = ingredients,
+                    },
+
+                    new()
+                    {
+                        Name = "El Fumata",
+                        Description =
+                            "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                        Price = 20,
+                        PictureUrl = "/images/products/pizza.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
 
@@ -155,8 +166,9 @@ public static class DbInitializer
                         Name = "La Fromagère",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 700,
+                        Price = 20.50m,
                         PictureUrl = "/images/products/pizza.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                     new()
@@ -164,17 +176,19 @@ public static class DbInitializer
                         Name = "La Roquette",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 800,
+                        Price = 22,
                         PictureUrl = "/images/products/pizza.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                     new()
                     {
-                        Name = "L'Originale",
+                        Name = "The Original",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 850,
+                        Price = 25,
                         PictureUrl = "/images/products/pizza.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                     new()
@@ -182,18 +196,20 @@ public static class DbInitializer
                         Name = "La Gambas",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 900,
+                        Price = 30,
                         PictureUrl = "/images/products/pizza.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
 
                     new()
                     {
-                        Name = "La Norvegienne",
+                        Name = "The Norwegian",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 800,
+                        Price = 39.99m,
                         PictureUrl = "/images/products/pizza.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                 }
@@ -210,8 +226,9 @@ public static class DbInitializer
                         Name = "Chicken Wrap",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 350,
+                        Price = 10,
                         PictureUrl = "/images/products/wrap.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                     new()
@@ -219,8 +236,9 @@ public static class DbInitializer
                         Name = "Hot Wrap",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 400,
+                        Price = 11,
                         PictureUrl = "/images/products/wrap.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                     new()
@@ -228,8 +246,9 @@ public static class DbInitializer
                         Name = "Diety Wrap",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 400,
+                        Price = 12.99m,
                         PictureUrl = "/images/products/wrap.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                     new()
@@ -237,8 +256,9 @@ public static class DbInitializer
                         Name = "Ourika Wrap",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 400,
+                        Price = 13.5m,
                         PictureUrl = "/images/products/wrap.png",
+                        Ingredients = ingredients,
                         Inventory = 100
                     },
                 }
@@ -255,7 +275,7 @@ public static class DbInitializer
                         Name = "Mousse au Chocolat",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 200,
+                        Price = 10,
                         PictureUrl = "/images/products/dessert.png",
                         Inventory = 100
                     },
@@ -264,7 +284,7 @@ public static class DbInitializer
                         Name = "Tiramisu",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 200,
+                        Price = 10,
                         PictureUrl = "/images/products/dessert.png",
                         Inventory = 100
                     },
@@ -273,7 +293,7 @@ public static class DbInitializer
                         Name = "Salade de Fruits",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 300,
+                        Price = 13,
                         PictureUrl = "/images/products/dessert.png",
                         Inventory = 100
                     }
@@ -282,43 +302,43 @@ public static class DbInitializer
 
             var drinks = new ProductType
             {
-                Name = "Boissons",
+                Name = "Drinks",
                 PictureUrl = "/images/backgrounds/types/boissons_bg.jpg",
                 Products = new List<Product>
                 {
                     new()
                     {
-                        Name = "Canette",
+                        Name = "Soda Can",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 100,
+                        Price = 3,
                         PictureUrl = "/images/products/dessert.png",
                         Inventory = 100
                     },
                     new()
                     {
-                        Name = "Soda PM",
+                        Name = "Soda Bottle",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 60,
+                        Price = 5,
                         PictureUrl = "/images/products/dessert.png",
                         Inventory = 100
                     },
                     new()
                     {
-                        Name = "Eau Minérale",
+                        Name = "Mineral Water",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 50,
+                        Price = 2,
                         PictureUrl = "/images/products/dessert.png",
                         Inventory = 100
                     },
                     new()
                     {
-                        Name = "Jus PM",
+                        Name = "Juice",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 60,
+                        Price = 12,
                         PictureUrl = "/images/products/dessert.png",
                         Inventory = 100
                     },
@@ -327,7 +347,7 @@ public static class DbInitializer
             
               var supplements = new ProductType
             {
-                Name = "Sauces & Suppléments",
+                Name = "Sauces & Supplements",
                 PictureUrl = "/images/backgrounds/types/supplements_bg.jpg",
                 Products = new List<Product>
                 {
@@ -336,7 +356,7 @@ public static class DbInitializer
                         Name = "Camambert",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 100,
+                        Price = 3,
                         PictureUrl = "/images/products/fromage.png",
                         Inventory = 100
                     },
@@ -346,7 +366,7 @@ public static class DbInitializer
                         Name = "Gruyere",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 100,
+                        Price = 3,
                         PictureUrl = "/images/products/fromage.png",
                         Inventory = 100
                     },
@@ -356,7 +376,7 @@ public static class DbInitializer
                         Name = "Fromage Rouge",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 100,
+                        Price = 3,
                         PictureUrl = "/images/products/fromage.png",
                         Inventory = 100
                     },
@@ -366,44 +386,34 @@ public static class DbInitializer
                         Name = "Cheddar",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 100,
+                        Price = 3,
                         PictureUrl = "/images/products/fromage.png",
                         Inventory = 100
                     },
                     
                     new()
                     {
-                        Name = "Pain Noir",
+                        Name = "Black Bread",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 50,
+                        Price = 2,
                         PictureUrl = "/images/products/fromage.png",
                         Inventory = 100
                     },
                     
                     new()
                     {
-                        Name = "Frittes",
+                        Name = "French Fries",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 100,
+                        Price = 4,
                         PictureUrl = "/images/products/fromage.png",
                         Inventory = 100
                     },
                     
                     new()
                     {
-                        Name = "Sauce OH-MG",
-                        Description =
-                            "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-                        Price = 0,
-                        PictureUrl = "/images/products/fromage.png",
-                        Inventory = 100
-                    },
-                    
-                    new()
-                    {
-                        Name = "Sauce Samurai",
+                        Name = "OH-MG Sauce",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 0,
@@ -413,7 +423,17 @@ public static class DbInitializer
                     
                     new()
                     {
-                        Name = "Sauce BBQ",
+                        Name = "Samurai Sauce",
+                        Description =
+                            "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                        Price = 0,
+                        PictureUrl = "/images/products/fromage.png",
+                        Inventory = 100
+                    },
+                    
+                    new()
+                    {
+                        Name = "BBQ Sauce",
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 0,
@@ -436,7 +456,7 @@ public static class DbInitializer
             {
                 new()
                 {
-                    Title = "Burger et Big Burger",
+                    Title = "Burger & Big Burger",
                     PictureUrl = "/images/announces/announce1.jpg",
                     Description =
                         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum quasi eaque itaque modi neque eum perspiciatis sed non autem mollitia."
@@ -444,7 +464,7 @@ public static class DbInitializer
 
                 new()
                 {
-                    Title = "Sauces & Supplément",
+                    Title = "Sauces & Supplements",
                     PictureUrl = "/images/announces/announce2.jpg",
                     Description =
                         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum quasi eaque itaque modi neque eum perspiciatis sed non autem mollitia."
@@ -452,7 +472,7 @@ public static class DbInitializer
 
                 new()
                 {
-                    Title = "Les Wraps",
+                    Title = "The Best Wraps",
                     PictureUrl = "/images/announces/announce3.jpg",
                     Description =
                         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum quasi eaque itaque modi neque eum perspiciatis sed non autem mollitia."
@@ -460,7 +480,7 @@ public static class DbInitializer
 
                 new()
                 {
-                    Title = "Livraison à domicile",
+                    Title = "Hot Delivery",
                     PictureUrl = "/images/announces/announce4.jpg",
                     Description =
                         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum quasi eaque itaque modi neque eum perspiciatis sed non autem mollitia."
