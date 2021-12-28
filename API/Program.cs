@@ -74,20 +74,11 @@ app.UseRouting();
 
 app.UseDefaultFiles();
 
-app.UseStaticFiles(new StaticFileOptions
-{
-    ServeUnknownFileTypes = false,
-    OnPrepareResponse = ctx =>
-    {
-        const int durationInSeconds = 60 * 60 * 24;
-        ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
-        ctx.Context.Response.Headers[HeaderNames.Expires] = new[] { DateTime.UtcNow.AddYears(1).ToString("R") }; // Format RFC1123
-    }
-});
+app.UseStaticFiles();
 
 app.UseCors(opt =>
 {
-    opt.WithOrigins("http://localhost:3000","http://127.0.0.1:3000")
+    opt.WithOrigins("http://localhost:3000", "http://127.0.0.1:3000")
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials();
