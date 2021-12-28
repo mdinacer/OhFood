@@ -23,7 +23,7 @@ export default function Hero() {
                 autoPlay
                 muted
                 className="hero-video"
-                poster="/images/hero/hero.jpg"
+                poster="/images/hero/hero.webp"
                 src="/videos/hero_low.mp4"
                 sx={{
                     display: {xs: "none", md: "block"},
@@ -40,7 +40,7 @@ export default function Hero() {
             <Box
                 component="img"
                 className="hero-image"
-                src="/images/hero/hero.jpg"
+                src="/images/hero/hero.webp"
                 alt="hero"
                 sx={{
                     display: {xs: "block", md: "none"},

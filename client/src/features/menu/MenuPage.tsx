@@ -11,7 +11,7 @@ import "./MenuPage.scss";
 import FiltersList from "./FiltersList";
 import SearchBar from "./SearchBar";
 
-const newItem = {name: "All", id: 0, pictureUrl: "/images/backgrounds/product_details_bg.jpg"};
+const newItem = {name: "All", id: 0, pictureUrl: "/images/backgrounds/product_details_bg.webp"};
 
 
 export default function MenuPage() {
@@ -32,7 +32,7 @@ export default function MenuPage() {
 
     const getBackground = () => selectedType && selectedType.pictureUrl
         ? selectedType.pictureUrl
-        : "/images/backgrounds/product_details_bg.jpg";
+        : "/images/backgrounds/product_details_bg.webp";
 
 
     useEffect(() => {

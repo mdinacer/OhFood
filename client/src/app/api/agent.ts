@@ -1,12 +1,11 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { toast } from "react-toastify";
-import { PaginatedResponse } from "../models/pagination";
-import { store } from "../store/configureStore";
-import { history } from "../..";
+import axios, {AxiosError, AxiosResponse} from "axios";
+import {toast} from "react-toastify";
+import {PaginatedResponse} from "../models/pagination";
+import {store} from "../store/configureStore";
+import {history} from "../..";
 
 
-
-const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
+//const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -24,7 +23,7 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(async response => {
     if (process.env.NODE_ENV === "development") {
-        await sleep();
+        //await sleep();
     }
 
     const pagination = response.headers["pagination"];
@@ -36,7 +35,7 @@ axios.interceptors.response.use(async response => {
     return response;
 }, (error: AxiosError) => {
     if (error.response) {
-        const { data, status } = error.response;
+        const {data, status} = error.response;
 
         switch (status) {
             case 400:
@@ -60,6 +59,10 @@ axios.interceptors.response.use(async response => {
                 toast.error("You are not allowed")
                 break;
 
+            // case 404:
+            //     toast.error("Element not found")
+            //     break;
+
             case 500:
                 history.push('/server-error', data);
                 break;
@@ -72,16 +75,16 @@ axios.interceptors.response.use(async response => {
 })
 
 const requests = {
-    get: (url: string, params?: URLSearchParams) => axios.get(url, { params }).then(responseBody),
+    get: (url: string, params?: URLSearchParams) => axios.get(url, {params}).then(responseBody),
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
     patch: (url: string, body: {}) => axios.patch(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody),
     postForm: (url: string, data: FormData) => axios.post(url, data, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: {'Content-Type': 'multipart/form-data'}
     }).then(responseBody),
     putForm: (url: string, data: FormData) => axios.put(url, data, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: {'Content-Type': 'multipart/form-data'}
     }).then(responseBody),
 }
 
@@ -139,7 +142,6 @@ const Orders = {
 const Payments = {
     createPaymentIntent: () => requests.post('payments', {})
 }
-
 
 
 const agent = {
