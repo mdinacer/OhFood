@@ -1,4 +1,4 @@
-import {Box, Button, Container, Typography} from "@mui/material";
+import {Box, Container, Typography} from "@mui/material";
 import "./Hero.scss";
 
 export default function Hero() {
@@ -15,13 +15,16 @@ export default function Hero() {
             }}
             className="hero"
         >
+
+
             <Box
                 component="video"
                 loop
                 autoPlay
                 muted
                 className="hero-video"
-                src="/videos/serving.mp4"
+                poster="/images/hero/hero.jpg"
+                src="/videos/hero_low.mp4"
                 sx={{
                     display: {xs: "none", md: "block"},
                     position: "absolute",

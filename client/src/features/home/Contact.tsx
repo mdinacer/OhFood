@@ -156,13 +156,13 @@ export default function Contact() {
 
         <Grid item xs={12}>
           <Box sx={{ borderRadius: 3, overflow: "hidden", my: 5 }}>
-            <iframe
-              title="Shop position"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d317718.69319292053!2d-0.3817765050863085!3d51.528307984912544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C%20UK!5e0!3m2!1sen!2sdz!4v1640637788861!5m2!1sen!2sdz"
-              width="100%"
-              height="450"
-              loading="lazy"
-            />
+            {/*<iframe*/}
+            {/*  title="Shop position"*/}
+            {/*  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d317718.69319292053!2d-0.3817765050863085!3d51.528307984912544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C%20UK!5e0!3m2!1sen!2sdz!4v1640637788861!5m2!1sen!2sdz"*/}
+            {/*  width="100%"*/}
+            {/*  height="450"*/}
+            {/*  loading="lazy"*/}
+            {/*/>*/}
           </Box>
         </Grid>
       </Grid>
