@@ -45,6 +45,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddAuthorization();
 builder.Services.AddCustomServices();
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
 
 
 // Create and migrate database
@@ -61,7 +65,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
+
+app.UseResponseCompression();
 
 app.UseRouting();
 
@@ -83,10 +89,13 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+
+
 app.MapControllers();
+
 
 app.MapFallbackToController("Index", "Fallback");
 
-app.MapHub<MainHub>("/hubs/main");
+//app.MapHub<MainHub>("/hubs/main");
 
 app.Run();

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.SignalR;
-using Stripe;
 
 namespace API.Hubs;
 

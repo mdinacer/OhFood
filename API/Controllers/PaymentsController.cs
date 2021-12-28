@@ -1,14 +1,7 @@
-using API.Data;
-using API.DTO;
-using API.Entities.OrderAggregate;
-using API.Extensions;
-using API.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Stripe;
 
-namespace API.Controllers;
+
+
+//namespace API.Controllers;
 
 // public class PaymentsController : BaseApiController
 //    {
