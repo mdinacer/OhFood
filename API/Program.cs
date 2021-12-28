@@ -79,9 +79,9 @@ app.UseStaticFiles(new StaticFileOptions
     ServeUnknownFileTypes = false,
     OnPrepareResponse = ctx =>
     {
-        const int durationInSeconds = 60 * 60 * 24;
-        ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
-        ctx.Context.Response.Headers[HeaderNames.Expires] = new[] { DateTime.UtcNow.AddYears(1).ToString("R") }; // Format RFC1123
+
+        ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=2592000");
+        ctx.Context.Response.Headers[HeaderNames.Expires] = new[] { DateTime.UtcNow.AddDays(30).ToString("R") }; // Format RFC1123
     }
 });
 
