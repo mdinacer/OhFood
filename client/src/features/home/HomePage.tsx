@@ -1,8 +1,11 @@
-import Announces from "./Announces";
-import Contact from "./Contact";
+import {lazy, Suspense} from "react";
 import Hero from "./Hero";
-import Specialities from "./Specialities";
 import "./HomePage.scss";
+
+
+const Announces = lazy(() => import("./Announces"));
+const Contact = lazy(() => import("./Contact"));
+const Specialities = lazy(() => import("./Specialities"));
 
 export default function HomePage() {
     return (
@@ -12,19 +15,21 @@ export default function HomePage() {
             </section>
 
             <section className="announces" aria-label="Announces">
-                <Announces/>
+                <Suspense fallback={<div/>}>
+                    <Announces/>
+                </Suspense>
             </section>
 
             <section className="specialities" aria-label="Specialities">
-                <Specialities/>
+                <Suspense fallback={<div/>}>
+                    <Specialities/>
+                </Suspense>
             </section>
 
-            {/* <section className="gallery">
-        <Gallery />
-      </section> */}
-
             <section className="contact">
-                <Contact/>
+                <Suspense fallback={<div/>}>
+                    <Contact/>
+                </Suspense>
             </section>
         </div>
     );
