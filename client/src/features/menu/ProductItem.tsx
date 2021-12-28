@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../app/store/configureStore";
 import {LoadingButton} from "@mui/lab";
 import {addBasketItemAsync} from "../../app/slices/basketSlice";
 import {Link} from "react-router-dom";
+import {currencyFormat} from "../../app/util/util";
 
 interface Props {
     product: Product;
@@ -29,7 +30,7 @@ export default function ProductItem({product}: Props) {
                     {product.name}
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
-                    {product.price} DA
+                    {currencyFormat(product.price,"$")}
                 </Typography>
             </CardContent>
             <CardActions sx={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
