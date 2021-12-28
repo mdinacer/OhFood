@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.6836a42e.css",
-    "main.js": "/static/js/main.bf734abb.js",
+    "main.js": "/static/js/main.551504e4.js",
     "static/css/411.dc4a3f27.chunk.css": "/static/css/411.dc4a3f27.chunk.css",
     "static/js/411.d994e9f4.chunk.js": "/static/js/411.d994e9f4.chunk.js",
     "static/css/834.98bc42f5.chunk.css": "/static/css/834.98bc42f5.chunk.css",
     "static/js/834.03314907.chunk.js": "/static/js/834.03314907.chunk.js",
     "static/css/463.9ccfc1c7.chunk.css": "/static/css/463.9ccfc1c7.chunk.css",
-    "static/js/463.140069e8.chunk.js": "/static/js/463.140069e8.chunk.js",
+    "static/js/463.06615053.chunk.js": "/static/js/463.06615053.chunk.js",
     "static/css/239.857a20a6.chunk.css": "/static/css/239.857a20a6.chunk.css",
     "static/js/239.98327ed1.chunk.js": "/static/js/239.98327ed1.chunk.js",
     "static/css/915.857a20a6.chunk.css": "/static/css/915.857a20a6.chunk.css",
@@ -42,13 +42,13 @@
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
     "main.6836a42e.css.map": "/static/css/main.6836a42e.css.map",
-    "main.bf734abb.js.map": "/static/js/main.bf734abb.js.map",
+    "main.551504e4.js.map": "/static/js/main.551504e4.js.map",
     "411.dc4a3f27.chunk.css.map": "/static/css/411.dc4a3f27.chunk.css.map",
     "411.d994e9f4.chunk.js.map": "/static/js/411.d994e9f4.chunk.js.map",
     "834.98bc42f5.chunk.css.map": "/static/css/834.98bc42f5.chunk.css.map",
     "834.03314907.chunk.js.map": "/static/js/834.03314907.chunk.js.map",
     "463.9ccfc1c7.chunk.css.map": "/static/css/463.9ccfc1c7.chunk.css.map",
-    "463.140069e8.chunk.js.map": "/static/js/463.140069e8.chunk.js.map",
+    "463.06615053.chunk.js.map": "/static/js/463.06615053.chunk.js.map",
     "239.857a20a6.chunk.css.map": "/static/css/239.857a20a6.chunk.css.map",
     "239.98327ed1.chunk.js.map": "/static/js/239.98327ed1.chunk.js.map",
     "915.857a20a6.chunk.css.map": "/static/css/915.857a20a6.chunk.css.map",
@@ -73,6 +73,6 @@
   },
   "entrypoints": [
     "static/css/main.6836a42e.css",
-    "static/js/main.bf734abb.js"
+    "static/js/main.551504e4.js"
   ]
 }
