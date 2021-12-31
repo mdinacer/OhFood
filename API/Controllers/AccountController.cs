@@ -2,11 +2,13 @@ using API.Data;
 using API.DTO;
 using API.Entities;
 using API.Extensions;
+using API.Interfaces;
 using API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 
 namespace API.Controllers
 {
@@ -15,12 +17,15 @@ namespace API.Controllers
         private readonly UserManager<User> _userManager;
         private readonly TokenService _tokenService;
         private readonly StoreContext _context;
-        public AccountController(UserManager<User> userManager, TokenService tokenService, StoreContext context)
+        private readonly IMailService _mailService;
+
+        public AccountController(UserManager<User> userManager, TokenService tokenService, StoreContext context,
+            IMailService mailService)
         {
             _context = context;
+            _mailService = mailService;
             _tokenService = tokenService;
             _userManager = userManager;
-
         }
 
         [HttpPost("login")]
@@ -33,8 +38,8 @@ namespace API.Controllers
                 return Unauthorized();
             }
 
-            var userBasket = await RetriveBasket(loginDto.Username);
-            var anonBasket = await RetriveBasket(Request.Cookies["buyerId"]);
+            var userBasket = await RetrieveBasket(loginDto.Username);
+            var anonBasket = await RetrieveBasket(Request.Cookies["buyerId"]);
 
             if (anonBasket != null)
             {
@@ -69,6 +74,7 @@ namespace API.Controllers
                 {
                     ModelState.AddModelError(error.Code, error.Description);
                 }
+
                 return ValidationProblem();
             }
 
@@ -82,7 +88,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             var user = await _userManager.FindByNameAsync(User.Identity!.Name);
-            var userBasket = await RetriveBasket(User.Identity!.Name);
+            var userBasket = await RetrieveBasket(User.Identity!.Name);
 
             return new UserDto
             {
@@ -104,10 +110,16 @@ namespace API.Controllers
             //if(address == null) return NotFound();
 
             return address;
-
         }
 
-        private async Task<Basket?> RetriveBasket(string? buyerId)
+        [HttpPost("sendMail")]
+        public async Task<IActionResult> SendMail([FromForm] MailRequest request)
+        {
+            await _mailService.SendContactMessageAsync(request);
+            return Ok();
+        }
+
+        private async Task<Basket?> RetrieveBasket(string? buyerId)
         {
             if (!string.IsNullOrEmpty(buyerId))
                 return await _context.Baskets

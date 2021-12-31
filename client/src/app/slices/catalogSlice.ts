@@ -76,7 +76,7 @@ export const fetchTypesAsync = createAsyncThunk(
 function initParams() {
     return {
         pageNumber: 1,
-        pageSize: 6,
+        pageSize: 8,
         orderBy: "name",
         ingredients: [],
         types: []

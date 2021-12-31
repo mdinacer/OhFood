@@ -14,27 +14,36 @@ interface Props {
 export default function ProductItem({product}: Props) {
     const {status} = useAppSelector(state => state.basket);
     const dispatch = useAppDispatch();
+
     return (
-        <Card sx={{maxHeight:"370px", height:"100%"}}>
+        <Card sx={{maxHeight: "350px", height: "100%", display: "flex", flexDirection: "column", pt: 2}}>
             <CardMedia
+                sx={{flex: "0 1 140px", objectFit: "contain"}}
                 component="img"
                 height="140"
                 image={product.pictureUrl}
                 alt={product.name}
             />
-            <CardContent>
-                <Typography variant="caption" color="text.secondary">
+            <CardContent sx={{flex: "1 1 auto", display: "flex", flexDirection: "column"}}>
+                <Typography variant="caption" color="text.secondary" sx={{flex: "0 1 auto"}}>
                     {product.type}
                 </Typography>
-                <Typography gutterBottom variant="h6" >
+                <Typography gutterBottom variant="subtitle1" sx={{flex: "1 1 auto"}}>
                     {product.name}
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
-                    {currencyFormat(product.price,"$")}
+                <Typography variant="body1" color="text.secondary" sx={{flex: "0 1 auto"}}>
+                    {currencyFormat(product.price, "$")}
                 </Typography>
             </CardContent>
-            <CardActions sx={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
-                <Button component={Link} to={`/menu/${product.id}`} size="small"><AspectRatio sx={{color: "white"}}/></Button>
+            <CardActions sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                flex: "0 1 auto"
+            }}>
+                <Button component={Link} to={`/menu/${product.id}`} size="small"><AspectRatio
+                    sx={{color: "white"}}/></Button>
                 <LoadingButton size="small" loading={status.includes('pendingAddItem' + product.id)}
                                onClick={() => dispatch(addBasketItemAsync({productId: product.id}))}>
                     <AddShoppingCart/>

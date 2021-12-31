@@ -4,15 +4,17 @@ import ProductItem from "./ProductItem";
 import {MetaData} from "../../app/models/pagination";
 import AppPagination from "../../app/components/AppPagination";
 import {setPageNumber} from "../../app/slices/catalogSlice";
-import {useAppDispatch} from "../../app/store/configureStore";
+import {useAppDispatch, useAppSelector} from "../../app/store/configureStore";
+import ProductItemSkeleton from "./ProductItemSkeleton";
 
 interface Props {
     products: Product[];
     metaData: MetaData | null;
+    itemView: number
 }
 
-export default function ProductList({products, metaData}: Props) {
-
+export default function ProductList({products, metaData, itemView}: Props) {
+    const {productsLoaded} = useAppSelector(state => state.catalog);
     const dispatch = useAppDispatch();
     return (
         <Box sx={{
@@ -24,8 +26,10 @@ export default function ProductList({products, metaData}: Props) {
         }}>
             <Grid container spacing={2} sx={{height: "100% !important",}}>
                 {products.map(product => (
-                    <Grid item xs={12} md={6} lg={4} key={product.id}>
-                        <ProductItem product={product}/>
+                    <Grid item xs={itemView} md={4} lg={3} key={product.id}>
+                        {!productsLoaded ?
+                            (<ProductItemSkeleton/>) :
+                            (<ProductItem product={product}/>)}
                     </Grid>
                 ))}
 

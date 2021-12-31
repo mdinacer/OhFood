@@ -47,7 +47,7 @@ export default function Login() {
                     <LockOutlined/>
                 </Avatar>
                 <Typography component="h1" sx={{color:"white"}} variant="h5">
-                   Connexion
+                   Connection
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit(submitForm)} noValidate sx={{mt: 1}}>
                     <TextField
@@ -77,12 +77,12 @@ export default function Login() {
                         variant="contained"
                         sx={{mt: 3, mb: 2}}
                     >
-                        Connecter
+                        Login
                     </LoadingButton>
                     <Grid container>
                         <Grid item>
                             <Link to='/register' >
-                                {"Inscrivez vous."}
+                                {"Create Account."}
                             </Link>
                         </Grid>
                     </Grid>

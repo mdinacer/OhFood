@@ -1,4 +1,4 @@
-import {List, ListItem, ListItemText} from "@mui/material";
+import {Box, List, ListItem, ListItemText, Typography} from "@mui/material";
 import {NavLink, useLocation} from "react-router-dom";
 import React from "react";
 
@@ -7,38 +7,43 @@ const pages = [
     {title: "Menu", path: "/menu"},
     {title: "Gallery", path: "/gallery"},
     {title: "About us", path: "/about"},
-   // {title: "Profile", path: "/profile"},
+    // {title: "Profile", path: "/profile"},
 ];
+
 
 export default function PagesList() {
     const {pathname} = useLocation()
     return (
-        <List
-            sx={{
-                display: "flex",
-                flexDirection:{xs:"column", md:"row"},
-                mx: "auto",
-            }}
-        >
-            {pages.map((page) => (
-                <ListItem
-                    key={page.path}
-                    component={NavLink}
-                    selected={pathname === page.path}
+        <Box className={"pages-list"}>
+            <List
+                sx={{
+                    display: "flex",
+                    flexDirection: {xs: "column", md: "row"},
+                    mx: "auto",
+                    py: {md: 0, xs: 1}
+                }}
+            >
+                {pages.map((page) => (
+                    <ListItem
+                        key={page.path}
+                        component={NavLink}
+                        selected={pathname === page.path}
+                        to={page.path}
+                        sx={{
+                            py: {xs: "inherit", md: 0},
+                            my: {xs: "inherit", md: 0},
+                            width: "auto",
+                            color:  "white",
+                            display: "block",
+                        }}
+                    >
+                        <ListItemText primary={
+                            <Typography>{page.title}</Typography>
+                        }/>
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
 
-                    to={page.path}
-                    sx={{
-                        py: {xs:"inherit", md:0},
-                        my:  {xs:"inherit", md:0},
-                        width: "auto",
-                        color: "white",
-                        display: "block",
-                        textTransform: "uppercase",
-                    }}
-                >
-                    <ListItemText color={"danger"} primary={page.title}/>
-                </ListItem>
-            ))}
-        </List>
     )
 }

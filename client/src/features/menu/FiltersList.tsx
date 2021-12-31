@@ -1,4 +1,4 @@
-import {Container, List, ListItemButton, ListItemText, ListSubheader} from "@mui/material";
+import {Container, List, ListItemButton, ListItemText, ListSubheader, Typography} from "@mui/material";
 import {sortOptions} from "./sortOptions";
 import {useState} from "react";
 import {ProductType} from "../../app/models/productType";
@@ -6,17 +6,18 @@ import {ProductType} from "../../app/models/productType";
 
 interface Props {
     productTypes: ProductType[]
-    handleTypeChanged: (value: ProductType) => void;
+    handleTypeChanged: (value: number) => void;
     handleSortChanged: (value: string) => void;
+    selectedTypeId?: number | null
 }
 
 
-export default function FiltersList({productTypes, handleTypeChanged, handleSortChanged}: Props) {
-    const [selectedItems, setSelectedItems] = useState({type: 0, sort: "name"})
+export default function FiltersList({productTypes, handleTypeChanged, handleSortChanged, selectedTypeId = 0}: Props) {
+    const [selectedItems, setSelectedItems] = useState({type: selectedTypeId, sort: "name"})
 
-    function handleTypeChange(value: ProductType) {
+    function handleTypeChange(value: number) {
         handleTypeChanged(value);
-        setSelectedItems({...selectedItems, type: value.id});
+        setSelectedItems({...selectedItems, type: value});
     }
 
     function handleSortChange(value: string) {
@@ -26,22 +27,28 @@ export default function FiltersList({productTypes, handleTypeChanged, handleSort
 
     return (
         <Container className={"filters-list"}>
-            <List subheader={<li/>}>
-                <ListSubheader color={"primary"}>Type</ListSubheader>
+            <List dense subheader={<li/>}>
+                <ListSubheader>
+                    <Typography variant={"subtitle1"}>Types</Typography>
+                </ListSubheader>
                 {productTypes.map((type) => (
                     <ListItemButton
                         key={type.id}
                         selected={selectedItems.type === type.id}
-                        onClick={() => handleTypeChange(type)}
+                        onClick={() => handleTypeChange(type.id)}
                     >
 
-                        <ListItemText primary={type.name}/>
+                        <ListItemText primary={
+                            <Typography variant={"subtitle2"}>{type.name}</Typography>
+                        }/>
                     </ListItemButton>
                 ))}
             </List>
 
-            <List subheader={<li/>}>
-                <ListSubheader color={"primary"}>Sort</ListSubheader>
+            <List dense subheader={<li/>}>
+                <ListSubheader>
+                    <Typography variant={"subtitle1"}>Sort</Typography>
+                </ListSubheader>
                 {sortOptions.map((option) => (
                     <ListItemButton
                         key={option.value}

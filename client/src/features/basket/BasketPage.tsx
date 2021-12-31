@@ -1,4 +1,4 @@
-import {Box, Button, Container, Grid, IconButton, List, ListItem, ListItemText, Paper, Typography} from "@mui/material";
+import {Box, Container, Grid, IconButton, List, ListItem, ListItemText, Paper, Typography} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../app/store/configureStore";
 import QuantityStepper from "../../app/components/QuantityStepper";
 import {addBasketItemAsync, removeBasketItemAsync} from "../../app/slices/basketSlice";
@@ -9,7 +9,7 @@ export default function BasketPage() {
     const dispatch = useAppDispatch();
     const {basket, status} = useAppSelector(state => state.basket);
     const subtotal = basket?.items.reduce((sum, item) => sum + (item.quantity * item.price), 0) ?? 0;
-    const deliveryFee = subtotal > 10000 ? 0 : 500;
+    //const deliveryFee = subtotal > 10000 ? 0 : 500;
 
     if (!basket) return (
         <Box minWidth={"50%"} height={"100%"} display={"flex"} alignItems={"center"} justifyContent={"center"}>
@@ -70,8 +70,6 @@ export default function BasketPage() {
                                             <DeleteForever/>
                                         </IconButton>
                                     </Grid>
-
-
                                 </Grid>
                             </Box>
                         </ListItemText>

@@ -1,4 +1,6 @@
 using API.Services;
+using IMailService = API.Interfaces.IMailService;
+using MailService = API.Services.MailService;
 
 namespace API.Extensions
 {
@@ -8,10 +10,11 @@ namespace API.Extensions
         {
             services.AddScoped<TokenService>();
             services.AddScoped<ImageService>();
+            services.AddTransient<IMailService, MailService>();
+
             //services.AddScoped<PaymentService>();
-            services.AddSignalR(e => {
-                e.MaximumReceiveMessageSize = 102400000;
-            });
+            services.AddSignalR(e => { e.MaximumReceiveMessageSize = 102400000; });
+
             return services;
         }
     }

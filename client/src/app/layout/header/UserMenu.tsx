@@ -70,7 +70,7 @@ export default function UserMenu({user}: Props) {
                     <ListItemIcon>
                         <Logout fontSize="small"/>
                     </ListItemIcon>
-                    <ListItemText>Déconnexion</ListItemText>
+                    <ListItemText>Logout</ListItemText>
 
                 </MenuItem>
 

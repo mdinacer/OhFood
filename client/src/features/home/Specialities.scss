@@ -1,3 +1,4 @@
+
 .specialities {
   height: 100%;
   width: 100%;
@@ -10,6 +11,7 @@
   background-size: cover;
   font-family: "Montserrat", Courier, monospace;
 
+
   & .item {
     &:hover {
       & .item-img {
@@ -19,27 +21,30 @@
       & .text-container {
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.7);
       }
     }
   }
 
   & .text-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+
     color: white;
     background: rgba(0, 0, 0, 0.35);
     box-shadow: 0 8px 32px 0 rgba(15, 18, 66, 0.37);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
     border: 1px solid rgba(0, 0, 0, 0.18);
-    transform: scale(1);
-    transition: all 250ms ease-in-out;
+    transition: all 250ms ease-in;
+
+    &.absolute{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
   }
 
   & .item-img {
-    filter: grayscale(70%);
+    filter: grayscale(70%) ;
     transition: all 250ms ease-in;
   }
 }

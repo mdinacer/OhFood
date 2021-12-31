@@ -17,7 +17,7 @@ export default function PrivateRoute({
   }
 
   const userHasRequiredRole =
-    user && roles?.some((r) => user.roles?.includes(r)) ? true : false;
+    user && roles?.some((r) => user.roles?.includes(r));
 
   if (!userHasRequiredRole) {
     toast.error("You are not allowed to go there");

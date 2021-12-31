@@ -55,7 +55,7 @@ export default function Announces() {
         );
     }
 
-    if (!announcesLoaded) return <LoadingComponent message="Chargement..."/>;
+    if (!announcesLoaded) return <LoadingComponent/>;
     return (
         <Container sx={{py: 4}}>
             <Typography

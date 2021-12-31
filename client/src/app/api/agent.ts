@@ -5,7 +5,7 @@ import {store} from "../store/configureStore";
 import {history} from "../..";
 
 
-//const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
+const sleep = () => new Promise(resolve => setTimeout(resolve, 1000));
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -23,7 +23,7 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(async response => {
     if (process.env.NODE_ENV === "development") {
-        //await sleep();
+        await sleep();
     }
 
     const pagination = response.headers["pagination"];
@@ -110,7 +110,8 @@ const Account = {
     login: (values: any) => requests.post('account/login', values),
     register: (values: any) => requests.post('account/register', values),
     currentUser: () => requests.get('account/currentUser'),
-    fetchAddress: () => requests.get("account/defaultAddress")
+    fetchAddress: () => requests.get("account/defaultAddress"),
+    sendMail: (values:any)=> requests.postForm('account/sendMail', createFormData(values)),
 }
 
 const Announces = {
@@ -139,9 +140,6 @@ const Orders = {
     create: (values: any) => requests.post('orders', values)
 }
 
-const Payments = {
-    createPaymentIntent: () => requests.post('payments', {})
-}
 
 
 const agent = {

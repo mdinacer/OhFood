@@ -1,22 +1,40 @@
-.MuiAppBar-root {
-  background-color: rgba(0, 0, 0, 0.7) !important;
-  color: white;
+.header {
+  & .MuiAppBar-root {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: white;
+  }
+
+  //& .MuiBottomNavigation-root {
+  //  background-color: rgba(0, 0, 0, 0.7) !important;
+  //  color: white !important;
+  //}
+
+
+
+
+  & .user-menu {
+    text-decoration: none;
+    color: white;
+
+  }
+
 }
 
-.MuiBottomNavigation-root {
-  background-color: rgba(0, 0, 0, 0.7) !important;
-  color: white !important;
-}
+.pages-list{
+  & .MuiListItem-root {
+    & .MuiTypography-root {
+      opacity: .7;
+      transition: all 300ms ease-in-out;
+    }
 
-.MuiBottomNavigationAction-root {
-  color: white !important;
-}
+    &.Mui-selected {
+      background-color: transparent;
 
-.Mui-selected {
-}
+      & .MuiTypography-root {
+        opacity: 1;
+        font-weight: 800;
+      }
+    }
 
-.user-menu{
-  text-decoration: none;
-  color: white ;
-
+  }
 }

@@ -19,7 +19,7 @@ export default function SearchBar() {
             display: "flex",
             flexDirection: "row",
             flexWrap: "nowrap",
-            backgroundColor: "rgba(0,0,0,0.5)",
+            backgroundColor:"rgba(183,183,183,0.1)",
             borderRadius: 2,
             maxWidth: "400px"
         }}>

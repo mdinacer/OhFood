@@ -37,7 +37,7 @@ export default function Register(){
                    <LockOutlined />
                </Avatar>
                <Typography component="h1" variant="h5" sx={{color:"white"}}>
-                   Enregistrement
+                   Create Account
                </Typography>
                <Box component="form"
                     onSubmit={handleSubmit((data) =>
@@ -97,12 +97,12 @@ export default function Register(){
                        variant="contained"
                        sx={{ mt: 3, mb: 2 }}
                    >
-                       Enregistrer
+                       Register
                    </LoadingButton>
                    <Grid container>
                        <Grid item>
                            <Link to='/login'>
-                               {"Connectez vous."}
+                               {"Login."}
                            </Link>
                        </Grid>
                    </Grid>

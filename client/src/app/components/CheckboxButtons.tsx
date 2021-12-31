@@ -1,5 +1,5 @@
-import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
-import { useState } from "react";
+import {Checkbox, FormControlLabel, FormGroup} from "@mui/material";
+import {useState} from "react";
 
 interface Props {
     items: string[];
@@ -12,7 +12,7 @@ export default function CheckboxButtons({items, checked, onChange}: Props) {
 
     function handleChecked(value: string) {
         const currentIndex = checkedItems.findIndex(item => item === value);
-        let newChecked: string[] = [];
+        let newChecked: string[];
         if (currentIndex === -1) newChecked = [...checkedItems, value];
         else newChecked = checkedItems.filter(item => item !== value);
         setCheckedItems(newChecked);
@@ -22,13 +22,13 @@ export default function CheckboxButtons({items, checked, onChange}: Props) {
     return (
         <FormGroup>
             {items.map(item => (
-                <FormControlLabel 
-                    control={<Checkbox 
+                <FormControlLabel
+                    control={<Checkbox
                         checked={checkedItems.indexOf(item) !== -1}
                         onClick={() => handleChecked(item)}
-                    />} 
-                    label={item} 
-                    key={item} 
+                    />}
+                    label={item}
+                    key={item}
                 />
             ))}
         </FormGroup>

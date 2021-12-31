@@ -2,10 +2,6 @@ import {alpha, Box, IconButton, InputBase, styled} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
-interface Props{
-    onClose: () => void;
-    onSearch: (searchTerm: string) => void;
-}
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',

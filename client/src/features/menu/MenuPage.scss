@@ -8,7 +8,13 @@
   background-position: center;
   background-size: cover;
 
-
+  & .MuiCard-root{
+    background: rgba( 255, 255, 255, 0.25 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+  }
 }
 
 .filters-list{
@@ -20,20 +26,27 @@
   }
 
   & .MuiListItemButton-root{
+    border: 1px solid transparent;
+
     & .MuiTypography-root{
-      font-size: .7rem;
+
       transition: all 250ms ease-in-out;
     }
 
     &.Mui-selected{
+      background: rgba( 255, 255, 255, 0.25 );
+      backdrop-filter: blur( 4px );
+      -webkit-backdrop-filter: blur( 4px );
+      border-radius: 5px;
+      border: 1px solid rgba( 255, 255, 255, 0.18 );
       & .MuiTypography-root {
-        font-size: 1rem;
+
       }
     }
 
     &:hover{
       & .MuiTypography-root {
-        font-size: 1rem;
+
       }
     }
   }

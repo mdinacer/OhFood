@@ -5,6 +5,7 @@ using API.Extensions;
 using API.Helpers;
 using API.Hubs;
 using API.Middleware;
+using API.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
@@ -21,7 +22,7 @@ builder.Services.AddSwaggerConfig();
 
 builder.Services.AddDbContextConfig(builder.Configuration);
 
-builder.Services.AddCors();
+builder.Services.AddCorsPolicy();
 
 builder.Services.AddIdentityCore<User>(opt =>
     {
@@ -46,10 +47,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddAuthorization();
 builder.Services.AddCustomServices();
-builder.Services.AddResponseCompression(options =>
-{
-    options.EnableForHttps = true;
-});
+builder.Services.AddResponseCompression(options => { options.EnableForHttps = true; });
+
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
 
 // Create and migrate database
@@ -79,33 +79,17 @@ app.UseStaticFiles(new StaticFileOptions
     ServeUnknownFileTypes = false,
     OnPrepareResponse = ctx =>
     {
-
         ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=2592000");
-        ctx.Context.Response.Headers[HeaderNames.Expires] = new[] { DateTime.UtcNow.AddDays(30).ToString("R") }; // Format RFC1123
+        ctx.Context.Response.Headers[HeaderNames.Expires] =
+            new[] { DateTime.UtcNow.AddDays(30).ToString("R") }; // Format RFC1123
     }
 });
 
-app.UseCors(opt =>
-{
-    opt.WithOrigins("http://localhost:3000", "http://127.0.0.1:3000")
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowCredentials();
-});
-
-
-
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
-
 app.UseAuthorization();
-
-
-
 app.MapControllers();
-
-
 app.MapFallbackToController("Index", "Fallback");
-
 //app.MapHub<MainHub>("/hubs/main");
 
 app.Run();

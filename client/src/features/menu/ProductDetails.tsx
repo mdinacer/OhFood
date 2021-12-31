@@ -10,13 +10,15 @@ import {AddShoppingCart, ChevronLeft, RemoveShoppingCart} from "@mui/icons-mater
 import QuantityStepper from "../../app/components/QuantityStepper";
 import {addBasketItemAsync, removeBasketItemAsync} from "../../app/slices/basketSlice";
 import {LoadingButton} from "@mui/lab";
+import {currencyFormat} from "../../app/util/util";
 
 const style = {
     bgcolor: "rgba(255,255,255,0.7)",
     color: "black",
     boxShadow: 24,
     maxWidth: "900px",
-    borderRadius: 3
+    borderRadius: {xs: 0, md: 3},
+    pt: 2
 };
 
 
@@ -66,20 +68,20 @@ export default function ProductDetails() {
     if (!product) return <NotFound/>
 
     return (
-        <Box className={"product-details"} display={"flex"} alignItems={"center"} justifyContent={"center"}
-             sx={{pb: {xs: 7}}}>
+        <Box className={"product-details"} sx={{pb: {xs: 7}, display: {md: "flex", xs: "block"}}} alignItems={"center"}
+             justifyContent={"center"}>
             <Box sx={style}>
                 <Grid container>
                     <Grid item xs={12} md={6} sx={{overflow: "hidden"}}>
                         <Box sx={{my: "auto", height: "100%"}} display={"flex"} alignItems={"center"}
                              justifyContent={"center"}>
                             <Box sx={{
-                                objectFit: "cover", objectPosition: "center", height: "320px",
+                                objectFit: "cover", objectPosition: "center", height: "300px",
                             }} component={"img"} src={product?.pictureUrl} alt={product.name}/>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <Container color={"inherit"} sx={{py: 3}}>
+                        <Container color={"inherit"} sx={{pb: 2}}>
                             <Typography variant={"h4"} gutterBottom>{product.name}</Typography>
                             <Typography variant={"body2"} gutterBottom>{product.description}</Typography>
                             <Typography sx={{textTransform: "uppercase"}}
@@ -89,7 +91,7 @@ export default function ProductDetails() {
                             <Box display={"flex"} alignItems={"center"} justifyContent={"space-around"}
                                  sx={{py: 3}}>
                                 <Typography textAlign={"center"}
-                                            variant={"h5"}>{product.price * quantity} DA</Typography>
+                                            variant={"h5"}>{currencyFormat(product.price * quantity, "$")}</Typography>
                                 <QuantityStepper minValue={1} isRow={true} quantity={quantity} increase={increase}
                                                  decrease={decrease} loading={status.includes('pending')}/>
                             </Box>
