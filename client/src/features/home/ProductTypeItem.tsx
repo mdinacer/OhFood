@@ -15,35 +15,29 @@ import {ProductTypeFull} from "../../app/models/productType";
 import {ExpandLessOutlined, ExpandMoreOutlined, ShoppingCart} from "@mui/icons-material";
 import {currencyFormat} from "../../app/util/util";
 import {useTheme} from '@mui/material/styles';
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 interface Props {
     item: ProductTypeFull;
+    handleCollapsed: (value: string) => void;
+    collapsed: { title: string | null; }
 }
 
-export default function ProductTypeItem({item}: Props) {
-    const [collapsed, setCollapsed] = useState<{
-        title: string | null;
-    }>({title: null});
+export default function ProductTypeItem({item, handleCollapsed, collapsed}: Props) {
 
     const navigate = useNavigate();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
 
-    function handleCollapsed(item: string) {
-        setCollapsed({title: collapsed.title === item ? null : item});
-    }
-
     const cartButton = () => (
         <IconButton
             sx={{
-                p:1,
-                ml:"auto",
+                p: 1,
+                ml: "auto",
                 color: "rgba(255, 255, 255, 0.54)",
             }}
-            onClick={() => navigate('/menu', { state:{typeId: item.id} })}
+            onClick={() => navigate('/menu', {state: {typeId: item.id}})}
             aria-label={`info about ${item.name}`}
         >
             <ShoppingCart fontSize="large" color="inherit"/>
@@ -151,7 +145,8 @@ export default function ProductTypeItem({item}: Props) {
                             alignItems: "center",
                         }}
                     >
-                        <Typography variant="h5">{item.name}</Typography>
+                        <Typography variant="h5" sx={{width: "100%"}}
+                                    onClick={() => handleCollapsed(item.name)}>{item.name}</Typography>
 
                         {cartButton()}
                         {toggleCollapseButton()}
@@ -190,7 +185,6 @@ export default function ProductTypeItem({item}: Props) {
             />
 
 
-
             <Box
                 className="text-container absolute"
                 sx={{
@@ -208,7 +202,8 @@ export default function ProductTypeItem({item}: Props) {
                             alignItems: "center",
                         }}
                     >
-                        <Typography variant="h5">{item.name}</Typography>
+                        <Typography sx={{cursor: "pointer", width: "100%"}} variant="h5"
+                                    onClick={() => handleCollapsed(item.name)}>{item.name}</Typography>
                         {cartButton()}
                         {toggleCollapseButton()}
                     </Box>

@@ -13,19 +13,22 @@ import PagesList from "./PagesList";
 import {useTheme} from "@mui/material/styles";
 import HeaderMobile from "./HeaderMobile";
 import BasketMenu from "../../../features/basket/BasketMenu";
+import useSignalR from "../../hooks/useSignalR";
 
 
 export default function Header() {
     const {basket} = useAppSelector((state) => state.basket);
     const {user} = useAppSelector((state) => state.account);
+    const {connection} = useSignalR("App")
     const itemsCount = getBasketItemsCount();
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const [state, setState] = useState({
         top: false,
         bottom: false,
         right: false,
     });
+
 
     function getBasketItemsCount() {
         if (basket) {
@@ -58,7 +61,6 @@ export default function Header() {
                     <AppBar className="app-bar">
                         <Container className="app-bar-container">
                             <Toolbar disableGutters variant={"dense"}>
-
                                 <Typography
                                     variant="h6"
                                     noWrap
@@ -120,7 +122,7 @@ export default function Header() {
                         backgroundColor: "white",
                         color: "black"
                     }
-                }} variant={"temporary"} transitionDuration={500}
+                }} variant={"temporary"}
             >
                 <BasketMenu onClose={closeDrawer}/>
             </Drawer>

@@ -1,0 +1,15 @@
+.contact-page {
+  min-height: 100vh;
+  font-family: "Montserrat", Courier, monospace;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgb(0, 0, 0)),
+  url("/images/backgrounds/sections/contact_section_bg.webp");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: top;
+  background-size: cover;
+  color: white;
+
+  & .MuiPaper-root{
+
+  }
+}

@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkoh_food=self.webpackChunkoh_food||[]).push([[836],{48836:function(n,e,u){u.r(e),u.d(e,{default:function(){return f}});var o=u(68870),r=u(5849),c=u(80184);function f(){return(0,c.jsx)(o.Z,{children:(0,c.jsx)(r.Z,{children:"Send"})})}}}]);
+//# sourceMappingURL=836.e841dc27.chunk.js.map

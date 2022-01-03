@@ -9,6 +9,13 @@ import ProductTypeItem from "./ProductTypeItem";
 export default function Specialities() {
     const [loading, setLoading] = useState(false);
     const [productTypes, setProductTypes] = useState<ProductTypeFull[]>([]);
+    const [collapsed, setCollapsed] = useState<{
+        title: string | null;
+    }>({title: null});
+
+    function handleCollapsed(item: string) {
+        setCollapsed({title: collapsed.title === item ? null : item});
+    }
 
     useEffect(() => {
         setLoading(true);
@@ -37,7 +44,7 @@ export default function Specialities() {
             <Box sx={{position: "relative"}}>
                 <Grid container spacing={2} sx={{py: 3}}>
                     {productTypes.map((productType) => (
-                        <ProductTypeItem key={productType.id} item={productType}/>
+                        <ProductTypeItem collapsed={collapsed} handleCollapsed={handleCollapsed} key={productType.id} item={productType}/>
                     ))}
                 </Grid>
 

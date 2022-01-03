@@ -22,6 +22,8 @@ builder.Services.AddSwaggerConfig();
 
 builder.Services.AddDbContextConfig(builder.Configuration);
 
+builder.Services.AddCustomServices();
+
 builder.Services.AddCorsPolicy();
 
 builder.Services.AddIdentityCore<User>(opt =>
@@ -44,9 +46,28 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey =
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:TokenKey"]))
         };
+
+        opt.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+
+                // If the request is for our hub...
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) &&
+                    (path.StartsWithSegments("/hubs/main")))
+                {
+                    // Read the token out of the query string
+                    context.Token = accessToken;
+                }
+
+                return Task.CompletedTask;
+            }
+        };
     });
 builder.Services.AddAuthorization();
-builder.Services.AddCustomServices();
+
 builder.Services.AddResponseCompression(options => { options.EnableForHttps = true; });
 
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
@@ -90,6 +111,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapFallbackToController("Index", "Fallback");
-//app.MapHub<MainHub>("/hubs/main");
+app.MapHub<MainHub>("/hubs/main");
 
 app.Run();

@@ -59,6 +59,7 @@ export default function CheckoutPage() {
             //setActiveStep(activeStep + 1);
             dispatch(clearBasket());
 
+
         } catch (error) {
             console.log(error);
         } finally {

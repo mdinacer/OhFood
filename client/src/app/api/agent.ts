@@ -5,7 +5,7 @@ import {store} from "../store/configureStore";
 import {history} from "../..";
 
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 1000));
+const sleep = () => new Promise(resolve => setTimeout(resolve, 3000));
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -111,7 +111,7 @@ const Account = {
     register: (values: any) => requests.post('account/register', values),
     currentUser: () => requests.get('account/currentUser'),
     fetchAddress: () => requests.get("account/defaultAddress"),
-    sendMail: (values:any)=> requests.postForm('account/sendMail', createFormData(values)),
+    sendMail: (values: any) => requests.postForm('account/sendMail', createFormData(values)),
 }
 
 const Announces = {
@@ -135,11 +135,12 @@ const Catalog = {
 }
 
 const Orders = {
-    list: () => requests.get('orders'),
+    list: (params: URLSearchParams) => requests.get('orders', params),
+    //listAll: (params: URLSearchParams) => requests.get('orders/listAll', params),
     details: (id: number) => requests.get(`orders/${id}`),
-    create: (values: any) => requests.post('orders', values)
+    create: (values: any) => requests.post('orders', values),
+    updateStatus: (id: number, value: string) => requests.put('orders', {id, status: value})
 }
-
 
 
 const agent = {

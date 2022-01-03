@@ -1,5 +1,6 @@
 using API.DTO;
 using API.Entities;
+using API.Entities.OrderAggregate;
 using AutoMapper;
 
 namespace API.Helpers
@@ -11,8 +12,7 @@ namespace API.Helpers
             CreateMap<Product, ProductLiteDto>();
             CreateMap<ProductType, ProductTypeFullDto>();
             CreateMap<Product, ProductDto>()
-                .ForMember(p => p.Type, o => { o.MapFrom(p => p.Type.Name); })
-                ;
+                .ForMember(p => p.Type, o => { o.MapFrom(p => p.Type.Name); });
 
             CreateMap<Reservation, ReservationDto>()
                 .ForMember(r => r.Username, o => { o.MapFrom(r => r.User.UserName); })
@@ -22,6 +22,10 @@ namespace API.Helpers
 
             CreateMap<CreateProductDto, Product>();
             CreateMap<UpdateProductDto, Product>();
+
+
+            CreateMap<UpdateOrderDto, Order>()
+                .ForMember(p => p.Status, o => { o.MapFrom(p => Enum.Parse(typeof(OrderStatus), p.Status)); });
 
             CreateMap<ProductType, ProductTypeDto>();
             CreateMap<Ingredient, IngredientDto>();

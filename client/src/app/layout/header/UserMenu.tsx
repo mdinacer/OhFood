@@ -55,7 +55,7 @@ export default function UserMenu({user}: Props) {
             >
 
                 {userLinks.map(({title, path, icon}) => (
-                    <MenuItem key={title} component={Link} to={path} onClick={handleCloseUserMenu} disabled>
+                    <MenuItem key={title} component={Link} to={path} onClick={handleCloseUserMenu} >
                         <ListItemIcon>
                             {icon}
                         </ListItemIcon>

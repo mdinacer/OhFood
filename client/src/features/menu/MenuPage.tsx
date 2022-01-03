@@ -47,6 +47,12 @@ export default function MenuPage() {
     }, [types, typesLoaded])
 
 
+    // useEffect(() => {
+    //     if(connection){
+    //         console.log("Connection Started")
+    //     }
+    // },[connection])
+
     function handleTypeChanged(typeId: number) {
         const type = types.find(t => t.id === typeId)
         if (type) {

@@ -8,6 +8,7 @@ const Contact = lazy(() => import("./Contact"));
 const Specialities = lazy(() => import("./Specialities"));
 
 export default function HomePage() {
+
     return (
         <div className="home">
             <section className="hero">

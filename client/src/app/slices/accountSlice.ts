@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { FieldValues } from "react-hook-form";
+import {createAsyncThunk, createSlice, isAnyOf} from "@reduxjs/toolkit";
+import {FieldValues} from "react-hook-form";
 import agent from "../../app/api/agent";
-import { User } from "../models/user";
-import { history } from "../..";
-import { toast } from "react-toastify";
-import { setBasket } from "./basketSlice";
+import {User} from "../models/user";
+import {history} from "../..";
+import {toast} from "react-toastify";
+import {setBasket} from "./basketSlice";
 
 interface AccountState {
     user: User | null,
@@ -20,12 +20,12 @@ export const signInUser = createAsyncThunk<User, FieldValues>(
     async (data, thunkApi) => {
         try {
             const userDto = await agent.Account.login(data);
-            const { basket, ...user } = userDto;
+            const {basket, ...user} = userDto;
             if (basket) thunkApi.dispatch(setBasket(basket));
             localStorage.setItem("user", JSON.stringify(user))
             return user;
         } catch (error: any) {
-            return thunkApi.rejectWithValue({ error: error.data })
+            return thunkApi.rejectWithValue({error: error.data})
         }
     }
 )
@@ -36,12 +36,12 @@ export const fetchCurrentUser = createAsyncThunk<User>(
         thunkApi.dispatch(setUser(JSON.parse(localStorage.getItem("user")!)));
         try {
             const userDto = await agent.Account.currentUser();
-            const { basket, ...user } = userDto;
+            const {basket, ...user} = userDto;
             if (basket) thunkApi.dispatch(setBasket(basket));
             localStorage.setItem("user", JSON.stringify(user))
             return user;
         } catch (error: any) {
-            return thunkApi.rejectWithValue({ error: error.data });
+            return thunkApi.rejectWithValue({error: error.data});
         }
     },
     {
@@ -65,7 +65,7 @@ export const accountSlice = createSlice({
             if (data) {
                 let claims = JSON.parse(atob(data));
                 let roles = claims["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-                state.user = { ...action.payload, "roles": typeof (roles) === "string" ? [roles] : roles };
+                state.user = {...action.payload, "roles": typeof (roles) === "string" ? [roles] : roles};
             } else {
                 state.user = action.payload;
             }
@@ -88,11 +88,14 @@ export const accountSlice = createSlice({
             if (data) {
                 let claims = JSON.parse(atob(data));
                 let roles = claims["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-                state.user = { ...action.payload, "roles": typeof (roles) === "string" ? [roles] : roles };
+                state.user = {...action.payload, "roles": typeof (roles) === "string" ? [roles] : roles};
 
-                // if (hubConnection.connectionId) {
-                //     hubConnection.invoke("AddUser", hubConnection.connectionId, state.user?.roles)
-                //         .then( _ => {});
+
+                // if (hubConnection.state === signalR.HubConnectionState.Connected) {
+                //     hubConnection.invoke('JoinRoom', "Admin")
+                //         .catch((err: Error) => {
+                //         return console.error(err.toString());
+                //     });
                 // }
             } else {
                 state.user = action.payload;
@@ -103,5 +106,5 @@ export const accountSlice = createSlice({
     })
 })
 
-export const { setUser, signOut } = accountSlice.actions;
+export const {setUser, signOut} = accountSlice.actions;
 

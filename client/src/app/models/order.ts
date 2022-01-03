@@ -27,3 +27,18 @@ export interface Order {
     status: string;
     total: number;
 }
+
+export interface OrderParams {
+    orderBy: string,
+    searchTerm?: string,
+    status?: number,
+    pageNumber: number,
+    pageSize: number,
+}
+
+export enum OrderStatus {
+    Pending,
+    Confirmed,
+    Delivered,
+    Cancelled,
+}

@@ -12,7 +12,6 @@ interface CatalogState {
     types: ProductType[];
     productParams: ProductParams;
     metaData: MetaData | null;
-
 }
 
 const productsAdapter = createEntityAdapter<Product>();
@@ -112,20 +111,17 @@ export const catalogSlice = createSlice({
             state.productParams = initParams();
         },
 
-        setProduct: (state, action) => {
-            //productsAdapter.upsertOne(state, action.payload);
+        setProduct: (state) => {
             state.productsLoaded = false;
         },
 
-        removeProduct: (state, action) => {
-            //productsAdapter.removeOne(state, action.payload);
+        removeProduct: (state) => {
             state.productsLoaded = false;
         },
     },
     extraReducers: (builder => {
 
-        //#region Fetch Products
-        builder.addCase(fetchProductsAsync.pending, (state, action) => {
+        builder.addCase(fetchProductsAsync.pending, (state) => {
             state.status = "pendingFetchProducts";
         });
 
@@ -139,10 +135,7 @@ export const catalogSlice = createSlice({
             state.status = "idle";
         });
 
-        //#endregion Fetch Products
-
-        //#region fetch product
-        builder.addCase(fetchProductAsync.pending, (state, action) => {
+        builder.addCase(fetchProductAsync.pending, (state) => {
             state.status = "pendingFetchProduct";
         });
 
@@ -155,12 +148,7 @@ export const catalogSlice = createSlice({
             state.status = "idle";
         });
 
-        //#endregion
-
-
-        //# region Ingredients and types
-
-        builder.addCase(fetchTypesAsync.pending, (state, action) => {
+        builder.addCase(fetchTypesAsync.pending, (state) => {
             state.status = "pendingFetchTypes";
         });
 
@@ -171,11 +159,9 @@ export const catalogSlice = createSlice({
         });
 
 
-        builder.addCase(fetchTypesAsync.rejected, (state, action) => {
+        builder.addCase(fetchTypesAsync.rejected, (state) => {
             state.status = "idle";
         });
-
-        //#endregion
     })
 })
 
