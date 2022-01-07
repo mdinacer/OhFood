@@ -4,7 +4,7 @@ export interface Product {
     description: string;
     price: number;
     pictureUrl: string;
-    type: string;
+    category: string;
     ingredients: string;
     inventory: number;
 }
@@ -20,7 +20,7 @@ export interface ProductLite {
 export interface ProductParams {
     orderBy: string,
     searchTerm?: string,
-    type?: number,
+    category?: number,
     pageNumber: number,
     pageSize: number,
 }

@@ -4,8 +4,6 @@ import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserHistory } from "history";
 import { HistoryRouter } from "./app/layout/HistoryRouter";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import "./styles.scss";
 import { Provider } from "react-redux";
 import { store } from "./app/store/configureStore";

@@ -1,18 +1,18 @@
-import {Box, Container, Typography} from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import "./Announces.scss";
-import {useAppDispatch, useAppSelector} from "../../app/store/configureStore";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import LoadingComponent from "../../app/layout/LoadingComponent";
-import {Announce} from "../../app/models/announce";
-import {useEffect} from "react";
-import {fetchAnnouncesAsync} from "../../app/slices/announceSlice";
+import { Announce } from "../../app/models/announce";
+import { useEffect } from "react";
+import { fetchAnnouncesAsync } from "../../app/slices/announceSlice";
 
 interface ItemProps {
     announce: Announce;
 }
 
 export default function Announces() {
-    const {announces, announcesLoaded} = useAppSelector((state) => state.announce);
+    const { announces, announcesLoaded } = useAppSelector((state) => state.announce);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export default function Announces() {
         }
     }, [announcesLoaded, dispatch])
 
-    function Item({announce}: ItemProps) {
+    function Item({ announce }: ItemProps) {
         return (
             <Box
                 className="item-container"
@@ -31,7 +31,7 @@ export default function Announces() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "flex-end",
-                    borderRadius: {xs: 2, md: 3},
+                    borderRadius: { xs: 2, md: 3 },
                 }}
             >
                 <Box
@@ -55,23 +55,22 @@ export default function Announces() {
         );
     }
 
-    if (!announcesLoaded) return <LoadingComponent/>;
+    if (!announcesLoaded) return <LoadingComponent message="Loading Announces..." />;
     return (
-        <Container sx={{py: 4}}>
+        <Container sx={{ pt: { xs: 2, md: 7 } }}>
             <Typography
                 variant="h3"
                 sx={{
                     textTransform: "uppercase",
-                    pt: 10,
-                    mb: 2,
+
                 }}
             >
                 Our Services
             </Typography>
-            <Box sx={{overflow: "hidden", py: 3}}>
+            <Box sx={{ overflow: "hidden", py: 3 }}>
                 <Carousel>
                     {announces.map((announce, i) => (
-                        <Item key={i} announce={announce}/>
+                        <Item key={i} announce={announce} />
                     ))}
                 </Carousel>
             </Box>

@@ -1,13 +1,13 @@
 import {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../store/configureStore";
-import {fetchProductsAsync, fetchTypesAsync, productSelectors,} from "../slices/catalogSlice";
+import {fetchProductsAsync, fetchCategoriesAsync, productSelectors,} from "../slices/catalogSlice";
 
 export default function useProducts() {
     const products = useAppSelector(productSelectors.selectAll);
     const {
         productsLoaded,
-        typesLoaded,
-        types,
+        categoriesLoaded,
+        categories,
         metaData,
     } = useAppSelector((state) => state.catalog);
     const dispatch = useAppDispatch();
@@ -20,17 +20,17 @@ export default function useProducts() {
     }, [dispatch, productsLoaded]);
 
     useEffect(() => {
-        if (!typesLoaded) {
-            dispatch(fetchTypesAsync());
+        if (!categoriesLoaded) {
+            dispatch(fetchCategoriesAsync());
         }
-    }, [dispatch, typesLoaded]);
+    }, [dispatch, categoriesLoaded]);
 
 
     return {
         products,
         productsLoaded,
-        typesLoaded,
-        types,
+        categoriesLoaded,
+        categories,
         metaData,
     };
 }

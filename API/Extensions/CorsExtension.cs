@@ -12,7 +12,7 @@ public static class CorsExtension
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials()
-                    .WithOrigins("http://localhost:3000", "http://127.0.0.1:3000");
+                    .WithOrigins("http://localhost:3000","https://localhost:3000", "http://127.0.0.1:3000", "http://192.168.8.100:3000");
             });
         });
     }

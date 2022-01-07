@@ -5,6 +5,7 @@ import {basketSlice} from "../slices/basketSlice";
 import {catalogSlice} from "../slices/catalogSlice";
 import {announcesSlice} from "../slices/announceSlice";
 import {orderSlice} from "../slices/orderSlice";
+import {notificationSlice} from "../slices/notificationHubSlice";
 
 
 export const store = configureStore({
@@ -14,6 +15,7 @@ export const store = configureStore({
         basket: basketSlice.reducer,
         catalog: catalogSlice.reducer,
         order: orderSlice.reducer,
+        notification: notificationSlice.reducer,
     },
     //middleware: new MiddlewareArray().concat(sampleMiddleware),
 });

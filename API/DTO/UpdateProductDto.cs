@@ -6,11 +6,9 @@ namespace API.DTO
     {
         public int Id { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+        [Required] public string Name { get; set; }
 
-        [Required]
-        public string? Description { get; set; }
+        [Required] public string? Description { get; set; }
 
         [Required]
         [Range(100, double.PositiveInfinity)]
@@ -18,14 +16,8 @@ namespace API.DTO
 
         public IFormFile? File { get; set; }
 
-        [Required]
-        public string Type { get; set; }
+        [Required] public string Category { get; set; }
 
-        [Required]
-        public string Brand { get; set; }
-
-        [Required]
-        [Range(0, 10000)]
-        public int Inventory { get; set; }
+        [Required] [Range(0, 10000)] public int Inventory { get; set; }
     }
 }

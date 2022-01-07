@@ -32,6 +32,7 @@ export default function UserLinkList({onClick}: Props) {
             <MenuItem onClick={() => {
                 dispatch(signOut());
                 dispatch(clearBasket());
+                onClick(false);
             }}>
                 <ListItemIcon>
                     <Logout fontSize="small"/>

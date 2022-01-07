@@ -29,7 +29,8 @@ namespace API.Controllers
         public async Task<ActionResult<PagedList<ProductDto>>> GetProducts([FromQuery] ProductParams productParams)
         {
             var query = _context.Products
-                .Filter(productParams.ProductType)
+                .Where(p => p.Price > 0)
+                .Filter(productParams.Category)
                 .Search(productParams.SearchTerm)
                 .Sort(productParams.OrderBy)
                 .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
@@ -53,27 +54,27 @@ namespace API.Controllers
             return product != null ? product : NotFound();
         }
 
-        [HttpGet("types")]
-        public async Task<ActionResult<ProductTypeDto>> GetProductTypes()
+        [HttpGet("categories")]
+        public async Task<ActionResult<CategoryDto>> GetCategories()
         {
-            var types = await _context.ProductTypes
+            var categories = await _context.Categories
                 .OrderBy(t => t.Name)
-                .ProjectTo<ProductTypeDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<CategoryDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
-            return Ok(types);
+            return Ok(categories);
         }
 
-        [HttpGet("typesFull")]
-        public async Task<ActionResult<ProductTypeDto>> GetProductTypesWithProducts()
+        [HttpGet("categoriesFull")]
+        public async Task<ActionResult<CategoryDto>> GetCategoriesWithProducts()
         {
-            var types = await _context.ProductTypes
+            var categories = await _context.Categories
                 .Include(pt => pt.Products)
                 .OrderBy(t => t.Name)
-                .ProjectTo<ProductTypeFullDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<CategoryFullDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
-            return Ok(types);
+            return Ok(categories);
         }
 
 
@@ -135,7 +136,7 @@ namespace API.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);

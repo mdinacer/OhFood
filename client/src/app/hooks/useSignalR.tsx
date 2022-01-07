@@ -1,26 +1,26 @@
 import * as signalR from "@microsoft/signalr";
-import {HubConnection, HubConnectionState} from "@microsoft/signalr";
-import {useEffect, useState} from "react";
-import {hubFunction} from "../middleware/types";
-import {useAppSelector} from "../store/configureStore";
+import { HubConnection, HubConnectionState } from "@microsoft/signalr";
+import { useEffect, useState } from "react";
+import { hubFunction } from "../middleware/types";
+import { useAppSelector } from "../store/configureStore";
 
 
 export default function useSignalR(sender: string) {
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null)
-    const {user} = useAppSelector(state => state.account);
+    const { user } = useAppSelector(state => state.account);
 
     const setUpConnection = (token: string) => {
         const baseUrl = process.env.REACT_APP_HUB_URL;
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl(baseUrl!, {accessTokenFactory: () => token})
+            .withUrl(baseUrl!, { accessTokenFactory: () => token })
             .withAutomaticReconnect()
-            .configureLogging(signalR.LogLevel.Debug)
+            .configureLogging(signalR.LogLevel.None)
             .build();
         setConnection(connection);
     }
 
     const addCallBacks = (calls: hubFunction[], connection: HubConnection) => {
-        calls.forEach(({methodName, newMethod}) =>
+        calls.forEach(({ methodName, newMethod }) =>
             connection.on(methodName, newMethod))
     }
 
@@ -48,7 +48,7 @@ export default function useSignalR(sender: string) {
         }
 
         return () => {
-            if (connection && connection.state === HubConnectionState.Connected){
+            if (connection && connection.state === HubConnectionState.Connected) {
                 stopConnection(connection, "SignalR Hook Connection Stopped")
             }
 

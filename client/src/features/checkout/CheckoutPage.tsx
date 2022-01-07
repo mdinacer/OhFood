@@ -1,146 +1,187 @@
-import {Box, Button, Container, Paper, Step, StepLabel, Stepper, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
-import {FieldValues, FormProvider, useForm} from "react-hook-form";
+import {
+  Box,
+  Button,
+  Container,
+  Paper,
+  Step,
+  StepLabel,
+  Stepper,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import AddressForm from "./AddressForm";
 import Review from "./Review";
-import {yupResolver} from '@hookform/resolvers/yup';
-import {AddressFormValidation} from "./checkoutValidation";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AddressFormValidation } from "./checkoutValidation";
 import agent from "../../app/api/agent";
-import {LoadingButton} from "@mui/lab";
-import {useAppDispatch} from "../../app/store/configureStore";
+import { LoadingButton } from "@mui/lab";
+import { useAppDispatch } from "../../app/store/configureStore";
 import "./CheckoutPage.scss";
-import {clearBasket} from "../../app/slices/basketSlice";
+import { clearBasket } from "../../app/slices/basketSlice";
+import { Link } from "react-router-dom";
 
-
-const steps = ['Address', 'Review', "Receipt"];
+const steps = ["Address", "Review", "Receipt"];
 
 export default function CheckoutPage() {
-    const [activeStep, setActiveStep] = useState(0);
-    const [orderNumber, setOrderNumber] = useState(0);
-    const [loading, setLoading] = useState(false);
-    const dispatch = useAppDispatch();
+  const [activeStep, setActiveStep] = useState(0);
+  const [orderNumber, setOrderNumber] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
 
-    //const {basket} = useAppSelector(state => state.basket);
+  //const {basket} = useAppSelector(state => state.basket);
 
-    function getStepContent(step: number) {
-        switch (step) {
-            case 0:
-                return <AddressForm/>;
-            case 1:
-                return <Review/>;
+  function getStepContent(step: number) {
+    switch (step) {
+      case 0:
+        return <AddressForm />;
+      case 1:
+        return <Review />;
+      case 2:
+        return (
+          <Box
+            width={"100%"}
+            height={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Typography textAlign={"center"}>
+              You order has been sent, You will be notified on confirmation and
+              delivery.
+            </Typography>
+          </Box>
+        );
 
-            default:
-                throw new Error('Unknown step');
-        }
+      default:
+        throw new Error("Unknown step");
     }
+  }
 
+  const methods = useForm({
+    mode: "all",
+    resolver: yupResolver(AddressFormValidation),
+  });
 
-    const methods = useForm({
-        mode: 'all',
-        resolver: yupResolver(AddressFormValidation)
+  useEffect(() => {
+    agent.Profile.fetchDefaultAddress().then((response) => {
+      if (response) {
+        methods.reset({
+          ...methods.getValues(),
+          ...response,
+          saveAddress: false,
+        });
+      }
     });
+  }, [methods]);
 
-    useEffect(() => {
-        agent.Account.fetchAddress()
-            .then(response => {
-                if (response) {
-                    methods.reset({...methods.getValues(), ...response, saveAddress: false})
-                }
-            })
-    }, [methods])
+  async function submitOrder(data: FieldValues) {
+    setLoading(true);
+    const { saveAddress, ...shippingAddress } = data;
 
-    async function submitOrder(data: FieldValues) {
-        setLoading(true);
-        const {saveAddress, ...shippingAddress} = data;
-
-        try {
-            const orderNumber = await agent.Orders.create({saveAddress, shippingAddress});
-            setOrderNumber(orderNumber);
-            //setActiveStep(activeStep + 1);
-            dispatch(clearBasket());
-
-
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setLoading(false);
-        }
+    try {
+      const orderNumber = await agent.Orders.create({
+        saveAddress,
+        shippingAddress,
+      });
+      setOrderNumber(orderNumber);
+      setActiveStep(activeStep + 1);
+      dispatch(clearBasket());
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
+  }
 
-
-    const handleNext = async (data: FieldValues) => {
-        if (activeStep === 1) {
-            await submitOrder(data);
-        } else {
-            setActiveStep(activeStep + 1);
-        }
-    };
-
-    const handleBack = () => {
-        setActiveStep(activeStep - 1);
-    };
-
-    function submitDisabled(): boolean {
-        return !methods.formState.isValid
+  const handleNext = async (data: FieldValues) => {
+    if (activeStep === 1) {
+      await submitOrder(data);
+    } else {
+      setActiveStep(activeStep + 1);
     }
+  };
 
-    return (
-        <Box className={"payment"}>
-            <Container sx={{pt: 7,}}>
-                <FormProvider {...methods}>
-                    <Paper variant="outlined"
-                           sx={{
-                               maxWidth: 800,
-                               my: {xs: 3, md: 6},
-                               mx: "auto",
-                               p: {xs: 2, md: 3},
-                               backgroundColor: "rgba(0,0,0,0.5)"
-                           }}>
-                        <Typography component="h1" variant="h4" align="center">
-                            Order
-                        </Typography>
-                        <Stepper activeStep={activeStep} sx={{pt: 3, pb: 5}}>
-                            {steps.map((label) => (
-                                <Step key={label}>
-                                    <StepLabel>{label}</StepLabel>
-                                </Step>
-                            ))}
-                        </Stepper>
-                        <>
-                            {activeStep === steps.length ? (
-                                <>
-                                    <Typography variant="subtitle1">
-                                        Your order number is #{orderNumber}. We have emailed your order
-                                        confirmation, and will not send you an update when your order has
-                                        shipped!
-                                    </Typography>
-                                </>
-                            ) : (
-                                <form onSubmit={methods.handleSubmit(handleNext)}>
-                                    {getStepContent(activeStep)}
-                                    <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                                        {activeStep !== 0 && (
-                                            <Button onClick={handleBack} sx={{mt: 3, ml: 1}}>
-                                                Back
-                                            </Button>
-                                        )}
-                                        <LoadingButton
-                                            loading={loading}
-                                            disabled={submitDisabled()}
-                                            variant="contained"
-                                            type='submit'
-                                            sx={{mt: 3, ml: 1}}
-                                        >
-                                            {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                                        </LoadingButton>
-                                    </Box>
-                                </form>
-                            )}
-                        </>
-                    </Paper>
-                </FormProvider>
-            </Container>
-        </Box>
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
 
-    );
+  function submitDisabled(): boolean {
+    return !methods.formState.isValid;
+  }
+
+  return (
+    <Box
+      className={"payment"}
+      sx={{ pb: { xs: 10, md: 1 }, pt: { xs: 1, md: 7 } }}
+    >
+      <Container>
+        <FormProvider {...methods}>
+          <Paper
+            variant="outlined"
+            sx={{
+              maxWidth: 800,
+              my: { xs: 1, md: 6 },
+              mx: "auto",
+              p: { xs: 2, md: 3 },
+              backgroundColor: "rgba(0,0,0,0.5)",
+            }}
+          >
+            <Typography component="h1" variant="h4" align="center">
+              Order
+            </Typography>
+            <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            <>
+              {activeStep === steps.length ? (
+                <>
+                  <Typography variant="subtitle1">
+                    Your order number is #{orderNumber}. We have emailed your
+                    order confirmation, and will not send you an update when
+                    your order has shipped!
+                  </Typography>
+                </>
+              ) : (
+                <form onSubmit={methods.handleSubmit(handleNext)}>
+                  {getStepContent(activeStep)}
+                  <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                    {activeStep !== 0 && (
+                      <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                        Back
+                      </Button>
+                    )}
+                    {activeStep !== 2 ? (
+                      <LoadingButton
+                        loading={loading}
+                        disabled={submitDisabled()}
+                        variant="contained"
+                        type="submit"
+                        sx={{ mt: 3, ml: 1 }}
+                      >
+                        {activeStep === 1 ? "Place order" : "Next"}
+                      </LoadingButton>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        sx={{ mt: 3, ml: 1 }}
+                        component={Link}
+                        to={"/"}
+                      >
+                        Home
+                      </Button>
+                    )}
+                  </Box>
+                </form>
+              )}
+            </>
+          </Paper>
+        </FormProvider>
+      </Container>
+    </Box>
+  );
 }

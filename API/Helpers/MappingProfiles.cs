@@ -10,9 +10,9 @@ namespace API.Helpers
         public MappingProfiles()
         {
             CreateMap<Product, ProductLiteDto>();
-            CreateMap<ProductType, ProductTypeFullDto>();
+            CreateMap<Category, CategoryFullDto>();
             CreateMap<Product, ProductDto>()
-                .ForMember(p => p.Type, o => { o.MapFrom(p => p.Type.Name); });
+                .ForMember(p => p.Category, o => { o.MapFrom(p => p.Category.Name); });
 
             CreateMap<Reservation, ReservationDto>()
                 .ForMember(r => r.Username, o => { o.MapFrom(r => r.User.UserName); })
@@ -27,10 +27,17 @@ namespace API.Helpers
             CreateMap<UpdateOrderDto, Order>()
                 .ForMember(p => p.Status, o => { o.MapFrom(p => Enum.Parse(typeof(OrderStatus), p.Status)); });
 
-            CreateMap<ProductType, ProductTypeDto>();
+            CreateMap<Category, CategoryDto>();
             CreateMap<Ingredient, IngredientDto>();
             CreateMap<Announce, AnnounceDto>();
             CreateMap<CreateAnnounceDto, Announce>();
+
+            CreateMap<UserProfile, UserProfileDto>();
+
+
+            CreateMap<UserAddress, AddressDto>();
+            CreateMap<CreateAddressDto, UserAddress>();
+            CreateMap<AddressDto, Address>();
         }
     }
 }

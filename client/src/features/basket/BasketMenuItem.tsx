@@ -28,9 +28,9 @@ export default function BasketMenuItem({item, status}: Props) {
                     flexDirection: "column"
                 }}>
                     <Typography variant={"subtitle2"}>{item.name}</Typography>
-                    <Typography variant={"caption"}>{item.type}</Typography>
+                    <Typography variant={"caption"}>{item.category}</Typography>
                     <Typography
-                        variant={"body2"}>{currencyFormat(item.price, "$")}</Typography>
+                        variant={"body2"}>{currencyFormat(item.price * item.quantity, "$")}</Typography>
                     <Stack direction={"row"} justifyContent={"space-between"}>
                         <QuantityStepper quantity={item.quantity}
                                          increase={() => dispatch(addBasketItemAsync({productId: item.productId}))}
@@ -40,8 +40,7 @@ export default function BasketMenuItem({item, status}: Props) {
                                              name: 'rem'
                                          }))} isRow={true}
                                          minValue={1}
-                                         loading={status.includes('pending')}
-                        />
+                                         loading={status.includes('pending')}/>
                         <IconButton color={"inherit"}
                                     onClick={() => dispatch(removeBasketItemAsync({
                                         productId: item.productId,

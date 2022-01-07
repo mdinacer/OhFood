@@ -5,14 +5,17 @@ import {User} from "../models/user";
 import {history} from "../..";
 import {toast} from "react-toastify";
 import {setBasket} from "./basketSlice";
+import {Profile} from "../models/profile";
 
 interface AccountState {
     user: User | null,
+    profile: Profile | null;
 
 }
 
 const initialState: AccountState = {
     user: null,
+    profile: null
 }
 
 export const signInUser = createAsyncThunk<User, FieldValues>(
@@ -89,7 +92,7 @@ export const accountSlice = createSlice({
                 let claims = JSON.parse(atob(data));
                 let roles = claims["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
                 state.user = {...action.payload, "roles": typeof (roles) === "string" ? [roles] : roles};
-
+                state.profile = state.user.profile;
 
                 // if (hubConnection.state === signalR.HubConnectionState.Connected) {
                 //     hubConnection.invoke('JoinRoom', "Admin")

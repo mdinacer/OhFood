@@ -3,13 +3,13 @@ import agent from "../../app/api/agent";
 import {MetaData} from "../models/pagination";
 import {Product, ProductParams} from "../models/product";
 import {RootState} from "../store/configureStore";
-import {ProductType} from "../models/productType";
+import {Category} from "../models/category";
 
 interface CatalogState {
     productsLoaded: boolean;
-    typesLoaded: boolean;
+    categoriesLoaded: boolean;
     status: string;
-    types: ProductType[];
+    categories: Category[];
     productParams: ProductParams;
     metaData: MetaData | null;
 }
@@ -25,10 +25,10 @@ function getAxiosParams(productParams: ProductParams) {
         params.append("searchTerm", productParams.searchTerm);
     }
 
-    if (productParams.type && productParams.type > 0) {
-        params.append("productType", productParams.type.toString());
+    if (productParams.category && productParams.category > 0) {
+        params.append("category", productParams.category.toString());
     } else {
-        params.delete("productType");
+        params.delete("category");
     }
 
     return params;
@@ -60,11 +60,11 @@ export const fetchProductAsync = createAsyncThunk<Product, number>(
     }
 )
 
-export const fetchTypesAsync = createAsyncThunk(
-    "catalog/fetchTypesAsync",
+export const fetchCategoriesAsync = createAsyncThunk(
+    "catalog/fetchCategoriesAsync",
     async (_, thunkApi) => {
         try {
-            return await agent.Catalog.fetchTypes();
+            return await agent.Catalog.fetchCategories();
         } catch (error: any) {
             return thunkApi.rejectWithValue({error: error.data})
         }
@@ -78,7 +78,7 @@ function initParams() {
         pageSize: 8,
         orderBy: "name",
         ingredients: [],
-        types: []
+        categories: []
     }
 }
 
@@ -86,9 +86,9 @@ export const catalogSlice = createSlice({
     name: "catalog",
     initialState: productsAdapter.getInitialState<CatalogState>({
         productsLoaded: false,
-        typesLoaded: false,
+        categoriesLoaded: false,
         status: "idle",
-        types: [],
+        categories: [],
         productParams: initParams(),
         metaData: null,
     }),
@@ -148,18 +148,18 @@ export const catalogSlice = createSlice({
             state.status = "idle";
         });
 
-        builder.addCase(fetchTypesAsync.pending, (state) => {
+        builder.addCase(fetchCategoriesAsync.pending, (state) => {
             state.status = "pendingFetchTypes";
         });
 
-        builder.addCase(fetchTypesAsync.fulfilled, (state, action) => {
-            state.types = action.payload;
-            state.typesLoaded = true;
+        builder.addCase(fetchCategoriesAsync.fulfilled, (state, action) => {
+            state.categories = action.payload;
+            state.categoriesLoaded = true;
             state.status = "idle";
         });
 
 
-        builder.addCase(fetchTypesAsync.rejected, (state) => {
+        builder.addCase(fetchCategoriesAsync.rejected, (state) => {
             state.status = "idle";
         });
     })

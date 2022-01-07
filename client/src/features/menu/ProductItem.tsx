@@ -16,7 +16,7 @@ export default function ProductItem({product}: Props) {
     const dispatch = useAppDispatch();
 
     return (
-        <Card sx={{maxHeight: "350px", height: "100%", display: "flex", flexDirection: "column", pt: 2}}>
+        <Card sx={{maxHeight: "350px", height: "100%", display: "flex", flexDirection: "column", pt: 1}}>
             <CardMedia
                 sx={{flex: "0 1 140px", objectFit: "contain"}}
                 component="img"
@@ -24,9 +24,9 @@ export default function ProductItem({product}: Props) {
                 image={product.pictureUrl}
                 alt={product.name}
             />
-            <CardContent sx={{flex: "1 1 auto", display: "flex", flexDirection: "column"}}>
+            <CardContent sx={{flex: "1 1 auto", display: "flex", flexDirection: "column", py:1}}>
                 <Typography variant="caption" color="text.secondary" sx={{flex: "0 1 auto"}}>
-                    {product.type}
+                    {product.category}
                 </Typography>
                 <Typography gutterBottom variant="subtitle1" sx={{flex: "1 1 auto"}}>
                     {product.name}
@@ -40,7 +40,8 @@ export default function ProductItem({product}: Props) {
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-evenly",
-                flex: "0 1 auto"
+                flex: "0 1 auto",
+                py:0, pb:1
             }}>
                 <Button component={Link} to={`/menu/${product.id}`} size="small"><AspectRatio
                     sx={{color: "white"}}/></Button>

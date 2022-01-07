@@ -8,11 +8,11 @@ import {
     IconButton,
     Paper
 } from "@mui/material";
-import {AccountCircle, ExpandMore, Home, Menu, ShoppingCart} from "@mui/icons-material";
-import React, {useState} from "react";
-import {User} from "../../models/user";
+import { AccountCircle, ExpandMore, Home, Menu, ShoppingCart } from "@mui/icons-material";
+import React, { useState } from "react";
+import { User } from "../../models/user";
 import PagesList from "./PagesList";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import BasketMenu from "../../../features/basket/BasketMenu";
 import UserLinkList from "./UserLinkList";
 
@@ -21,36 +21,37 @@ interface Props {
     itemsCount: number;
 }
 
-export default function HeaderMobile({user, itemsCount}: Props) {
+export default function HeaderMobile({ user, itemsCount }: Props) {
     const [open, setOpen] = useState({
         basket: false,
         menu: false,
         user: false,
     })
 
-    const handleBasketDrawer = (state: boolean) => setOpen({...open, basket: state});
-    const handleMenuDrawer = (state: boolean) => setOpen({...open, menu: state});
-    const handleUserDrawer = (state: boolean) => setOpen({...open, user: state});
+    const handleBasketDrawer = (state: boolean) => setOpen({ ...open, basket: state });
+    const handleMenuDrawer = (state: boolean) => setOpen({ ...open, menu: state });
+    const handleUserDrawer = (state: boolean) => setOpen({ ...open, user: state });
+
 
     return (
         <Box>
-            <Paper sx={{position: 'fixed', top: "auto", bottom: 0, left: 0, right: 0, zIndex: 1000}} elevation={3}>
+            <Paper sx={{ position: 'fixed', top: "auto", bottom: 0, left: 0, right: 0, zIndex: 1000 }} elevation={3}>
                 <BottomNavigation>
-                    <BottomNavigationAction label="Menu" icon={<Menu/>} onClick={() => handleMenuDrawer(true)}/>
-                    <BottomNavigationAction component={Link} to={"/"} label="Home" icon={<Home/>}/>
+                    <BottomNavigationAction label="Menu" icon={<Menu />} onClick={() => handleMenuDrawer(true)} />
+                    <BottomNavigationAction component={Link} to={"/"} label="Home" icon={<Home />} />
                     <BottomNavigationAction label="Cart" icon={
                         <Badge badgeContent={itemsCount} color="error">
-                            <ShoppingCart/>
+                            <ShoppingCart />
                         </Badge>
                     }
-                                            onClick={() => handleBasketDrawer(true)}/>
+                        onClick={() => handleBasketDrawer(true)} />
 
 
                     {user ? (
-                        <BottomNavigationAction label="Account" icon={<AccountCircle/>}
-                                                onClick={() => handleUserDrawer(true)}/>
+                        <BottomNavigationAction label="Account" icon={<AccountCircle />}
+                            onClick={() => handleUserDrawer(true)} />
                     ) : (
-                        <BottomNavigationAction label="Account" icon={<AccountCircle/>} component={Link} to={"/login"}/>
+                        <BottomNavigationAction label="Account" icon={<AccountCircle />} component={Link} to={"/login"} />
                     )}
                 </BottomNavigation>
             </Paper>
@@ -59,13 +60,13 @@ export default function HeaderMobile({user, itemsCount}: Props) {
                 "& 	.MuiDrawer-paper": {
                     backgroundColor: "rgba(0,0,0,.9)",
                 }
-            }} variant={"temporary"}  anchor={"bottom"} open={open.menu}
-                    onClose={() => handleMenuDrawer(false)}>
-                <Container sx={{py: 2}}>
-                    <IconButton sx={{width: "100%", ml: 'auto'}} onClick={() => handleMenuDrawer(false)}>
-                        <ExpandMore/>
+            }} variant={"temporary"} anchor={"bottom"} open={open.menu}
+                onClose={() => handleMenuDrawer(false)}>
+                <Container sx={{ py: 2 }}>
+                    <IconButton sx={{ width: "100%", ml: 'auto' }} onClick={() => handleMenuDrawer(false)}>
+                        <ExpandMore />
                     </IconButton>
-                    <PagesList/>
+                    <PagesList onClose={() => handleMenuDrawer(false)} />
                 </Container>
             </Drawer>
 
@@ -74,13 +75,13 @@ export default function HeaderMobile({user, itemsCount}: Props) {
                 "& 	.MuiDrawer-paper": {
                     backgroundColor: "rgba(0,0,0,.9)",
                 }
-            }} variant={"temporary"}  anchor={"bottom"} open={open.user}
-                    onClose={() => handleUserDrawer(false)}>
-                <Container sx={{py: 2}}>
-                    <IconButton sx={{width: "100%", ml: 'auto'}} onClick={() => handleUserDrawer(false)}>
-                        <ExpandMore/>
+            }} variant={"temporary"} anchor={"bottom"} open={open.user}
+                onClose={() => handleUserDrawer(false)}>
+                <Container sx={{ py: 2 }}>
+                    <IconButton sx={{ width: "100%", ml: 'auto' }} onClick={() => handleUserDrawer(false)}>
+                        <ExpandMore />
                     </IconButton>
-                    <UserLinkList onClick={() => handleUserDrawer(false)}/>
+                    <UserLinkList onClick={() => handleUserDrawer(false)} />
                 </Container>
             </Drawer>
 
@@ -90,8 +91,8 @@ export default function HeaderMobile({user, itemsCount}: Props) {
                     color: "black"
                 }
             }} variant={"temporary"} anchor={"right"} open={open.basket}
-                    onClose={() => handleBasketDrawer(false)}>
-                <BasketMenu onClose={() => handleBasketDrawer(false)}/>
+                onClose={() => handleBasketDrawer(false)}>
+                <BasketMenu onClose={() => handleBasketDrawer(false)} />
             </Drawer>
         </Box>
 

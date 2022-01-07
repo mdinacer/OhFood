@@ -4,6 +4,6 @@ namespace API.Helpers
     {
         public string OrderBy { get; set; } = "name";
         public string? SearchTerm { get; set; }
-        public int? ProductType { get; set; }
+        public int? Category { get; set; }
     }
 }

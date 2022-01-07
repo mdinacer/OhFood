@@ -53,7 +53,7 @@ export default function BasketPage() {
                                         <Container>
                                             <Box display={"flex"} flexDirection={"column"}>
                                                 <Typography variant={"caption"}
-                                                            color={"text.secondary"}>{item.type}</Typography>
+                                                            color={"text.secondary"}>{item.category}</Typography>
                                                 <Typography variant={"subtitle1"}>{item.name}</Typography>
 
                                                 <Typography variant={"body1"}

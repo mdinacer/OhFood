@@ -5,14 +5,33 @@ namespace API.Data;
 
 public static class DbInitializer
 {
-    public static async Task Initialize(StoreContext context, UserManager<User> userManager)
+    public static async Task Initialize(StoreContext context, UserManager<User> userManager,
+        RoleManager<Role> roleManager)
     {
+        string[] roleNames = { "Admin", "Manager", "Member", "Agent" };
+
+        foreach (var roleName in roleNames)
+        {
+            var roleExist = await roleManager.RoleExistsAsync(roleName);
+            if (!roleExist)
+            {
+                await roleManager.CreateAsync(new Role { Name = roleName });
+            }
+        }
+
         if (!userManager.Users.Any())
         {
             var user = new User
             {
                 UserName = "bob",
-                Email = "bob@test.com"
+                Email = "bob@test.com",
+                Profile = new UserProfile
+                {
+                    FirstName = "Bob",
+                    LastName = "Bobity",
+                    Phone1 = "0558424643",
+                    LastLogin = DateTime.UtcNow,
+                }
             };
 
             await userManager.CreateAsync(user, "Pa$$w0rd");
@@ -21,7 +40,14 @@ public static class DbInitializer
             var admin = new User
             {
                 UserName = "admin",
-                Email = "admin@test.com"
+                Email = "admin@test.com",
+                Profile = new UserProfile
+                {
+                    FirstName = "Mohammedi",
+                    LastName = "Nacer",
+                    Phone1 = "0662991735",
+                    LastLogin = DateTime.UtcNow,
+                }
             };
 
             await userManager.CreateAsync(admin, "Pa$$w0rd");
@@ -31,8 +57,8 @@ public static class DbInitializer
         if (!context.Products.Any())
         {
             const string ingredients = "Ingredient 1 - Ingredient 2 - Ingredient 3 - Ingredient 4 - Ingredient 5";
-            
-            var sandwich = new ProductType
+
+            var sandwich = new Category
             {
                 Name = "Burger",
                 PictureUrl = "/images/backgrounds/types/burger_bg.webp",
@@ -102,7 +128,7 @@ public static class DbInitializer
                 }
             };
 
-            var pizza = new ProductType
+            var pizza = new Category
             {
                 Name = "Pizza",
                 PictureUrl = "/images/backgrounds/types/pizza_bg.webp",
@@ -215,7 +241,7 @@ public static class DbInitializer
                 }
             };
 
-            var wraps = new ProductType
+            var wraps = new Category
             {
                 Name = "Wraps",
                 PictureUrl = "/images/backgrounds/types/wrap_bg.webp",
@@ -264,7 +290,7 @@ public static class DbInitializer
                 }
             };
 
-            var dessert = new ProductType
+            var dessert = new Category
             {
                 Name = "Dessert",
                 PictureUrl = "/images/backgrounds/types/dessert_bg.webp",
@@ -300,7 +326,7 @@ public static class DbInitializer
                 }
             };
 
-            var drinks = new ProductType
+            var drinks = new Category
             {
                 Name = "Drinks",
                 PictureUrl = "/images/backgrounds/types/boissons_bg.webp",
@@ -344,8 +370,8 @@ public static class DbInitializer
                     },
                 }
             };
-            
-              var supplements = new ProductType
+
+            var supplements = new Category
             {
                 Name = "Sauces & Supplements",
                 PictureUrl = "/images/backgrounds/types/supplements_bg.webp",
@@ -360,7 +386,7 @@ public static class DbInitializer
                         PictureUrl = "/images/products/fromage.webp",
                         Inventory = 100
                     },
-                    
+
                     new()
                     {
                         Name = "Gruyere",
@@ -370,7 +396,7 @@ public static class DbInitializer
                         PictureUrl = "/images/products/fromage.webp",
                         Inventory = 100
                     },
-                    
+
                     new()
                     {
                         Name = "Fromage Rouge",
@@ -380,7 +406,7 @@ public static class DbInitializer
                         PictureUrl = "/images/products/fromage.webp",
                         Inventory = 100
                     },
-                    
+
                     new()
                     {
                         Name = "Cheddar",
@@ -390,7 +416,7 @@ public static class DbInitializer
                         PictureUrl = "/images/products/fromage.webp",
                         Inventory = 100
                     },
-                    
+
                     new()
                     {
                         Name = "Black Bread",
@@ -400,7 +426,7 @@ public static class DbInitializer
                         PictureUrl = "/images/products/fromage.webp",
                         Inventory = 100
                     },
-                    
+
                     new()
                     {
                         Name = "French Fries",
@@ -410,7 +436,7 @@ public static class DbInitializer
                         PictureUrl = "/images/products/fromage.webp",
                         Inventory = 100
                     },
-                    
+
                     new()
                     {
                         Name = "OH-MG Sauce",
@@ -420,7 +446,7 @@ public static class DbInitializer
                         PictureUrl = "/images/products/fromage.webp",
                         Inventory = 100
                     },
-                    
+
                     new()
                     {
                         Name = "Samurai Sauce",
@@ -430,7 +456,7 @@ public static class DbInitializer
                         PictureUrl = "/images/products/fromage.webp",
                         Inventory = 100
                     },
-                    
+
                     new()
                     {
                         Name = "BBQ Sauce",
@@ -440,12 +466,11 @@ public static class DbInitializer
                         PictureUrl = "/images/products/fromage.webp",
                         Inventory = 100
                     },
-                   
                 }
             };
 
 
-            context.ProductTypes.AddRange(sandwich, wraps, drinks, dessert, pizza, supplements);
+            context.Categories.AddRange(sandwich, wraps, drinks, dessert, pizza, supplements);
 
             await context.SaveChangesAsync();
         }
@@ -486,7 +511,7 @@ public static class DbInitializer
                         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum quasi eaque itaque modi neque eum perspiciatis sed non autem mollitia."
                 }
             };
-            
+
             context.Announces.AddRange(announces);
             await context.SaveChangesAsync();
         }

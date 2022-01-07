@@ -1,33 +1,30 @@
-import React, {useState} from "react";
-import {useAppSelector} from "../../store/configureStore";
+import React, { useState } from "react";
+import { useAppSelector } from "../../store/configureStore";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import UserMenu from "./UserMenu";
-import {Badge, Box, Container, Drawer, IconButton, MenuItem, useMediaQuery,} from "@mui/material";
+import { Badge, Box, Container, Drawer, IconButton, MenuItem, useMediaQuery, } from "@mui/material";
 
-import {AccountCircle, ShoppingCart} from "@mui/icons-material";
+import { AccountCircle, ShoppingCart } from "@mui/icons-material";
 
 import "./Header.scss";
 import PagesList from "./PagesList";
-import {useTheme} from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import HeaderMobile from "./HeaderMobile";
 import BasketMenu from "../../../features/basket/BasketMenu";
 import useSignalR from "../../hooks/useSignalR";
+import NotificationMenu from "./NotificationMenu";
 
 
 export default function Header() {
-    const {basket} = useAppSelector((state) => state.basket);
-    const {user} = useAppSelector((state) => state.account);
-    const {connection} = useSignalR("App")
+    const { basket } = useAppSelector((state) => state.basket);
+    const { user } = useAppSelector((state) => state.account);
+    const { connection } = useSignalR("App")
     const itemsCount = getBasketItemsCount();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-    const [state, setState] = useState({
-        top: false,
-        bottom: false,
-        right: false,
-    });
+    const [state, setState] = useState(false);
 
 
     function getBasketItemsCount() {
@@ -38,7 +35,12 @@ export default function Header() {
         }
     }
 
-    const closeDrawer = (value: boolean) => setState({...state, right: value});
+    const CustomAppBar = styled(AppBar)({
+        background: "rgba(0, 0, 0, .7)",
+        color: "#FFF",
+    })
+
+    const closeDrawer = (value: boolean) => setState(value);
 
     const toggleDrawer =
         (anchor: string, open: boolean) =>
@@ -51,34 +53,35 @@ export default function Header() {
                     return;
                 }
 
-                setState({...state, [anchor]: open});
+                setState(open);
             };
 
     return (
         <Box className={"header"}>
             {!isMobile ?
                 (
-                    <AppBar className="app-bar">
+                    <CustomAppBar elevation={1}>
                         <Container className="app-bar-container">
                             <Toolbar disableGutters variant={"dense"}>
                                 <Typography
                                     variant="h6"
                                     noWrap
                                     component="div"
-                                    sx={{mr: 2, display: {xs: "none", md: "flex"}}}
+                                    sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
                                 >
                                     OhFood
                                 </Typography>
 
                                 <Box
                                     sx={{
-                                        display: {xs: "none", md: "flex"},
+                                        display: { xs: "none", md: "flex" },
                                         mx: "auto",
                                     }}
                                 >
-                                    <PagesList/>
+                                    <PagesList onClose={() => {
+                                    }} />
                                 </Box>
-                                <MenuItem sx={{px: 0}}>
+                                <MenuItem sx={{ px: 0 }}>
                                     <IconButton
                                         size="small"
                                         aria-label="show Shopping cart"
@@ -86,13 +89,13 @@ export default function Header() {
                                         onClick={toggleDrawer("right", true)}
                                     >
                                         <Badge badgeContent={itemsCount} color="error">
-                                            <ShoppingCart/>
+                                            <ShoppingCart />
                                         </Badge>
                                     </IconButton>
                                 </MenuItem>
-                                <MenuItem sx={{px: 1}}>
+                                <MenuItem sx={{ px: 1 }}>
                                     {user ? (
-                                        <UserMenu user={user}/>
+                                        <UserMenu user={user} />
                                     ) : (
                                         <IconButton
                                             size="small"
@@ -100,22 +103,26 @@ export default function Header() {
                                             color="inherit"
                                             href={"/login"}
                                         >
-                                            <AccountCircle/>
+                                            <AccountCircle />
                                         </IconButton>
                                     )}
                                 </MenuItem>
+
+                                {user && (
+                                    <NotificationMenu />
+                                )}
                             </Toolbar>
                         </Container>
-                    </AppBar>
+                    </CustomAppBar>
                 ) :
                 (
-                    <HeaderMobile user={user} itemsCount={itemsCount}/>
+                    <HeaderMobile user={user} itemsCount={itemsCount} />
                 )
             }
 
             <Drawer
                 anchor={"right"}
-                open={state["right"]}
+                open={state}
                 onClose={toggleDrawer("right", false)}
                 sx={{
                     "& 	.MuiDrawer-paper": {
@@ -124,7 +131,7 @@ export default function Header() {
                     }
                 }} variant={"temporary"}
             >
-                <BasketMenu onClose={closeDrawer}/>
+                <BasketMenu onClose={closeDrawer} />
             </Drawer>
 
         </Box>

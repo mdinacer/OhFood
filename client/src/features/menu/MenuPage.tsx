@@ -3,7 +3,7 @@ import useProducts from "../../app/hooks/useProducts";
 import {useAppDispatch} from "../../app/store/configureStore";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import {useEffect, useState} from "react";
-import {ProductType} from "../../app/models/productType";
+import {Category} from "../../app/models/category";
 import ProductList from "./ProductList";
 import {setProductParams} from "../../app/slices/catalogSlice";
 import {GridView, Menu, Search, ViewAgenda} from '@mui/icons-material';
@@ -18,9 +18,9 @@ const newItem = {name: "All", id: 0, pictureUrl: "/images/backgrounds/product_de
 export default function MenuPage() {
     const dispatch = useAppDispatch();
     const {state}: any = useLocation()
-    const {products, types, typesLoaded, metaData} = useProducts();
-    const [productTypes, setProductTypes] = useState<ProductType[]>([]);
-    const [selectedType, setSelectedType] = useState<ProductType | null>(null);
+    const {products, categories, categoriesLoaded, metaData} = useProducts();
+    const [productCategories, setProductCategories] = useState<Category[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
     const [itemView, setItemView] = useState(6);
 
     const [isOpen, setIsOpen] = useState({
@@ -33,18 +33,18 @@ export default function MenuPage() {
     const handleSearchCollapse = (state: boolean) =>
         setIsOpen({...isOpen, searchCollapse: state});
 
-    const getBackground = () => selectedType && selectedType.pictureUrl
-        ? selectedType.pictureUrl
+    const getBackground = () => selectedCategory && selectedCategory.pictureUrl
+        ? selectedCategory.pictureUrl
         : "/images/backgrounds/product_details_bg.webp";
 
 
     useEffect(() => {
-        if (typesLoaded) {
-            const values = [newItem, ...types];
-            setProductTypes(values);
-            setSelectedType(newItem)
+        if (categoriesLoaded) {
+            const values = [newItem, ...categories];
+            setProductCategories(values);
+            setSelectedCategory(newItem)
         }
-    }, [types, typesLoaded])
+    }, [categories, categoriesLoaded])
 
 
     // useEffect(() => {
@@ -54,25 +54,25 @@ export default function MenuPage() {
     // },[connection])
 
     function handleTypeChanged(typeId: number) {
-        const type = types.find(t => t.id === typeId)
-        if (type) {
-            setSelectedType(type);
+        const category = categories.find(c => c.id === typeId)
+        if (category) {
+            setSelectedCategory(category);
             handleCloseFiltersDrawer();
-            dispatch(setProductParams({type: type.id > 0 ? type.id : null}));
+            dispatch(setProductParams({type: category.id > 0 ? category.id : null}));
         } else {
             dispatch(setProductParams({type: null}));
         }
     }
 
     useEffect(() => {
-        if (typesLoaded && state && state.typeId) {
-            const type = types.find(t => t.id === parseInt(state.typeId))
-            if (type) {
-                dispatch(setProductParams({type: type.id}));
-                setSelectedType(type)
+        if (categoriesLoaded && state && state.categoryId) {
+            const category = categories.find(c => c.id === parseInt(state.categoryId))
+            if (category) {
+                dispatch(setProductParams({type: category.id}));
+                setSelectedCategory(category)
             }
         }
-    }, [dispatch, state, types, typesLoaded])
+    }, [categories, categoriesLoaded, dispatch, state])
 
     function handleSortChanged(sort: string) {
         dispatch(setProductParams({orderBy: sort}));
@@ -90,11 +90,11 @@ export default function MenuPage() {
     )
 
     const list = () => (
-        <FiltersList productTypes={productTypes} handleTypeChanged={handleTypeChanged}
-                     handleSortChanged={handleSortChanged} selectedTypeId={selectedType?.id}/>
+        <FiltersList categories={productCategories} handleCategoryChanged={handleTypeChanged}
+                     handleSortChanged={handleSortChanged} selectedCategoryId={selectedCategory?.id}/>
     )
 
-    if (!typesLoaded || (!typesLoaded && state && state.typeId)) return <LoadingComponent/>
+    if (!categoriesLoaded || (!categoriesLoaded && state && state.categoryId)) return <LoadingComponent/>
 
     return (
         <>
@@ -104,7 +104,7 @@ export default function MenuPage() {
             }}>
                 <Container sx={{height: "100%", display: "flex", flexDirection: "column"}}>
                     <Box sx={{flex: "0 1 auto"}}>
-                        <Typography variant={"h1"}>Menu</Typography>
+                        <Typography variant={"h4"} component={"h1"}>Menu</Typography>
                         <Box sx={{pb: 3, width: "400px", ml: "auto", mr: 3, display: {xs: "none", md: "block"}}}>
                             {searchInput()}
                         </Box>

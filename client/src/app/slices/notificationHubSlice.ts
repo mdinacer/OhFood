@@ -1,5 +1,6 @@
 import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 import {NotificationItem} from "../models/notification";
+import {RootState} from "../store/configureStore";
 
 interface NotificationHubState {
     notificationsLoaded: boolean;
@@ -19,5 +20,8 @@ export const notificationSlice = createSlice({
         updateNotification: notificationsAdapter.updateOne,
     }
 })
+
+export const notificationSelectors = notificationsAdapter
+    .getSelectors((state: RootState) => state.notification);
 
 export const {addNotification, removeNotification, updateNotification} = notificationSlice.actions;

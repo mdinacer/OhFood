@@ -30,10 +30,10 @@ namespace API.Extensions
         }
 
 
-        public static IQueryable<Product> Filter(this IQueryable<Product> query, int? type)
+        public static IQueryable<Product> Filter(this IQueryable<Product> query, int? category)
         {
-            if (type is >= 0)
-                query = query.Where(p => p.TypeId == type);
+            if (category is >= 0)
+                query = query.Where(p => p.CategoryId == category);
 
             return query;
         }

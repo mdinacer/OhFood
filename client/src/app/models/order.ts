@@ -1,12 +1,4 @@
-export interface ShippingAddress {
-    fullName: string;
-    address1: string;
-    address2: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    country: string;
-}
+import {ShippingAddress} from "./shippingAddress";
 
 export interface OrderItem {
     productId: number;

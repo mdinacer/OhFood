@@ -23,7 +23,7 @@ namespace API.Controllers
         [HttpGet(Name = "GetBasket")]
         public async Task<ActionResult<BasketDto>> GetBasket()
         {
-            var basket = await RetriveBasket(GetBuyerId());
+            var basket = await RetrieveBasket(GetBuyerId());
 
             if (basket == null) return NotFound();
 
@@ -33,9 +33,9 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<BasketDto>> AddItemToBasket(int productId, int quantity)
         {
-            var basket = await RetriveBasket(GetBuyerId()) ?? CreateBasket();
+            var basket = await RetrieveBasket(GetBuyerId()) ?? CreateBasket();
             var product = await _context.Products
-                .Include(p => p.Type)
+                .Include(p => p.Category)
                 .SingleOrDefaultAsync(p => p.Id == productId);
             if (product == null) return BadRequest(new ProblemDetails { Title = "Product not found" });
             basket.AddItem(product, quantity);
@@ -53,7 +53,7 @@ namespace API.Controllers
         [HttpDelete]
         public async Task<ActionResult> RemoveBasketItem(int productId, int quantity)
         {
-            var basket = await RetriveBasket(GetBuyerId());
+            var basket = await RetrieveBasket(GetBuyerId());
             if (basket == null) return NotFound();
 
             basket.RemoveItem(productId, quantity);
@@ -65,13 +65,13 @@ namespace API.Controllers
                 : BadRequest(new ProblemDetails { Title = "Problem removing item from basket" });
         }
 
-        private async Task<Basket?> RetriveBasket(string? buyerId)
+        private async Task<Basket?> RetrieveBasket(string? buyerId)
         {
             if (!string.IsNullOrEmpty(buyerId))
                 return await _context.Baskets
                     .Include(basket => basket.Items)
                     .ThenInclude(item => item.Product)
-                    .ThenInclude(p => p.Type)
+                    .ThenInclude(p => p.Category)
                     .SingleOrDefaultAsync(basket => basket.BuyerId == buyerId);
             Response.Cookies.Delete("buyerId");
             return null;

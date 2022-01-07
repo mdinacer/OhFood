@@ -1,4 +1,4 @@
-import {Box, Container, Grid, List, ListItem, ListItemText, Typography,} from "@mui/material";
+import { Box, Container, Grid, List, ListItem, ListItemText, Typography, } from "@mui/material";
 import "./Contact.scss";
 
 export default function Contact() {
@@ -10,15 +10,14 @@ export default function Contact() {
                 height: "auto",
                 width: "100%",
                 color: "white",
-                py: 5,
+                pt: { md: 7, xs: 4 },
+                mb: { xs: 7, md: 2 },
             }}
         >
             <Typography
                 variant="h3"
                 sx={{
                     textTransform: "uppercase",
-                    pt: 10,
-                    mb: 2,
                     color: "white",
                 }}
             >
@@ -51,7 +50,7 @@ export default function Contact() {
 
                             <ListItem>
                                 <ListItemText primary={<Typography>Delivery Service</Typography>}
-                                              secondary={<Typography>01845-668372/ 07945-681442</Typography>}
+                                    secondary={<Typography>01845-668372/ 07945-681442</Typography>}
                                 />
                             </ListItem>
 
@@ -80,7 +79,7 @@ export default function Contact() {
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                    <Box sx={{borderRadius: 3, overflow: "hidden", my: 5}}>
+                    <Box sx={{ borderRadius: 3, overflow: "hidden", my: 5 }}>
                         <iframe
                             title="Shop position"
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d317718.69319292053!2d-0.3817765050863085!3d51.528307984912544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C%20UK!5e0!3m2!1sen!2sdz!4v1640637788861!5m2!1sen!2sdz"

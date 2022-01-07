@@ -128,20 +128,38 @@ public class OrdersController : BaseApiController
         _context.Orders.Add(order);
         _context.Baskets.Remove(basket);
 
-        if (orderDto.SaveAddress)
-        {
-            var user = await _context.Users
-                .Include(a => a.Address)
-                .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
 
-            var address = new UserAddress
+        var user = await _context.Users
+            .Include(a => a.Profile)
+            .ThenInclude(p => p.Addresses)
+            .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
+
+
+        if (user != null)
+        {
+            var addressExists = user!.Profile.Addresses
+                .Any(a => a.FullName == orderDto.ShippingAddress.FullName
+                          && a.Address1 == orderDto.ShippingAddress.Address1);
+
+            if (!addressExists)
             {
-                FullName = orderDto.ShippingAddress.FullName,
-                Address1 = orderDto.ShippingAddress.Address1,
-                City = orderDto.ShippingAddress.City,
-            };
-            user!.Address = address;
+                var address = new UserAddress
+                {
+                    FullName = orderDto.ShippingAddress.FullName,
+                    Address1 = orderDto.ShippingAddress.Address1,
+                    City = orderDto.ShippingAddress.City,
+                    IsDefault = orderDto.SaveAddress
+                };
+
+                if (orderDto.SaveAddress)
+                {
+                    user.Profile.Addresses.ForEach(a => a.IsDefault = false);
+                }
+
+                user.Profile.Addresses.Add(address);
+            }
         }
+
 
         var result = await _context.SaveChangesAsync() > 0;
 

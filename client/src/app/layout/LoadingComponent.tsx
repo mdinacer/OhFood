@@ -1,34 +1,35 @@
-import {Backdrop, Typography} from "@mui/material";
-import {Box} from "@mui/system";
+import { Backdrop, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 
 interface Props {
     message?: string;
 }
 
-export default function LoadingComponent({message = "Loading"}: Props) {
+export default function LoadingComponent({ message = "Loading" }: Props) {
     return (
-        <Backdrop open={true} invisible={true}>
+        <Backdrop open={true} invisible={false}>
             <Box
                 className={"loading"}
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                height="100vh" width={"10M%"}
+                height="100vh" width={"100%"}
             >
                 <div>
-                    <span/>
-                    <span/>
-                    <span/>
-                    <span/>
+                    <span />
+                    <span />
+                    <span />
+                    <span />
                 </div>
                 <Typography
-                    variant="h4"
+                    textAlign={"center"}
+                    variant="h6"
                     sx={{
                         justifyContent: "center",
                         position: "fixed",
                         top: "60%",
                         color: "white",
-                        textTransform:"uppercase"
+                        textTransform: "uppercase"
                     }}
                 >
                     {message}

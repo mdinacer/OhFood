@@ -3,9 +3,9 @@ export interface BasketItem {
     name: string;
     price: number;
     pictureUrl: string;
-    brand: string;
-    type: string;
+    category: string;
     quantity: number;
+
 }
 
 export interface NewBasketItem {
@@ -13,8 +13,7 @@ export interface NewBasketItem {
     name: string;
     price: number;
     pictureUrl: string;
-    brand: string;
-    type: string;
+    category: string;
     quantity: number;
 }
 

@@ -1,22 +1,22 @@
 import {Container, List, ListItemButton, ListItemText, ListSubheader, Typography} from "@mui/material";
 import {sortOptions} from "./sortOptions";
 import {useState} from "react";
-import {ProductType} from "../../app/models/productType";
+import {Category} from "../../app/models/category";
 
 
 interface Props {
-    productTypes: ProductType[]
-    handleTypeChanged: (value: number) => void;
+    categories: Category[]
+    handleCategoryChanged: (value: number) => void;
     handleSortChanged: (value: string) => void;
-    selectedTypeId?: number | null
+    selectedCategoryId?: number | null
 }
 
 
-export default function FiltersList({productTypes, handleTypeChanged, handleSortChanged, selectedTypeId = 0}: Props) {
-    const [selectedItems, setSelectedItems] = useState({type: selectedTypeId, sort: "name"})
+export default function FiltersList({categories, handleCategoryChanged, handleSortChanged, selectedCategoryId = 0}: Props) {
+    const [selectedItems, setSelectedItems] = useState({type: selectedCategoryId, sort: "name"})
 
     function handleTypeChange(value: number) {
-        handleTypeChanged(value);
+        handleCategoryChanged(value);
         setSelectedItems({...selectedItems, type: value});
     }
 
@@ -29,17 +29,17 @@ export default function FiltersList({productTypes, handleTypeChanged, handleSort
         <Container className={"filters-list"}>
             <List dense subheader={<li/>}>
                 <ListSubheader>
-                    <Typography variant={"subtitle1"}>Types</Typography>
+                    <Typography variant={"subtitle1"}>Categories</Typography>
                 </ListSubheader>
-                {productTypes.map((type) => (
+                {categories.map((category) => (
                     <ListItemButton
-                        key={type.id}
-                        selected={selectedItems.type === type.id}
-                        onClick={() => handleTypeChange(type.id)}
+                        key={category.id}
+                        selected={selectedItems.type === category.id}
+                        onClick={() => handleTypeChange(category.id)}
                     >
 
                         <ListItemText primary={
-                            <Typography variant={"subtitle2"}>{type.name}</Typography>
+                            <Typography variant={"subtitle2"}>{category.name}</Typography>
                         }/>
                     </ListItemButton>
                 ))}

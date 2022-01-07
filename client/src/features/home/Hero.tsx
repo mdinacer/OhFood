@@ -1,92 +1,59 @@
-import {Box, Container, Typography} from "@mui/material";
+import { Box, Button, Container, Stack, Typography, useMediaQuery } from "@mui/material";
 import "./Hero.scss";
+import { useTheme } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     return (
-        <Box
-            component="div"
+        <Box component="div" className="hero"
             sx={{
-                position: "relative",
-                height: "100vh",
-                width: "100%",
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "center",
+                alignItems: { xs: "center", md: "flex-end" },
+                pt: { xs: 2, md: 7 },
+                pb: { xs: 7, md: 2 },
             }}
-            className="hero"
         >
+            {!isMobile && (
+                <>
+                    <Box
+                        component="video"
+                        loop
+                        autoPlay
+                        muted
+                        className="hero-video"
+                        poster="/images/hero/hero.webp"
+                        src="/videos/hero_low.mp4"
+                    />
+                    <Box component="div" className="overlay" />
+                </>
+            )}
 
 
-            <Box
-                component="video"
-                loop
-                autoPlay
-                muted
-                className="hero-video"
-                poster="/images/hero/hero.webp"
-                src="/videos/hero_low.mp4"
-                sx={{
-                    display: {xs: "none", md: "block"},
-                    position: "absolute",
-                    left: 0,
-                    top: 0,
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                }}
-            />
-
-            <Box
-                component="img"
-                className="hero-image"
-                src="/images/hero/hero.webp"
-                alt="hero"
-                sx={{
-                    display: {xs: "block", md: "none"},
-                    position: "absolute",
-                    left: 0,
-                    top: 0,
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                }}
-            />
-
-            <Box
-                className="overlay"
-                sx={{
-                    position: "absolute",
-                    left: 0,
-                    top: 0,
-                    height: "100%",
-                    width: "100%",
-                }}
-            />
 
             <Container
                 sx={{
-                    mb: 5,
+                    mb: 3,
                     py: 2,
                 }}
                 className="text"
             >
-                <Typography variant="h1" gutterBottom>
+                <Typography variant="h1" >
                     Never Stop
                 </Typography>
                 <Typography variant="h3" gutterBottom>
                     <span className="explore-text">Exploring</span> the tastes
                 </Typography>
-                <Typography variant="body1" gutterBottom sx={{maxWidth: "500px"}}>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloremque
-                    commodi maxime a quo voluptate aliquam ipsa sapiente obcaecati fuga
-                    amet!
-                </Typography>
-                {/*<Button disableElevation variant="contained" href="#menu">*/}
-                {/*    Explore*/}
-                {/*</Button>*/}
+
+                <Stack direction="row" sx={{ my: 2, ml: 2 }}>
+                    <Button color="inherit" disableElevation variant="outlined" href="#menu">
+                        Explore
+                    </Button>
+                    <Button component={Link} to="/menu" sx={{ mx: 2, color: "inherit" }} disableElevation variant="contained">
+                        Order
+                    </Button>
+                </Stack>
             </Container>
-        </Box>
+        </Box >
     );
 }

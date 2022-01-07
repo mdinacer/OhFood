@@ -8,29 +8,19 @@ namespace API.Extensions
     {
         public static BasketDto ToBasketDto(this Basket basket)
         {
-            var items = basket.Items.Select(item => new BasketItemDto
-            {
-                ProductId = item.ProductId,
-                Name = item.Product.Name,
-                Type = item.Product.Type.Name,
-                PictureUrl = item.Product.PictureUrl,
-                Price = item.Product.Price,
-                Quantity = item.Quantity
-            }).ToList();
             var basketDto = new BasketDto
             {
                 Id = basket.Id,
                 BuyerId = basket.BuyerId,
-                ClientSecret = basket.ClientSecret,
                 Items = basket.Items.Select(item => new BasketItemDto
                 {
                     ProductId = item.ProductId,
                     Name = item.Product.Name,
-                    Type = item.Product.Type.Name,
+                    category = item.Product.Category.Name,
                     PictureUrl = item.Product.PictureUrl,
                     Price = item.Product.Price,
                     Quantity = item.Quantity
-                }).ToList()
+                }).ToList(),
             };
 
             return basketDto;
@@ -40,7 +30,7 @@ namespace API.Extensions
         {
             return query.Include(b => b.Items)
                 .ThenInclude(item => item.Product)
-                .ThenInclude(p => p.Type)
+                .ThenInclude(p => p.Category)
                 .Where(b => b.BuyerId == buyerId);
         }
     }

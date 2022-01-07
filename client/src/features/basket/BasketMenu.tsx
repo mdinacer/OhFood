@@ -22,13 +22,14 @@ export default function BasketMenu({onClose}: Props) {
             height: "100%",
             display: "flex",
             flexDirection: "column",
+
         }}>
             <Stack sx={{py: 1, px: 2, flex: "0 1 auto"}} direction={"row"}
                    justifyContent={"space-between"} alignItems={"center"}>
                 <IconButton onClick={() => onClose(false)} color={"inherit"}>
                     <Close/>
                 </IconButton>
-                <Typography variant={"h6"}>Basket</Typography>
+                <Typography variant={"h6"}>Order Bag</Typography>
             </Stack>
             <Box sx={{flex: "1 1 auto", overflow: "auto"}} bgcolor={grey[200]}>
                 {basket && basket.items.length > 0 ?
@@ -45,14 +46,13 @@ export default function BasketMenu({onClose}: Props) {
                         <Box sx={{minWidth: {xs: "80vw", md: 500}}} height={"100%"} display={"flex"}
                              alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
                             <Typography variant='h6'>Your bag is empty</Typography>
-                            <Typography component={Link} to={"/menu"} onClick={() => onClose(false)}>Menu</Typography>
                         </Box>
                     )}
             </Box>
 
 
             <Container sx={{flex: "0 1 auto", py: 3}}>
-                <Typography variant={"caption"}>Shipping & taxes calculated at checkout</Typography>
+                <Typography variant={"caption"}>Shipping costs are calculated at checkout</Typography>
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                     <Typography variant={"caption"}>Total</Typography>
                     <Typography variant={"subtitle1"}>{currencyFormat(subtotal, "$")}</Typography>

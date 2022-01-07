@@ -4,6 +4,7 @@ using API.Entities;
 using API.Extensions;
 using API.Interfaces;
 using API.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +19,14 @@ namespace API.Controllers
         private readonly TokenService _tokenService;
         private readonly StoreContext _context;
         private readonly IMailService _mailService;
+        private readonly IMapper _mapper;
 
         public AccountController(UserManager<User> userManager, TokenService tokenService, StoreContext context,
-            IMailService mailService)
+            IMailService mailService, IMapper mapper)
         {
             _context = context;
             _mailService = mailService;
+            _mapper = mapper;
             _tokenService = tokenService;
             _userManager = userManager;
         }
@@ -31,7 +34,11 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _userManager.FindByNameAsync(loginDto.Username);
+            var user = await _context.Users
+                .Include(u => u.Profile)
+                .SingleOrDefaultAsync(u =>
+                    u.UserName == loginDto.Username);
+            //_userManager.FindByNameAsync(loginDto.Username);
 
             if (user == null || !await _userManager.CheckPasswordAsync(user, loginDto.Password))
             {
@@ -53,6 +60,7 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Email = user.Email,
+                Profile = _mapper.Map<UserProfileDto>(user.Profile),
                 Token = await _tokenService.GenerateToken(user),
                 Basket = anonBasket?.ToBasketDto() ?? userBasket?.ToBasketDto()
             };
@@ -88,31 +96,23 @@ namespace API.Controllers
         [HttpGet("currentUser")]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity!.Name);
+            var user = await _context.Users
+                .Include(u => u.Profile)
+                .SingleOrDefaultAsync(u =>
+                    u.UserName == User.Identity!.Name);
             var userBasket = await RetrieveBasket(User.Identity!.Name);
 
+            if (user == null) return BadRequest(new ProblemDetails { Title = "You must be logged in" });
             return new UserDto
             {
                 Username = user.UserName,
                 Email = user.Email,
                 Token = await _tokenService.GenerateToken(user),
                 Basket = userBasket?.ToBasketDto(),
+                Profile = _mapper.Map<UserProfileDto>(user.Profile)
             };
         }
 
-        [Authorize]
-        [HttpGet("defaultAddress")]
-        public async Task<ActionResult<UserAddress>> GetDefaultAddress()
-        {
-            var address = await _userManager.Users
-                .Where(u => u.UserName == User.Identity!.Name)
-                .Select(u => u.Address)
-                .FirstOrDefaultAsync();
-
-            //if(address == null) return NotFound();
-
-            return address;
-        }
 
         [HttpPost("sendMail")]
         public async Task<IActionResult> SendMail([FromForm] MailRequest request)
@@ -127,7 +127,7 @@ namespace API.Controllers
                 return await _context.Baskets
                     .Include(basket => basket.Items)
                     .ThenInclude(item => item.Product)
-                    .ThenInclude(p => p.Type)
+                    .ThenInclude(p => p.Category)
                     .SingleOrDefaultAsync(basket => basket.BuyerId == buyerId);
             Response.Cookies.Delete("buyerId");
             return null;
