@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { ThemeProvider } from "@emotion/react";
-import { Button, createTheme, CssBaseline } from "@mui/material";
+import { createTheme, CssBaseline } from "@mui/material";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./PrivateRoute";
@@ -12,8 +12,6 @@ import LoadingComponent from "./LoadingComponent";
 import Header from "./header/Header";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./App.scss";
-import axios, { Axios } from "axios";
-import { METHODS } from "http";
 import agent from "../api/agent";
 
 const CheckoutPage = lazy(() => import("../../features/checkout/CheckoutPage"));
@@ -85,16 +83,9 @@ function App() {
   }, [initApp]);
 
   useEffect(() => {
-    navigator.permissions.query({ name: 'geolocation' }).then((result) => {
-      if (result.state === 'granted') {
-        navigator.geolocation.getCurrentPosition(function (position) {
-          setLocation({ lat: position.coords.latitude, long: position.coords.longitude })
-        });
-      } else if (result.state === 'prompt') {
-        console.log('prompting');
-
-      } else if (result.state === 'denied') {
-        setLocation(null)
+    navigator.geolocation.getCurrentPosition(function (position) {
+      if (position) {
+        setLocation({ lat: position.coords.latitude, long: position.coords.longitude })
       }
     });
 
