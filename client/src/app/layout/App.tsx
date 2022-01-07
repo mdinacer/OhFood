@@ -118,11 +118,6 @@ function App() {
       <ToastContainer position="bottom-right" hideProgressBar theme="colored" />
       <CssBaseline />
       {!pathname.includes("/admin") && <Header />}
-      {location && (
-        <Button href={`https://www.google.com/maps/search/?api=1&query=${location.lat},${location.long}`} target="_blank">
-          Go to place
-        </Button>
-      )}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
