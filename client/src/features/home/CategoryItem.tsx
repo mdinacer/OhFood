@@ -6,16 +6,17 @@ import {
     IconButton,
     List,
     ListItem,
+    ListItemButton,
     ListItemText,
     Paper,
     Typography,
     useMediaQuery
 } from "@mui/material";
-import {CategoryFull} from "../../app/models/category";
-import {ExpandLessOutlined, ExpandMoreOutlined, ShoppingCart} from "@mui/icons-material";
-import {currencyFormat} from "../../app/util/util";
-import {useTheme} from '@mui/material/styles';
-import {useNavigate} from "react-router-dom";
+import { CategoryFull } from "../../app/models/category";
+import { AspectRatio, ExpandLessOutlined, ExpandMoreOutlined, OpenInBrowser, ShoppingCart } from "@mui/icons-material";
+import { currencyFormat } from "../../app/util/util";
+import { useTheme } from '@mui/material/styles';
+import { Link, useNavigate } from "react-router-dom";
 
 interface Props {
     item: CategoryFull;
@@ -23,7 +24,7 @@ interface Props {
     collapsed: { title: string | null; }
 }
 
-export default function CategoryItem({item, handleCollapsed, collapsed}: Props) {
+export default function CategoryItem({ item, handleCollapsed, collapsed }: Props) {
 
     const navigate = useNavigate();
     const theme = useTheme();
@@ -35,12 +36,12 @@ export default function CategoryItem({item, handleCollapsed, collapsed}: Props) 
             sx={{
                 p: 1,
                 ml: "auto",
-                color: "rgba(255, 255, 255, 0.54)",
+                //color: "rgba(255, 255, 255, 0.54)",
             }}
-            onClick={() => navigate('/menu', {state: {typeId: item.id}})}
+            onClick={() => navigate('/menu', { state: { typeId: item.id } })}
             aria-label={`info about ${item.name}`}
         >
-            <ShoppingCart fontSize="large" color="inherit"/>
+            <ShoppingCart fontSize="large" color="primary" />
         </IconButton>
     )
 
@@ -53,9 +54,9 @@ export default function CategoryItem({item, handleCollapsed, collapsed}: Props) 
             aria-label={`info about ${item.name}`}
         >
             {collapsed.title === item.name ? (
-                <ExpandMoreOutlined fontSize="large" color="primary"/>
+                <ExpandMoreOutlined fontSize="large" color="primary" />
             ) : (
-                <ExpandLessOutlined fontSize="large" color="inherit"/>
+                <OpenInBrowser fontSize="large" color="primary" />
             )}
         </IconButton>
     );
@@ -74,36 +75,31 @@ export default function CategoryItem({item, handleCollapsed, collapsed}: Props) 
                     overflow: "auto",
                     height: "100%",
                     pr: 1,
-                    "& ul": {padding: 0},
+                    "& ul": { padding: 0 },
                 }}
             >
                 {item.products.map((product) => (
-                    <ListItem key={product.name}>
-                        <ListItemText
-                            primary={
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        justifyContent: "space-between",
-                                    }}
-                                >
-                                    <Typography variant="body1">
-                                        {product.name}
-                                    </Typography>
-                                    <Typography variant="subtitle1">
-                                        {product.price > 0
-                                            ? `${currencyFormat(product.price, "$")}`
-                                            : "Free"}
-                                    </Typography>
-                                </Box>
-                            }
-                            secondary={!isSmall &&
-                                (<Typography variant="caption">
-                                    {product.ingredients}
-                                </Typography>)
-                            }
-                        />
+                    <ListItem key={product.name} >
+                        <ListItemButton component={Link} to={`/menu/${product.id}`} color="inherit">
+                            <Box
+                                sx={{
+                                    width: "100%",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    borderBottom: "1px solid rgba(255,255,255,.5)",
+                                }}
+                            >
+                                <Typography variant="body1">
+                                    {product.name}
+                                </Typography>
+                                <Typography variant="subtitle1">
+                                    {product.price > 0
+                                        ? `${currencyFormat(product.price, "$")}`
+                                        : "Free"}
+                                </Typography>
+                            </Box>
+                        </ListItemButton>
                     </ListItem>
                 ))}
             </List>
@@ -136,7 +132,7 @@ export default function CategoryItem({item, handleCollapsed, collapsed}: Props) 
                     py: 2
                 }}
             >
-                <Container sx={{flex: "0 1 auto"}}>
+                <Container sx={{ flex: "0 1 auto" }}>
                     <Box
                         sx={{
                             display: "flex",
@@ -145,11 +141,12 @@ export default function CategoryItem({item, handleCollapsed, collapsed}: Props) 
                             alignItems: "center",
                         }}
                     >
-                        <Typography variant="h5" sx={{width: "100%"}}
-                                    onClick={() => handleCollapsed(item.name)}>{item.name}</Typography>
 
-                        {cartButton()}
+                        <Typography variant="h5" sx={{ width: "100%" }}
+                            onClick={() => handleCollapsed(item.name)}>{item.name}</Typography>
+
                         {toggleCollapseButton()}
+                        {/* {cartButton()} */}
                     </Box>
                 </Container>
                 {productsList(true)}
@@ -172,7 +169,7 @@ export default function CategoryItem({item, handleCollapsed, collapsed}: Props) 
         >
             <Box
                 sx={{
-                    display: {xs: "block", md: "block"},
+                    display: { xs: "block", md: "block" },
                     height: "100%",
                     width: "100%",
                     objectFit: "cover",
@@ -189,8 +186,9 @@ export default function CategoryItem({item, handleCollapsed, collapsed}: Props) 
                 className="text-container absolute"
                 sx={{
                     py: 3,
-                    maxHeight: {md: 500, xs: 300},
+                    maxHeight: { md: 500, xs: 300 },
                     width: "100%",
+                    overflow: "auto",
                 }}
             >
                 <Container>
@@ -202,10 +200,11 @@ export default function CategoryItem({item, handleCollapsed, collapsed}: Props) 
                             alignItems: "center",
                         }}
                     >
-                        <Typography sx={{cursor: "pointer", width: "100%"}} variant="h5"
-                                    onClick={() => handleCollapsed(item.name)}>{item.name}</Typography>
-                        {cartButton()}
+                        <Typography sx={{ cursor: "pointer", width: "100%" }} variant="h5"
+                            onClick={() => handleCollapsed(item.name)}>{item.name}</Typography>
+
                         {toggleCollapseButton()}
+                        {/* {cartButton()} */}
                     </Box>
 
 

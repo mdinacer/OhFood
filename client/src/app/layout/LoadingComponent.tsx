@@ -1,40 +1,44 @@
-import { Backdrop, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import LoadingAnimation from "./LoadingAnimation";
 
 interface Props {
     message?: string;
+    fullScreen?: boolean
 }
 
-export default function LoadingComponent({ message = "Loading" }: Props) {
+export default function LoadingComponent({ fullScreen = false, message = "Loading" }: Props) {
     return (
-        <Backdrop open={true} invisible={false}>
-            <Box
-                className={"loading"}
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                height="100vh" width={"100%"}
+
+        <Box
+            className={"loading"}
+            sx={{
+                minHeight: fullScreen ? "100vh" : "50vh",
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0,0,0,.7)",
+                color: "white",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center"
+            }}
+        >
+
+
+            <LoadingAnimation />
+            <Typography
+                textAlign={"center"}
+                variant="h6"
+                sx={{
+                    mb: 5,
+                    color: "white",
+                    textTransform: "uppercase"
+                }}
             >
-                <div>
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                </div>
-                <Typography
-                    textAlign={"center"}
-                    variant="h6"
-                    sx={{
-                        justifyContent: "center",
-                        position: "fixed",
-                        top: "60%",
-                        color: "white",
-                        textTransform: "uppercase"
-                    }}
-                >
-                    {message}
-                </Typography>
-            </Box>
-        </Backdrop>
+                {message}
+            </Typography>
+
+        </Box>
     );
 }

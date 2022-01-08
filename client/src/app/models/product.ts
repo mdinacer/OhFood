@@ -10,7 +10,7 @@ export interface Product {
 }
 
 export interface ProductLite {
-
+    id: number;
     name: string;
     description: string;
     price: number;

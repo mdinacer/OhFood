@@ -15,6 +15,7 @@ import HeaderMobile from "./HeaderMobile";
 import BasketMenu from "../../../features/basket/BasketMenu";
 import useSignalR from "../../hooks/useSignalR";
 import NotificationMenu from "./NotificationMenu";
+import { Link } from "react-router-dom";
 
 
 export default function Header() {
@@ -64,13 +65,19 @@ export default function Header() {
                         <Container className="app-bar-container">
                             <Toolbar disableGutters variant={"dense"}>
                                 <Typography
-                                    variant="h6"
+
+                                    component={Link}
+                                    to={"/"}
                                     noWrap
-                                    component="div"
-                                    sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-                                >
-                                    OhFood
-                                </Typography>
+                                    sx={{
+                                        mr: 2,
+                                        display: { xs: "none", md: "flex" },
+                                        color: "#fff",
+                                        textDecoration: "none",
+                                        fontSize: "1.3rem",
+                                        fontWeight: "bold"
+                                    }}
+                                ><Box component="span" sx={{ color: "#FC9918" }}>OH</Box>-Food</Typography>
 
                                 <Box
                                     sx={{

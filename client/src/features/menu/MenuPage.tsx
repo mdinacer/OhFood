@@ -1,24 +1,24 @@
-import {Box, Button, Collapse, Container, Drawer, Grid, IconButton, Typography} from "@mui/material";
+import { Box, Button, Collapse, Container, Drawer, Grid, IconButton, Typography } from "@mui/material";
 import useProducts from "../../app/hooks/useProducts";
-import {useAppDispatch} from "../../app/store/configureStore";
+import { useAppDispatch } from "../../app/store/configureStore";
 import LoadingComponent from "../../app/layout/LoadingComponent";
-import {useEffect, useState} from "react";
-import {Category} from "../../app/models/category";
+import { useEffect, useState } from "react";
+import { Category } from "../../app/models/category";
 import ProductList from "./ProductList";
-import {setProductParams} from "../../app/slices/catalogSlice";
-import {GridView, Menu, Search, ViewAgenda} from '@mui/icons-material';
+import { setProductParams } from "../../app/slices/catalogSlice";
+import { GridView, Menu, Search, ViewAgenda } from '@mui/icons-material';
 import "./MenuPage.scss";
 import FiltersList from "./FiltersList";
 import SearchBar from "./SearchBar";
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-const newItem = {name: "All", id: 0, pictureUrl: "/images/backgrounds/product_details_bg.webp"};
+const newItem = { name: "All", id: 0, pictureUrl: "/images/backgrounds/product_details_bg.webp" };
 
 
 export default function MenuPage() {
     const dispatch = useAppDispatch();
-    const {state}: any = useLocation()
-    const {products, categories, categoriesLoaded, metaData} = useProducts();
+    const { state }: any = useLocation()
+    const { products, categories, categoriesLoaded, metaData } = useProducts();
     const [productCategories, setProductCategories] = useState<Category[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
     const [itemView, setItemView] = useState(6);
@@ -29,9 +29,9 @@ export default function MenuPage() {
     })
 
     const handleFiltersDrawer = (state: boolean) =>
-        setIsOpen({...isOpen, filtersDrawer: state});
+        setIsOpen({ ...isOpen, filtersDrawer: state });
     const handleSearchCollapse = (state: boolean) =>
-        setIsOpen({...isOpen, searchCollapse: state});
+        setIsOpen({ ...isOpen, searchCollapse: state });
 
     const getBackground = () => selectedCategory && selectedCategory.pictureUrl
         ? selectedCategory.pictureUrl
@@ -58,9 +58,9 @@ export default function MenuPage() {
         if (category) {
             setSelectedCategory(category);
             handleCloseFiltersDrawer();
-            dispatch(setProductParams({type: category.id > 0 ? category.id : null}));
+            dispatch(setProductParams({ type: category.id > 0 ? category.id : null }));
         } else {
-            dispatch(setProductParams({type: null}));
+            dispatch(setProductParams({ type: null }));
         }
     }
 
@@ -68,14 +68,14 @@ export default function MenuPage() {
         if (categoriesLoaded && state && state.categoryId) {
             const category = categories.find(c => c.id === parseInt(state.categoryId))
             if (category) {
-                dispatch(setProductParams({type: category.id}));
+                dispatch(setProductParams({ type: category.id }));
                 setSelectedCategory(category)
             }
         }
     }, [categories, categoriesLoaded, dispatch, state])
 
     function handleSortChanged(sort: string) {
-        dispatch(setProductParams({orderBy: sort}));
+        dispatch(setProductParams({ orderBy: sort }));
         handleCloseFiltersDrawer();
     }
 
@@ -86,57 +86,57 @@ export default function MenuPage() {
 
 
     const searchInput = () => (
-        <SearchBar/>
+        <SearchBar />
     )
 
     const list = () => (
         <FiltersList categories={productCategories} handleCategoryChanged={handleTypeChanged}
-                     handleSortChanged={handleSortChanged} selectedCategoryId={selectedCategory?.id}/>
+            handleSortChanged={handleSortChanged} selectedCategoryId={selectedCategory?.id} />
     )
 
-    if (!categoriesLoaded || (!categoriesLoaded && state && state.categoryId)) return <LoadingComponent/>
+    if (!categoriesLoaded || (!categoriesLoaded && state && state.categoryId)) return <LoadingComponent fullScreen={true} message={"Loading menu data"} />
 
     return (
         <>
             <Box className={"menu"} sx={{
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgb(0, 0, 0)),url(${getBackground()});`
-                , pt: {md: 10, xs: 3}, pb: {md: 2, xs: 7}
+                , pt: { md: 10, xs: 3 }, pb: { md: 2, xs: 7 }
             }}>
-                <Container sx={{height: "100%", display: "flex", flexDirection: "column"}}>
-                    <Box sx={{flex: "0 1 auto"}}>
+                <Container sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                    <Box sx={{ flex: "0 1 auto" }}>
                         <Typography variant={"h4"} component={"h1"}>Menu</Typography>
-                        <Box sx={{pb: 3, width: "400px", ml: "auto", mr: 3, display: {xs: "none", md: "block"}}}>
+                        <Box sx={{ pb: 3, width: "400px", ml: "auto", mr: 3, display: { xs: "none", md: "block" } }}>
                             {searchInput()}
                         </Box>
                         <Collapse in={isOpen.searchCollapse}>
                             {searchInput()}
                         </Collapse>
                     </Box>
-                    <Grid container sx={{height: "100%", flex: "1 1 auto"}}>
-                        <Grid item md={3} sx={{display: {xs: "none", md: "block"}}}>
+                    <Grid container sx={{ height: "100%", flex: "1 1 auto" }}>
+                        <Grid item md={3} sx={{ display: { xs: "none", md: "block" } }}>
                             {list()}
                         </Grid>
-                        <Grid item xs={12} sx={{display: {xs: "block", md: "none"}, py: 3}}>
-                            <Container sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                        <Grid item xs={12} sx={{ display: { xs: "block", md: "none" }, py: 3 }}>
+                            <Container sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                                 <IconButton onClick={() => handleFiltersDrawer(true)}>
-                                    <Menu/>
+                                    <Menu />
                                 </IconButton>
 
                                 <IconButton disabled={itemView === 12} onClick={() => setItemView(12)}>
-                                    <ViewAgenda/>
+                                    <ViewAgenda />
                                 </IconButton>
                                 <IconButton disabled={itemView === 6} onClick={() => setItemView(6)}>
-                                    <GridView/>
+                                    <GridView />
                                 </IconButton>
 
                                 <IconButton onClick={() => handleSearchCollapse(!isOpen.searchCollapse)}>
-                                    <Search/>
+                                    <Search />
                                 </IconButton>
                             </Container>
                         </Grid>
                         <Grid item xs={12} md={9}>
-                            <Box sx={{height: "100%"}}>
-                                <ProductList itemView={itemView} products={products} metaData={metaData}/>
+                            <Box sx={{ height: "100%" }}>
+                                <ProductList itemView={itemView} products={products} metaData={metaData} />
                             </Box>
                         </Grid>
                     </Grid>
@@ -147,7 +147,7 @@ export default function MenuPage() {
                     onClose={() => handleFiltersDrawer(false)}
                 >
                     <Box display={"flex"} flexDirection={"column"} justifyContent={"space-between"}
-                         sx={{my: 3, height: "100%"}}>
+                        sx={{ my: 3, height: "100%" }}>
                         {list()}
                         <Button onClick={() => handleFiltersDrawer(false)} variant={"text"}>Close</Button>
                     </Box>

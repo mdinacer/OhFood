@@ -1,35 +1,35 @@
 import { lazy, Suspense } from "react";
+import LoadingComponent from "../../app/layout/LoadingComponent";
+import Hero from "./Hero";
 import "./HomePage.scss";
 
-const Hero = lazy(() => import("./Hero"))
 const Announces = lazy(() => import("./Announces"));
+const Specialties = lazy(() => import("./Specialties"));
 const Contact = lazy(() => import("./Contact"));
-const Specialities = lazy(() => import("./Specialities"));
+
 
 export default function HomePage() {
 
     return (
         <div className="home">
             <section className="hero">
-                <Suspense fallback={<div />}>
-                    <Hero />
-                </Suspense>
+                <Hero />
             </section>
 
-            <section className="announces" aria-label="Announces">
-                <Suspense fallback={<div />}>
+            <section aria-label="Announces">
+                <Suspense fallback={<LoadingComponent />}>
                     <Announces />
                 </Suspense>
             </section>
 
-            <section id="menu" className="specialities" aria-label="Specialities">
-                <Suspense fallback={<div />}>
-                    <Specialities />
+            <section id="menu" aria-label="Specialties">
+                <Suspense fallback={<LoadingComponent />}>
+                    <Specialties />
                 </Suspense>
             </section>
 
             <section className="contact">
-                <Suspense fallback={<div />}>
+                <Suspense fallback={<LoadingComponent />}>
                     <Contact />
                 </Suspense>
             </section>

@@ -49,7 +49,7 @@ export const LightTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#ECB365",
+      main: "#FC9918",
     },
     secondary: {
       main: "#064663",
@@ -102,7 +102,7 @@ function App() {
 
   }, [location])
 
-  if (loading) return <LoadingComponent message="Initializing" />;
+  if (loading) return <LoadingComponent fullScreen={true} message="Initializing" />;
 
   return (
     <ThemeProvider theme={DarkTheme}>
@@ -115,7 +115,7 @@ function App() {
           path="/admin"
           element={
             <PrivateRoute roles={["Admin"]}>
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<LoadingComponent fullScreen={true} />}>
                 <AdminPanelPage />
               </Suspense>
             </PrivateRoute>
@@ -124,7 +124,7 @@ function App() {
           <Route
             path="orders"
             element={
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<LoadingComponent fullScreen={true} />}>
                 <AdminOrdersPage />
               </Suspense>
             }
@@ -132,7 +132,7 @@ function App() {
           <Route
             path="/admin/customers"
             element={
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<LoadingComponent fullScreen={true} />}>
                 <div>customers</div>
               </Suspense>
             }
@@ -140,7 +140,7 @@ function App() {
           <Route
             path="/admin/products"
             element={
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<LoadingComponent fullScreen={true} />}>
                 <div>products</div>
               </Suspense>
             }
@@ -148,7 +148,7 @@ function App() {
           <Route
             path="/admin/announces"
             element={
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<LoadingComponent fullScreen={true} />}>
                 <div>announces</div>
               </Suspense>
             }
@@ -156,7 +156,7 @@ function App() {
           <Route
             path="/admin/dashboard"
             element={
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<LoadingComponent fullScreen={true} />}>
                 <DashboardPage />
               </Suspense>
             }
@@ -165,7 +165,7 @@ function App() {
         <Route
           path="/menu"
           element={
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<LoadingComponent fullScreen={true} />}>
               <MenuPage />
             </Suspense>
           }
@@ -173,7 +173,7 @@ function App() {
         <Route
           path="/contact"
           element={
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<LoadingComponent fullScreen={true} />}>
               <ContactPage />
             </Suspense>
           }
@@ -182,7 +182,7 @@ function App() {
         <Route
           path="/menu/:id"
           element={
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<LoadingComponent fullScreen={true} />}>
               <ProductDetails />
             </Suspense>
           }
@@ -190,7 +190,7 @@ function App() {
         <Route
           path="/checkout"
           element={
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<LoadingComponent fullScreen={true} />}>
               <PrivateRoute roles={["Member"]}>
                 <CheckoutPage />
               </PrivateRoute>
@@ -200,7 +200,7 @@ function App() {
 
         <Route path="profile"
           element={
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<LoadingComponent fullScreen={true} />}>
               <PrivateRoute roles={["Member"]}>
                 <ProfilePage />
               </PrivateRoute>
@@ -211,7 +211,7 @@ function App() {
         <Route
           path="profile/addresses"
           element={
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<LoadingComponent fullScreen={true} />}>
               <PrivateRoute roles={["Member"]}>
                 <AddressBook />
               </PrivateRoute>
@@ -222,7 +222,7 @@ function App() {
         <Route
           path="profile/orders"
           element={
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<LoadingComponent fullScreen={true} />}>
               <PrivateRoute roles={["Member"]}>
                 <ProfileOrdersPage />
               </PrivateRoute>
@@ -233,7 +233,7 @@ function App() {
         <Route
           path="/login"
           element={
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<LoadingComponent fullScreen={true} />}>
               <Login />
             </Suspense>
           }
@@ -241,7 +241,7 @@ function App() {
         <Route
           path="/register"
           element={
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<LoadingComponent fullScreen={true} />}>
               <Register />
             </Suspense>
           }
@@ -249,7 +249,7 @@ function App() {
         <Route
           path="/gallery"
           element={
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<LoadingComponent fullScreen={true} />}>
               <Gallery />
             </Suspense>
           }

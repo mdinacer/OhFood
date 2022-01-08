@@ -1,0 +1,30 @@
+#sparkles > path {
+  animation: sparklyBits 1000ms infinite;
+  position: absolute;
+}
+
+@for $i from 1 through 29 {
+  #sparkles > path:nth-child(#{$i}) {
+    animation-delay: (35ms * $i);
+  }
+}
+
+@keyframes sparklyBits {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+// // Boring Bit
+// body {
+//   align-items: center;
+//   background-color: #000;
+//   color: #fff;
+//   display: flex;
+//   height: 100vh;
+//   justify-content: center;
+//   width: 100vw;
+// }

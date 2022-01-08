@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, CircularProgress, Collapse, Container, Typography } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import "./Announces.scss";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
@@ -55,26 +55,27 @@ export default function Announces() {
         );
     }
 
-    if (!announcesLoaded) return <LoadingComponent message="Loading Announces..." />;
+    if (!announcesLoaded) return <LoadingComponent message="Loading Services..." />;
     return (
-        <Container sx={{ pt: { xs: 2, md: 7 } }}>
-            <Typography
-                variant="h3"
-                sx={{
-                    textTransform: "uppercase",
-
-                }}
-            >
-                Our Services
-            </Typography>
-            <Box sx={{ overflow: "hidden", py: 3 }}>
-                <Carousel>
-                    {announces.map((announce, i) => (
-                        <Item key={i} announce={announce} />
-                    ))}
-                </Carousel>
-            </Box>
-        </Container>
+        <Box className="announces">
+            <Container sx={{ pt: { xs: 2, md: 7 } }}>
+                <Typography
+                    variant="h3"
+                    sx={{
+                        textTransform: "uppercase",
+                    }}
+                >
+                    Our Services
+                </Typography>
+                <Box sx={{ overflow: "hidden", py: 3 }}>
+                    <Carousel>
+                        {announces.map((announce, i) => (
+                            <Item key={i} announce={announce} />
+                        ))}
+                    </Carousel>
+                </Box>
+            </Container>
+        </Box>
     );
 }
 
