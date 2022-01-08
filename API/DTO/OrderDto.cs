@@ -13,5 +13,11 @@ public class OrderDto
     public decimal DeliveryFee { get; set; }
     public string Status { get; set; }
     public decimal Total { get; set; }
-    
+
+}
+
+public class OrderTotals
+{
+    public int Count { get; set; }
+    public decimal Total { get; set; }
 }

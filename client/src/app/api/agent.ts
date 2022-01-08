@@ -158,7 +158,8 @@ const Orders = {
     //listAll: (params: URLSearchParams) => requests.get('orders/listAll', params),
     details: (id: number) => requests.get(`orders/${id}`),
     create: (values: any) => requests.post('orders', values),
-    updateStatus: (id: number, value: string) => requests.put('orders', { id, status: value })
+    updateStatus: (id: number, value: string) => requests.put('orders', { id, status: value }),
+    getTotals: () => requests.get('orders/totals'),
 }
 
 

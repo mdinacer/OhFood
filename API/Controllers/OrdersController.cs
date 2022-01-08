@@ -53,6 +53,31 @@ public class OrdersController : BaseApiController
         return orders;
     }
 
+
+    [HttpGet("totals")]
+    public async Task<ActionResult<OrderTotals>> GetTotals()
+    {
+        var buyerId = User.Identity?.Name;
+
+        if (string.IsNullOrEmpty(buyerId)) return BadRequest(new ProblemDetails { Title = "User Not Found" });
+
+
+        var orders = await _context.Orders.Where(o => o.BuyerId == buyerId).ToListAsync();
+
+        var ordersCount = orders?.Count() ?? 0;
+        var ordersTotal = orders?.Sum(o => o.GetTotal()) ?? 0;
+
+        var orderTotal = new OrderTotals
+        {
+            Count = ordersCount,
+            Total = ordersTotal,
+        };
+
+        return Ok(orderTotal);
+    }
+
+
+
     [Authorize(Roles = "Admin")]
     [HttpGet("listAll")]
     public async Task<ActionResult<PagedList<OrderDto>>> GetAllOrders([FromQuery] OrderParams orderParams)

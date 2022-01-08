@@ -1,4 +1,4 @@
-import {ShippingAddress} from "./shippingAddress";
+import { ShippingAddress } from "./shippingAddress";
 
 
 export interface Profile {
@@ -6,7 +6,7 @@ export interface Profile {
     lastName: string;
     phone1: string;
     phone2: string;
-    pictureUrl: string;
+    pictureUrl?: string;
     addresses: ShippingAddress[];
     creationDate: Date;
     lastLogin: Date;

@@ -1,4 +1,4 @@
-import {ShippingAddress} from "./shippingAddress";
+import { ShippingAddress } from "./shippingAddress";
 
 export interface OrderItem {
     productId: number;
@@ -33,4 +33,9 @@ export enum OrderStatus {
     Confirmed,
     Delivered,
     Cancelled,
+}
+
+export interface OrderTotals {
+    count: number;
+    total: number;
 }
