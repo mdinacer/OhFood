@@ -216,7 +216,7 @@ export default function CategoryItem({ item, handleCollapsed, collapsed }: Props
     )
 
     return (
-        <Grid item xs={12} md={6} className="item">
+        <Grid item xs={12} sm={6} md={6} xl={4} className="item">
             {isMobile ? ItemMobile() : ItemDesktop()}
         </Grid>
     )

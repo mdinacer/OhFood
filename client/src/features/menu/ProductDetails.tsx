@@ -1,4 +1,4 @@
-import {Box, Button, Container, Grid, Paper, Stack, Typography} from "@mui/material";
+import {Box, Button, Container, Grid, Stack, Typography} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../app/store/configureStore";
 import {fetchProductAsync, productSelectors} from "../../app/slices/catalogSlice";
@@ -69,7 +69,7 @@ export default function ProductDetails() {
 
                 width: "100%",
                 minHeight: "100vh",
-                display:"flex",
+                display: "flex",
                 backgroundImage: {
                     md: "linear-gradient(rgba(0, 0, 0, 0.6), rgb(0, 0, 0)),url('/images/backgrounds/product_details_bg.webp')",
                     xs: "none"
@@ -78,24 +78,26 @@ export default function ProductDetails() {
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
                 backgroundPosition: "top",
-                //pt: {xs: 1, md: "60px"},
-               // pb: {md: 1, xs: "60px"},
-                px: {xs: 0, md: 7},
-                alignItems:{xs:"stretch", md:"center"}
+                pt: {xs: 1, md: "60px"},
+                pb: {md: 1, xs: "60px"},
+
+                alignItems: "center",
+                justifyContent: {xs: "none", md: "center"},
 
 
-            }}
-            justifyContent={"center"}>
+            }}>
 
-            <Box
+            <Container
+                maxWidth={"md"}
                 sx={{
-                    root:{
-                        bgcolor:"#000",
+                    root: {
+                        bgcolor: "#000",
                     },
                     bgcolor: {xs: "#000", md: "rgba(0,0,0,.7)"},
                     borderRadius: {xs: 0, md: 3},
                     height: "100%",
-                    maxWidth:"900px",
+
+
                 }}>
                 <Grid container>
                     <Grid item xs={12} md={6} sx={{
@@ -204,7 +206,7 @@ export default function ProductDetails() {
                     </Grid>
                 </Grid>
 
-            </Box>
+            </Container>
 
             <Box hidden>
                 <Grid container>

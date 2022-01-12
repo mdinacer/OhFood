@@ -26,7 +26,7 @@ export default function SearchBar() {
             <InputBase
                 value={searchTerm || ''}
                 sx={{ml: 1, flex: 1}}
-                placeholder="Find an item"
+                placeholder="Search"
                 inputProps={{'aria-label': 'recherche'}}
                 onChange={(event: any) => {
                     setSearchTerm(event.target.value);

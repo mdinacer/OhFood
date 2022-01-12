@@ -1,6 +1,6 @@
 import {LocationAddress} from "./locationAddress";
 
-export interface ShippingAddress extends LocationAddress {
+export interface ShippingAddress {
     id: number;
     title: string;
     fullName: string;
@@ -8,4 +8,12 @@ export interface ShippingAddress extends LocationAddress {
     isDefault: boolean;
     longitude: string;
     latitude: string;
+
+    country: string;
+    county: string;
+    town?: string;
+    suburb?: string;
+    state: string;
+    postcode: string;
+    neighbourhood: string;
 }

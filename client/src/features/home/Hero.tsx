@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 
 export default function Hero() {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     return (
         <Box component="div" className="hero"
             sx={{
-                alignItems: { xs: "center", md: "flex-end" },
+                alignItems: { xs: "center", sm: "flex-end" },
                 pt: { xs: 2, md: 7 },
                 pb: { xs: 7, md: 2 },
             }}

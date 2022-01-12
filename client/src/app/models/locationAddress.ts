@@ -4,6 +4,7 @@ export interface LocationAddress {
     town?: string;
     suburb?: string;
     state: string;
+
     postcode: string;
     neighbourhood: string;
     longitude: string;
@@ -26,6 +27,7 @@ export interface LocationData {
         state: string;
         postcode: string;
         country: string;
+
     }
     boundingbox: string[];
 }

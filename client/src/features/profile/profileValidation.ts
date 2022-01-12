@@ -10,3 +10,10 @@ export const profileValidationSchema = yup.object({
         then: yup.mixed().required('Please provide an image')
     })
 })
+
+export const addressValidationSchema = yup.object({
+    fullName: yup.string().required(),
+    title: yup.string().required(),
+    address1: yup.string().required(),
+
+})

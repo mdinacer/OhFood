@@ -45,6 +45,7 @@ export default function Announces() {
                         color: "white",
                         my: 4,
                     }}
+
                 >
                     <h2>{announce.title}</h2>
                     <p>
@@ -58,7 +59,7 @@ export default function Announces() {
     if (!announcesLoaded) return <LoadingComponent message="Loading Services..." />;
     return (
         <Box className="announces">
-            <Container sx={{ pt: { xs: 2, md: 7 } }}>
+            <Container sx={{ pt: { xs: 2, md: 7 } }} maxWidth={"xl"}>
                 <Typography
                     variant="h3"
                     sx={{
@@ -67,7 +68,7 @@ export default function Announces() {
                 >
                     Our Services
                 </Typography>
-                <Box sx={{ overflow: "hidden", py: 3 }}>
+                <Box sx={{ overflow: "hidden", py: 3 , }}>
                     <Carousel>
                         {announces.map((announce, i) => (
                             <Item key={i} announce={announce} />

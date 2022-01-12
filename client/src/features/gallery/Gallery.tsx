@@ -39,7 +39,8 @@ export default function Gallery() {
                     variant="h4"
                     sx={{
                         textTransform: "uppercase",
-                        pt: 10,
+                        pt: {md:"60px", xs:1},
+                        pb: {xs:"60px", md:1},
                         mb: 2,
                         color: "white",
                     }}
@@ -87,7 +88,7 @@ export default function Gallery() {
                         onClose={handleClose}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
-                        sx={{color: "black"}}
+                        sx={{color: "black", p:3}}
                     >
                         <Box
                             sx={{
@@ -99,12 +100,14 @@ export default function Gallery() {
                                 top: "50%",
                                 left: "50%",
                                 transform: "translate(-50%, -50%)",
-                                width: "auto",
+                                maxWidth: "800px",
                                 bgcolor: "background.paper",
                                 border: "2px solid #000",
                                 boxShadow: 24,
                                 overflow:"hidden",
-                                borderRadius: 3
+                                borderRadius: {md:0, lg:3},
+                                width:"100%",
+
                             }}
                         >
                             <Box
@@ -112,9 +115,12 @@ export default function Gallery() {
                                 src={`${selectedItem.img}?w=800&h=600&fit=crop&auto=format`}
                                 srcSet={`${selectedItem.img}?w=800&h=600&fit=crop&auto=format`}
                                 sx={{
-                                    width: "800px",
+                                    maxWidth: "800px",
+                                    minWidth: "300px",
+                                    width:"100%",
                                     borderRadius: 0,
-                                    height: "500px",
+                                    maxHeight: "500px",
+                                    height:"100%",
                                     objectFit: "cover",
                                     objectPosition: "center",
                                     mb: 1,

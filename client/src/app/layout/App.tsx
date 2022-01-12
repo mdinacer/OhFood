@@ -27,15 +27,17 @@ const AddressBook = lazy(() => import("../../features/profile/AddressBook"));
 const ProfileOrdersPage = lazy(() => import("../../features/profile/ProfileOrdersPage"));
 const ProfileSettings = lazy(() => import("../../features/profile/ProfileSettings"));
 
-export const DarkTheme = responsiveFontSizes(createTheme({
-    palette: {
-        mode: "dark",
-        primary: {
-            main: "#FC9918",
-            //main: "#FC9918",
+export const DarkTheme = responsiveFontSizes(
+    createTheme({
+        palette: {
+            mode: "dark",
+            primary: {
+                main: "#FC9918",
+                //main: "#FC9918",
+            },
         },
-    },
-}));
+    })
+);
 
 export const LightTheme = responsiveFontSizes(createTheme({
     palette: {
@@ -179,7 +181,7 @@ function App() {
                 <Route
                     path="/login"
                     element={
-                        <Suspense fallback={<LoadingComponent fullScreen={true}/>}>
+                        <Suspense fallback={<div/>}>
                             <Login/>
                         </Suspense>
                     }
@@ -187,7 +189,7 @@ function App() {
                 <Route
                     path="/register"
                     element={
-                        <Suspense fallback={<LoadingComponent fullScreen={true}/>}>
+                        <Suspense fallback={<div/>}>
                             <Register/>
                         </Suspense>
                     }

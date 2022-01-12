@@ -7,8 +7,9 @@ export const registerValidationSchema = yup.object().shape({
         password: yup.string()
             .required('Password is required')
             .matches(
-                /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/,
-                "Your password is weak"),
+                /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+                "Password must at least 8 characters long and must contain: " +
+                "one uppercase,one lowercase and one alphanumeric character."),
 
     }),
 

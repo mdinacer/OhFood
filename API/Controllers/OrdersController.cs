@@ -77,7 +77,6 @@ public class OrdersController : BaseApiController
     }
 
 
-
     [Authorize(Roles = "Admin")]
     [HttpGet("listAll")]
     public async Task<ActionResult<PagedList<OrderDto>>> GetAllOrders([FromQuery] OrderParams orderParams)
@@ -139,7 +138,7 @@ public class OrdersController : BaseApiController
         }
 
         var subtotal = items.Sum(item => item.Price * item.Quantity);
-        var deliveryFee = subtotal > 10000 ? 0 : 500;
+        var deliveryFee = 0; //subtotal > 10000 ? 0 : 500;
 
         var order = new Order
         {

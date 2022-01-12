@@ -28,7 +28,7 @@ export default function AppDropzone(props: Props) {
             {preview: URL.createObjectURL(acceptedFiles[0])});
         field.onChange(acceptedFiles[0]);
     }, [field])
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop,  accept: 'image/*'})
 
     return (
         <Box  component={"div"} {...getRootProps()}>

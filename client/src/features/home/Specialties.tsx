@@ -31,7 +31,7 @@ export default function Specialties() {
     if (loading) return <LoadingComponent message="Loading Specialties..." />;
     return (
         <Box className="specialties">
-            <Container sx={{
+            <Container maxWidth={"xl"} sx={{
                 pt: { md: 7, xs: 2 },
                 mb: { xs: 7, md: 2 },
             }}>

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Category } from "../../app/models/category";
 import ProductList from "./ProductList";
 import { setProductParams } from "../../app/slices/catalogSlice";
-import { GridView, Menu, Search, ViewAgenda } from '@mui/icons-material';
+import {GridView, Menu, Search, Square, SquareOutlined, ViewAgenda, ViewDay} from '@mui/icons-material';
 import "./MenuPage.scss";
 import FiltersList from "./FiltersList";
 import SearchBar from "./SearchBar";
@@ -21,7 +21,7 @@ export default function MenuPage() {
     const { products, categories, categoriesLoaded, metaData } = useProducts();
     const [productCategories, setProductCategories] = useState<Category[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-    const [itemView, setItemView] = useState(6);
+    const [itemView, setItemView] = useState(12);
 
     const [isOpen, setIsOpen] = useState({
         searchCollapse: false,
@@ -102,9 +102,9 @@ export default function MenuPage() {
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgb(0, 0, 0)),url(${getBackground()});`
                 , pt: { md: 10, xs: 3 }, pb: { md: 2, xs: 7 }
             }}>
-                <Container sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <Container maxWidth={"xl"} sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
                     <Box sx={{ flex: "0 1 auto" }}>
-                        <Typography variant={"h4"} component={"h1"}>Menu</Typography>
+                        <Typography variant={"h4"} component={"h1"} gutterBottom>Menu</Typography>
                         <Box sx={{ pb: 3, width: "400px", ml: "auto", mr: 3, display: { xs: "none", md: "block" } }}>
                             {searchInput()}
                         </Box>
@@ -122,12 +122,12 @@ export default function MenuPage() {
                                     <Menu />
                                 </IconButton>
 
-                                <IconButton disabled={itemView === 12} onClick={() => setItemView(12)}>
-                                    <ViewAgenda />
-                                </IconButton>
-                                <IconButton disabled={itemView === 6} onClick={() => setItemView(6)}>
-                                    <GridView />
-                                </IconButton>
+                                {/*<IconButton color={itemView === 12 ? "primary": "inherit"}  onClick={() => setItemView(12)}>*/}
+                                {/*    <ViewDay />*/}
+                                {/*</IconButton>*/}
+                                {/*<IconButton  color={itemView === 6 ? "primary": "inherit"} onClick={() => setItemView(6)}>*/}
+                                {/*    <GridView />*/}
+                                {/*</IconButton>*/}
 
                                 <IconButton onClick={() => handleSearchCollapse(!isOpen.searchCollapse)}>
                                     <Search />
@@ -136,7 +136,7 @@ export default function MenuPage() {
                         </Grid>
                         <Grid item xs={12} md={9}>
                             <Box sx={{ height: "100%" }}>
-                                <ProductList itemView={itemView} products={products} metaData={metaData} />
+                                <ProductList  products={products} metaData={metaData} />
                             </Box>
                         </Grid>
                     </Grid>

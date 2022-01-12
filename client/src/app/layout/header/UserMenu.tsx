@@ -1,5 +1,5 @@
-import {AccountCircle, Dashboard, Logout, ManageAccounts, Person} from "@mui/icons-material";
-import {Box, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip,} from "@mui/material";
+import {AccountCircle, Article, Dashboard, Logout, ManageAccounts, MenuBook, Person} from "@mui/icons-material";
+import {Box, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip,} from "@mui/material";
 import {useState} from "react";
 import {User} from "../../models/user";
 import {Link} from "react-router-dom";
@@ -14,8 +14,10 @@ interface Props {
 
 const userLinks = [
     {title: "Profile", path: "/profile", icon: <Person fontSize="small"/>},
-    {title: "Account Settings", path: "/account", icon: <ManageAccounts fontSize="small"/>},
-    {title: "Dashboard", path: "/admin", icon: <Dashboard fontSize="small"/>},
+    {title: "Orders", path: "/profile/orders", icon: <Article fontSize="small"/>},
+    {title: "Address Book", path: "/profile/addresses", icon: <MenuBook fontSize="small"/>},
+    {title: "Account Settings", path: "/profile/settings", icon: <ManageAccounts fontSize="small"/>},
+    //{title: "Dashboard", path: "/admin", icon: <Dashboard fontSize="small"/>},
 ]
 
 
@@ -63,6 +65,7 @@ export default function UserMenu({user}: Props) {
 
                     </MenuItem>
                 ))}
+                <Divider flexItem/>
                 <MenuItem onClick={() => {
                     dispatch(signOut());
                     dispatch(clearBasket());

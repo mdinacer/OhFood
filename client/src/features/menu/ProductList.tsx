@@ -10,10 +10,9 @@ import ProductItemSkeleton from "./ProductItemSkeleton";
 interface Props {
   products: Product[];
   metaData: MetaData | null;
-  itemView: number;
 }
 
-export default function ProductList({ products, metaData, itemView }: Props) {
+export default function ProductList({ products, metaData }: Props) {
   const { productsLoaded } = useAppSelector((state) => state.catalog);
   const dispatch = useAppDispatch();
   return (
@@ -28,7 +27,7 @@ export default function ProductList({ products, metaData, itemView }: Props) {
     >
       <Grid container spacing={2} sx={{ height: "100% !important" }}>
         {products.map((product) => (
-          <Grid item xs={itemView} md={4} lg={3} key={product.id}>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
             {!productsLoaded ? (
               <ProductItemSkeleton />
             ) : (
