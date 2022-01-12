@@ -21,8 +21,5 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "og-image": "https://res.cloudinary.com/du8yosjx5/image/upload/c_scale,f_auto,h_1080,q_auto:good,w_1920/v1642009208/preview.png",
-  "og-description": "A simple website for a restaurant with a delivery service, Made with React and Net6 with a Postgres Database ",
-  "og-title": "Oh-Food Restaurant, We love what we do and do what you love"
+  "background_color": "#ffffff"
 }
