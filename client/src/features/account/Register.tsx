@@ -1,113 +1,105 @@
-import {Avatar, Box, Container, Grid, Paper, TextField, Typography} from "@mui/material";
-import {useForm} from "react-hook-form";
-import {Link, useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
-import agent from "../../app/api/agent";
+import {Avatar, Box, Container, Grid, Paper, Typography} from "@mui/material";
+import {FieldValues, useForm} from "react-hook-form";
+import {useNavigate} from "react-router-dom";
 import {LoadingButton} from "@mui/lab";
 import {LockOutlined} from '@mui/icons-material';
 import "./Account.scss";
+import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
+import {registerValidationSchema} from "./accountValidation";
+import AppTextInput from "../../app/components/AppTextInput";
+import {toast} from "react-toastify";
+import agent from "../../app/api/agent";
 
-export default function Register(){
+export default function Register() {
     const navigate = useNavigate();
-    const {
-        register,
-        handleSubmit,
-        setError,
-        formState: {isSubmitting, errors, isValid},
-    } = useForm({mode: "all"});
+    const {handleSubmit, control, formState: {isValid, isSubmitting}} = useForm({
+        mode: 'all',
+        resolver: yupResolver(registerValidationSchema),
+    });
 
-    function handleApiErrors(errors: any) {
-        if (errors) {
-            errors.forEach((error: string) => {
-                if (error.includes("Password")) {
-                    setError("password", {message: error});
-                } else if (error.includes("Email")) {
-                    setError("email", {message: error});
-                } else if (error.includes("Username")) {
-                    setError("username", {message: error});
-                }
-            });
-        }
-        console.log(errors);
+    function handleOnSubmit(data: FieldValues) {
+        const {passwordConfirmation, user, profile} = data;
+
+
+        const userItem = {
+            ...user,
+            "profile.firstName": profile.firstName,
+            "profile.lastName": profile.lastName,
+            "profile.phone1": profile.phone1,
+            "profile.phone2": profile.phone2,
+        };
+
+        console.log(userItem)
+        agent.Account.register(userItem)
+            .then(() => {
+                toast.success('Registration successful - you can now login');
+                navigate('/login');
+            })
+            .catch(error => console.log("error from here", error))
     }
-    return(
-       <Box className={"account"}>
-           <Container className={"login-form"} component={Paper} maxWidth="sm" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 4 }}>
-               <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-                   <LockOutlined />
-               </Avatar>
-               <Typography component="h1" variant="h5" sx={{color:"white"}}>
-                   Create Account
-               </Typography>
-               <Box component="form"
-                    onSubmit={handleSubmit((data) =>
-                        agent.Account.register(data)
-                            .then(() => {
-                                toast.success('Registration successful - you can now login');
-                                navigate("/login");
-                               // history.push('/login');
-                            })
-                            .catch(error => handleApiErrors(error))
-                    )}
-                    noValidate sx={{ mt: 1 }}
-               >
-                   <TextField
-                       margin="normal"
-                       fullWidth
-                       label="Username"
-                       autoFocus
-                       {...register('username', { required: 'Username is required' })}
-                       error={!!errors.username}
-                       helperText={errors?.username?.message}
-                   />
-                   <TextField
-                       margin="normal"
-                       fullWidth
-                       label="Email address"
-                       {...register('email', {
-                           required: 'Email is required',
-                           pattern: {
-                               value: /^\w+[\w-.]*@\w+((-\w+)|(\w*)).[a-z]{2,3}$/,
-                               message: 'Not a valid email address'
-                           }
-                       })}
-                       error={!!errors.email}
-                       helperText={errors?.email?.message}
-                   />
-                   <TextField
-                       margin="normal"
-                       fullWidth
-                       label="Password"
-                       type="password"
-                       {...register('password', {
-                           required: 'Password is required',
-                           pattern: {
-                               value: /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/,
-                               message: 'Password is not complex enough'
-                           }
-                       })}
-                       error={!!errors.password}
-                       helperText={errors?.password?.message}
-                   />
-                   <LoadingButton
-                       disabled={!isValid}
-                       loading={isSubmitting}
-                       type="submit"
-                       fullWidth
-                       variant="contained"
-                       sx={{ mt: 3, mb: 2 }}
-                   >
-                       Register
-                   </LoadingButton>
-                   <Grid container>
-                       <Grid item>
-                           <Link to='/login'>
-                               {"Login."}
-                           </Link>
-                       </Grid>
-                   </Grid>
-               </Box>
-           </Container>
-       </Box>
+
+
+    return (
+        <Box className={"account"}>
+
+            <Container className={"login-form"} component={Paper} maxWidth="sm"
+                       sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', p: 4}}>
+                <Avatar sx={{m: 1, bgcolor: 'primary.main'}}>
+                    <LockOutlined/>
+                </Avatar>
+                <Typography component="h1" variant="h5" sx={{color: "white"}}>
+                    Create Account
+                </Typography>
+                <Box component={"form"} onSubmit={handleSubmit(handleOnSubmit)}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <AppTextInput control={control} name='user.username' label='User name'/>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <AppTextInput control={control} name='user.email' label='Email'/>
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                            <AppTextInput control={control} name='profile.firstName' label='First name'/>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <AppTextInput control={control} name='profile.lastName' label='Last name'/>
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                            <AppTextInput control={control} name='profile.phone1' label='Mobile'/>
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                            <AppTextInput control={control} name='profile.phone2' label='Mobile 2nd'/>
+                        </Grid>
+
+
+                        <Grid item xs={12}>
+                            <AppTextInput type={"password"} control={control} name='user.password' label='Password'/>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <AppTextInput type={"password"} control={control} name='passwordConfirmation'
+                                          label='Confirm Password'/>
+                        </Grid>
+
+                        <Grid item xs={12} md={12}>
+                            <LoadingButton
+                                disabled={!isValid}
+                                loading={isSubmitting}
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{mt: 3, mb: 2}}
+                            >
+                                Register
+                            </LoadingButton>
+                        </Grid>
+
+                    </Grid>
+                </Box>
+            </Container>
+        </Box>
     )
 }

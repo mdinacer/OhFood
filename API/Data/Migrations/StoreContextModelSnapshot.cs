@@ -341,7 +341,11 @@ namespace API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("City")
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("County")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -351,6 +355,36 @@ namespace API.Data.Migrations
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("Latitude")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Longitude")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Neighbourhood")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Postcode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Suburb")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Town")
+                        .HasColumnType("text");
 
                     b.Property<int?>("UserProfileId")
                         .HasColumnType("integer");
@@ -392,6 +426,9 @@ namespace API.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PictureUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PublicId")
                         .HasColumnType("text");
 
                     b.Property<string>("UserId")
@@ -542,12 +579,46 @@ namespace API.Data.Migrations
                                 .IsRequired()
                                 .HasColumnType("text");
 
-                            b1.Property<string>("City")
+                            b1.Property<string>("Country")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("County")
                                 .IsRequired()
                                 .HasColumnType("text");
 
                             b1.Property<string>("FullName")
                                 .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Latitude")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Longitude")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Neighbourhood")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Postcode")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("State")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Suburb")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Title")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Town")
                                 .HasColumnType("text");
 
                             b1.HasKey("OrderId");

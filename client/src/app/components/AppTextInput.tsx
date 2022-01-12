@@ -18,6 +18,7 @@ export default function AppTextInput(props: Props) {
             rows={props.rows}
             type={props.type}
             fullWidth
+            size={"small"}
             variant='outlined'
             error={!!fieldState.error}
             helperText={fieldState.error?.message}

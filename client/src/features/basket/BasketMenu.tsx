@@ -3,7 +3,6 @@ import {Box, Button, Container, IconButton, List, ListItem, Stack, Typography} f
 import React from "react";
 import {currencyFormat} from "../../app/util/util";
 import {Close, ShoppingCartCheckout} from "@mui/icons-material";
-import {grey} from "@mui/material/colors";
 import {Link} from "react-router-dom";
 import BasketMenuItem from "./BasketMenuItem";
 
@@ -31,7 +30,7 @@ export default function BasketMenu({onClose}: Props) {
                 </IconButton>
                 <Typography variant={"h6"}>Order Bag</Typography>
             </Stack>
-            <Box sx={{flex: "1 1 auto", overflow: "auto"}} bgcolor={grey[200]}>
+            <Box sx={{flex: "1 1 auto", overflow: "auto", backgroundColor:"#000"}} >
                 {basket && basket.items.length > 0 ?
                     (
                         <List>

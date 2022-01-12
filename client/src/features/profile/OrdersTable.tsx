@@ -89,7 +89,7 @@ export default function OrdersTable({ isAdmin }: Props) {
                                             <Stack>
                                                 <Typography variant={"caption"}>Delivery Address</Typography>
                                                 <Typography variant={"body1"}>
-                                                    {order.shippingAddress.address1} - {order.shippingAddress.city}
+                                                    {order.shippingAddress.address1} - {order.shippingAddress.town ?? order.shippingAddress.suburb}
                                                 </Typography>
 
                                             </Stack>

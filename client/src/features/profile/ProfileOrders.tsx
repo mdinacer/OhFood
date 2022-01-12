@@ -1,4 +1,6 @@
+import { Pageview } from "@mui/icons-material";
 import { Button, Divider, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import agent from "../../app/api/agent";
@@ -19,7 +21,7 @@ export default function ProfileOrders() {
     }, [])
 
     const gridItem = (title: string, value: string | number) => (
-        <Grid item md={4} xs={12}>
+        <Grid item md={6} xs={12}>
             <Stack height="100%" direction={"row"} sx={{ justifyContent: { xs: "space-between", md: "space-around" } }} alignItems={"center"}>
                 <Typography sx={{ textTransform: "uppercase" }} variant="caption">{title}</Typography>
                 <Typography fontWeight={loading ? "normal" : "bold"} variant="subtitle1">{value}</Typography>
@@ -28,31 +30,31 @@ export default function ProfileOrders() {
         </Grid>
     )
     return (
-        <Paper sx={{
-            p: 3,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-        }}>
-            <Typography textAlign="center" sx={{ textTransform: "uppercase" }} variant="caption">Orders Summary</Typography>
-            <Grid container columnSpacing={3}>
-                {gridItem("Count", loading ? "Calculating" : ordersTotals.count)}
-                {gridItem("Total", loading ? "Calculating" : currencyFormat(ordersTotals.total, "$"))}
+        <Box>
 
-                <Grid item md={4} xs={12}
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "row",
-                        p: 0
-                    }}>
-                    <Button component={Link} to="/profile/orders" sx={{ my: 1, mt: { xs: 3, md: 1 } }} size={"small"} variant="outlined" color="inherit">
-                        View Orders
-                    </Button>
+            <Stack my={3} direction="row" justifyContent={"space-between"} alignItems={"center"}>
+                <Typography variant="h5" component="h2" >Orders</Typography>
+                <Button sx={{ minWidth: '110px' }} component={Link} to="/profile/orders" startIcon={<Pageview />} variant="outlined" color="inherit" size="small">
+                    View
+                </Button>
+            </Stack>
+            <Paper sx={{
+                p: 3,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+            }}>
+                <Typography textAlign="center" sx={{ textTransform: "uppercase" }} variant="caption">Orders Summary</Typography>
+                <Grid container columnSpacing={3}>
+                    {gridItem("Count", loading ? "Calculating" : ordersTotals.count)}
+                    {gridItem("Total", loading ? "Calculating" : currencyFormat(ordersTotals.total, "$"))}
+
+
                 </Grid>
-            </Grid>
-        </Paper>
+            </Paper>
+
+        </Box>
+
     )
 };

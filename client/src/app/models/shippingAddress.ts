@@ -1,11 +1,11 @@
-export interface ShippingAddress {
-    id: number
+import {LocationAddress} from "./locationAddress";
+
+export interface ShippingAddress extends LocationAddress {
+    id: number;
+    title: string;
     fullName: string;
     address1: string;
-    address2: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    country: string;
     isDefault: boolean;
+    longitude: string;
+    latitude: string;
 }

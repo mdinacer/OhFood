@@ -1,8 +1,10 @@
 import { Box, Container, CssBaseline, Divider, ThemeProvider, Typography } from "@mui/material";
 import { LightTheme } from "../../app/layout/App";
-import ProfileAddress from "./ProfileAddress";
 import ProfileUserInfo from "./ProfileUserInfo";
-import ProfileOrders from "./ProfileOrders";
+import { lazy, Suspense } from "react";
+
+const ProfileAddress = lazy(() => import("./ProfileAddress"));
+const ProfileOrders = lazy(() => import("./ProfileOrders"));
 
 export default function ProfilePage() {
 
@@ -20,16 +22,21 @@ export default function ProfilePage() {
             }}>
                 <Container sx={{ py: { md: 5, xs: 2 }, pt: { md: 10, xs: 2 } }}>
                     <Typography variant={"h4"} component={"h1"}
-                        sx={{ pb: 4, textTransform: "uppercase" }}>Profile</Typography>
+                        sx={{ pb: 3, textTransform: "uppercase" }}>Profile</Typography>
                     <ProfileUserInfo />
 
                     <Divider sx={{ my: 3 }} />
 
-                    <ProfileAddress />
+                    <Suspense fallback={<div />}>
+                        <ProfileAddress />
+                    </Suspense>
+
 
                     <Divider sx={{ my: 3 }} />
 
-                    <ProfileOrders />
+                    <Suspense fallback={<div />}>
+                        <ProfileOrders />
+                    </Suspense>
                 </Container>
             </Box>
         </ThemeProvider>

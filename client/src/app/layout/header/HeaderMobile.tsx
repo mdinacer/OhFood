@@ -8,7 +8,15 @@ import {
     IconButton,
     Paper
 } from "@mui/material";
-import { AccountCircle, ExpandMore, Home, Menu, ShoppingCart } from "@mui/icons-material";
+import {
+    AccountCircle,
+    ExpandMore,
+    FastfoodOutlined,
+    Home,
+    LunchDiningOutlined,
+    Menu,
+    ShoppingCart
+} from "@mui/icons-material";
 import React, { useState } from "react";
 import { User } from "../../models/user";
 import PagesList from "./PagesList";
@@ -37,8 +45,8 @@ export default function HeaderMobile({ user, itemsCount }: Props) {
         <Box>
             <Paper sx={{ position: 'fixed', top: "auto", bottom: 0, left: 0, right: 0, zIndex: 1000 }} elevation={3}>
                 <BottomNavigation>
-                    <BottomNavigationAction label="Menu" icon={<Menu />} onClick={() => handleMenuDrawer(true)} />
-                    <BottomNavigationAction component={Link} to={"/"} label="Home" icon={<Home />} />
+                    <BottomNavigationAction label="Menu" icon={<Home />} onClick={() => handleMenuDrawer(true)} />
+                    <BottomNavigationAction component={Link} to={"/menu"} label="Home" icon={<FastfoodOutlined />} />
                     <BottomNavigationAction label="Cart" icon={
                         <Badge badgeContent={itemsCount} color="error">
                             <ShoppingCart />
@@ -87,8 +95,8 @@ export default function HeaderMobile({ user, itemsCount }: Props) {
 
             <Drawer sx={{
                 "& 	.MuiDrawer-paper": {
-                    backgroundColor: "white",
-                    color: "black"
+                    //backgroundColor: "white",
+                    //color: "black"
                 }
             }} variant={"temporary"} anchor={"right"} open={open.basket}
                 onClose={() => handleBasketDrawer(false)}>

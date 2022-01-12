@@ -32,7 +32,10 @@ namespace API.Helpers
             CreateMap<Announce, AnnounceDto>();
             CreateMap<CreateAnnounceDto, Announce>();
 
-            CreateMap<UserProfile, UserProfileDto>();
+            CreateMap<UserProfile, UserProfileDto>().ReverseMap();
+            CreateMap<CreateUserProfileDto, UserProfile>();
+            CreateMap<UpdateUserProfileDto, UserProfile>();
+            CreateMap<RegisterDto, User>();
 
 
             CreateMap<UserAddress, AddressDto>();

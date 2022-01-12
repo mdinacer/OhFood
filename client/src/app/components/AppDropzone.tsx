@@ -1,5 +1,5 @@
 import {UploadFile} from '@mui/icons-material';
-import {FormControl, FormHelperText, Typography} from '@mui/material';
+import {Box, FormControl, FormHelperText, Typography} from '@mui/material';
 import {useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
 import {useController, UseControllerProps} from 'react-hook-form'
@@ -17,8 +17,6 @@ export default function AppDropzone(props: Props) {
         borderRadius: '5px',
         paddingTop: '30px',
         alignItems: 'center',
-        height: 200,
-        width: 500
     }
 
     const dzActive = {
@@ -33,13 +31,13 @@ export default function AppDropzone(props: Props) {
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
     return (
-        <div {...getRootProps()}>
-            <FormControl error={!!fieldState.error} style={isDragActive ? {...dzStyles, ...dzActive} : dzStyles}>
+        <Box  component={"div"} {...getRootProps()}>
+            <FormControl sx={{p:2, height:"200px", width:"100%"}} error={!!fieldState.error} style={isDragActive ? {...dzStyles, ...dzActive} : dzStyles}>
                 <input {...getInputProps()} />
                 <UploadFile sx={{fontSize: '100px'}}/>
-                <Typography variant='h4'>Drop image here</Typography>
+                <Typography variant='h6'>Drop image here</Typography>
                 <FormHelperText>{fieldState.error?.message}</FormHelperText>
             </FormControl>
-        </div>
+        </Box>
     )
 }

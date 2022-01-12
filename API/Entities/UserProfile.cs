@@ -6,8 +6,9 @@ public class UserProfile
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Phone1 { get; set; }
-    public string? Phone2 { get; set; }
+    public string? Phone2 { get; set; } 
     public string? PictureUrl { get; set; }
+    public string? PublicId { get; set; }
     
     public List<UserAddress> Addresses { get; set; } = new();
     public DateTime CreationDate { get; set; } = DateTime.UtcNow;

@@ -4,5 +4,5 @@ export function getCookie(key: string) {
 }
 
 export function currencyFormat(amount: number, symbol: string, isStart : boolean = true) {
-    return isStart? `${symbol} ${amount}` : `${amount} ${symbol}`
+    return isStart? `${symbol} ${amount.toFixed(2)}` : `${amount} ${symbol}`
 }

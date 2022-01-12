@@ -18,23 +18,33 @@ namespace API.Services
             _cloudinary = new(account);
         }
 
-        public async Task<ImageUploadResult> AddImageAsync(IFormFile file, string? folder = null, ImageTransform? transform = null)
+        public async Task<ImageUploadResult> AddImageAsync(IFormFile file, string? folder = null,
+            ImageTransform? transform = null)
         {
             var uploadResult = new ImageUploadResult();
 
             if (file.Length > 0)
             {
                 await using var stream = file.OpenReadStream();
+
+                if (!string.IsNullOrEmpty(folder))
+                {
+                    _cloudinary.CreateFolder(folder);
+                }
+
                 var uploadParams = new ImageUploadParams
                 {
                     File = new FileDescription(file.FileName, stream),
                     Folder = $"{folder}",
                     Transformation = transform != null
-                        ? new Transformation().Height(transform.Height).Width(transform.Width)
+                        ? new Transformation()
+                            .Height(transform.Height)
+                            .Width(transform.Width)
+                            .Gravity(transform.Gravity)
                             .Crop(transform.Crop.ToString())
+                            .FetchFormat("auto")
                         : null
                 };
-
                 uploadResult = await _cloudinary.UploadAsync(uploadParams);
             }
 
@@ -56,10 +66,10 @@ namespace API.Services
         public int Height { get; set; } = 800;
         public int Width { get; set; } = 600;
         public CropMode Crop { get; set; } = CropMode.fit;
+        public string Gravity { get; set; } = "auto";
 
         public ImageTransform()
         {
-            
         }
 
         public ImageTransform(int height, int width, CropMode crop)

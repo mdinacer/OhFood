@@ -1,13 +1,17 @@
-import { Container, Paper, Typography } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import {Box, Typography} from "@mui/material";
 
 export default function ServerError() {
-  const { state } = useLocation();
-  return (
-    <Container component={Paper}>
-      <Typography variant="h5" gutterBottom>
-        Server Error
-      </Typography>
-    </Container>
-  );
+    return (
+        <Box sx={{
+            height: "100vh",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+        }}>
+            <Typography variant="h1" gutterBottom sx={{color: "white"}}>
+                Internal Server Error
+            </Typography>
+        </Box>
+    );
 }

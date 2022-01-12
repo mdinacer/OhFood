@@ -47,11 +47,13 @@ namespace API.Controllers
 
 
         [HttpGet("{id:int}", Name = "GetProduct")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<ProductDto>> GetProduct(int id)
         {
-            var product = await _context.Products.SingleOrDefaultAsync(p => p.Id == id);
+            var product = await _context.Products
+                .Include(p => p.Category)
+                .SingleOrDefaultAsync(p => p.Id == id);
 
-            return product != null ? product : NotFound();
+            return product != null ? _mapper.Map<ProductDto>(product) : NotFound();
         }
 
         [HttpGet("categories")]

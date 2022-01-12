@@ -1,9 +1,12 @@
-import { LoadingButton } from "@mui/lab";
-import { Box, Button, Container, TextField } from "@mui/material";
-import { useEffect } from "react";
-import { useForm, FieldValues } from "react-hook-form";
+import {Alert, Box, Button, Collapse, Container, Grid, IconButton, Stack, Typography} from "@mui/material";
+import {useEffect, useState} from "react";
+import {FieldValues, useForm} from "react-hook-form";
 import agent from "../../app/api/agent";
-import { ShippingAddress } from "../../app/models/shippingAddress";
+import {ShippingAddress} from "../../app/models/shippingAddress";
+import {LocationAddress, LocationData} from "../../app/models/locationAddress";
+import {AddLocationAltOutlined, MyLocationOutlined} from "@mui/icons-material";
+import AppTextInput from "../../app/components/AppTextInput";
+import {LoadingButton} from "@mui/lab";
 
 interface Props {
     address?: ShippingAddress | null;
@@ -11,28 +14,105 @@ interface Props {
     onSubmit: (data: any) => void;
 }
 
-export default function AddressForm({ address, onCancel, onSubmit }: Props) {
-    const {
-        register,
-        handleSubmit,
-        reset,
-        setValue,
-        formState: { isSubmitting, errors, isValid },
-    } = useForm({ mode: "all" });
+export default function AddressForm({address, onCancel, onSubmit}: Props) {
+    const [locationAddress, setLocationAddress] = useState<LocationAddress | null>(null);
+    const [browserLocation, setBrowserLocation] = useState<{ lon: string, lat: string } | null>(null)
+    const [busy, setBusy] = useState(false)
+    const [state, setState] = useState<{
+        message: string, severity: "warning" | "info" | "error" | "success"
+    } | null>(null)
+    const {control, reset, handleSubmit, setValue, formState: {isSubmitting}} = useForm({
+        mode: 'all',
+        //resolver: yupResolver<any>(validationSchema)
+    });
+
+    useEffect(() => {
+        navigator.permissions.query({name: 'geolocation'}).then((result) => {
+            switch (result.state) {
+                case "prompt":
+                    console.log("prompt")
+                    setState({
+                        message: "A popup message will ask you to allow geolocation in your browser, " +
+                            "click allow to add your actual position",
+                        severity: "warning",
+                    });
+                    break;
+                case "denied":
+                    console.log("denied");
+                    setState({
+                        message: "Geolocation is disabled, you need to enable it to add an address.",
+                        severity: "error"
+                    });
+                    break;
+                case "granted":
+                    setState({
+                        message: "Geolocation is enabled, you cant get you actual position.",
+                        severity: "success"
+                    });
+                    console.log("granted")
+                    break;
+            }
+        })
+
+        return () => {
+            setState(null);
+        }
+    }, [setState])
 
     useEffect(() => {
         if (address) {
-            setValue("fullName", address.fullName);
-            setValue("address1", address.address1);
-            setValue("city", address.city);
+            reset(address)
+            const {id, title, fullName, address1, isDefault, ...rest} = address
+            setLocationAddress({...rest})
+            setBrowserLocation({lon: address.longitude, lat: address.latitude})
         }
-    }, [address, setValue])
+    }, [address, reset])
 
-    async function submitForm(data: FieldValues) {
+    const getBrowserLocation = () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            if (position) {
+                setBrowserLocation({
+                    lon: position.coords.longitude.toString(),
+                    lat: position.coords.latitude.toString()
+                })
+                getClientLocation(position.coords.longitude, position.coords.latitude)
+            } else {
+                setBrowserLocation(null);
+            }
+        })
+    }
+
+    const getClientLocation = (lon: number, lat: number) => {
+        setBusy(true);
+        agent.Location.getLocation(lat, lon)
+            .then((response: LocationData) => {
+                const data = {...response.address, longitude: response.lon, latitude: response.lat}
+                setLocationAddress(data)
+                setValue("county", data.county);
+                setValue("town", data.town ?? data.suburb);
+                setValue("neighbourhood", data.neighbourhood);
+                console.log(locationAddress);
+                setState({
+                    message: "If the position is not correct, try again until you get the correct result.",
+                    severity: "info"
+                })
+            })
+            .catch(error => console.log(error))
+            .finally(() => setBusy(false))
+    }
+
+
+    async function handleSubmitData(data: FieldValues) {
         try {
-            const item = { ...data, id: address ? address.id : 0, isDefault: false }
+            const item = {
+                id: address?.id ?? 0,
+                ...locationAddress,
+                ...data,
+                isDefault: address?.isDefault ?? false,
+            }
+            console.log(item)
             if (address) {
-                await agent.Profile.updateAddress(item);
+                await agent.Profile.updateAddress({...item});
             } else {
                 await agent.Profile.createAddress(item);
             }
@@ -52,54 +132,124 @@ export default function AddressForm({ address, onCancel, onSubmit }: Props) {
 
     return (
         <Container>
-            <Box
-                component="form" onSubmit={handleSubmit(submitForm)} noValidate sx={{ mt: 1 }}
-            >
-                <TextField
-                    margin="normal"
-                    fullWidth
-                    label="Full Name"
-                    autoComplete={"off"}
-                    {...register('fullName', { required: 'Full Name is required' })}
-                    error={!!errors.fullName}
-                    helperText={errors?.fullName?.message}
-                />
-                <TextField
-                    margin="normal"
-                    fullWidth
-                    label="Address"
-                    autoComplete={"off"}
-                    {...register('address1', { required: 'Address is required' })}
-                    error={!!errors.address1}
-                    helperText={errors?.address1?.message}
-                />
-                <TextField
-                    margin="normal"
-                    fullWidth
-                    label="City"
-                    autoComplete={"off"}
-                    {...register('city', { required: 'City is required' })}
-                    error={!!errors.city}
-                    helperText={errors?.city?.message}
-                />
+            <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                <Typography variant={"h6"}>Address</Typography>
+                <IconButton disabled={busy} onClick={() => getBrowserLocation()}>
+                    <AddLocationAltOutlined/>
+                </IconButton>
+            </Stack>
+            {state && (
+                <Alert severity={state.severity}>{state.message}</Alert>
+            )}
 
-                <LoadingButton
-                    loading={isSubmitting}
-                    disabled={!isValid}
-                    type="submit"
-                    fullWidth
-                    disableElevation
-                    variant="contained"
-                    sx={{ mt: 2 }}
-                >
-                    Save
-                </LoadingButton>
-                <Button fullWidth onClick={handleCancel} color="inherit"
-                    variant="outlined"
-                    sx={{ mt: 1, mb: 2 }}>
-                    Cancel
-                </Button>
-            </Box>
+            <Collapse in={locationAddress !== null}>
+                {locationAddress && (
+                    <Box>
+                        <Grid container spacing={2} sx={{my: 1}}>
+                            <Grid item xs={6} md={6}>
+                                <Stack>
+                                    <Typography variant={"caption"}>Country</Typography>
+                                    <Typography variant={"subtitle1"}>{locationAddress.country}</Typography>
+                                </Stack>
+                            </Grid>
+
+
+                            <Grid item xs={12} md={6}>
+                                <Stack sx={{
+                                    flexDirection: {xs: "row", md: "column"},
+                                    justifyContent: "space-between",
+                                    alignItems: {xs: "center", md: "flex-start"}
+                                }}>
+                                    <Typography variant={"caption"}>Zip Code</Typography>
+                                    <Typography
+                                        variant={"subtitle1"}>{locationAddress.postcode}</Typography>
+                                </Stack>
+                            </Grid>
+
+                            {browserLocation && (
+                                <>
+                                    <Grid item xs={12} md={6}>
+                                        <Stack sx={{
+                                            flexDirection: {xs: "row", md: "column"},
+                                            justifyContent: "space-between",
+                                            alignItems: {xs: "center", md: "flex-start"}
+                                        }}>
+                                            <Typography variant={"caption"}>Latitude</Typography>
+                                            <Typography variant={"body2"}>{browserLocation.lat}</Typography>
+                                        </Stack>
+                                    </Grid>
+
+                                    <Grid item xs={12} md={6}>
+                                        <Stack sx={{
+                                            flexDirection: {xs: "row", md: "column"},
+                                            justifyContent: "space-between",
+                                            alignItems: {xs: "center", md: "flex-start"}
+                                        }}>
+                                            <Typography variant={"caption"}>Longitude</Typography>
+                                            <Typography variant={"body2"}>{browserLocation?.lon}</Typography>
+                                        </Stack>
+                                    </Grid>
+
+                                    <Grid item xs={12} md={12}>
+                                        <Stack>
+                                            <Button variant={"outlined"} size={"small"} color={"inherit"}
+                                                    startIcon={<MyLocationOutlined/>}
+                                                    href={`https://maps.google.com/?q=${browserLocation.lat},${browserLocation.lon}`}
+                                                    target={"_blank"}>Check Location on Maps</Button>
+                                        </Stack>
+                                    </Grid>
+                                </>
+                            )}
+
+
+                        </Grid>
+                    </Box>
+                )}
+            </Collapse>
+
+            <Collapse in={locationAddress !== null || address != null}>
+                {(locationAddress || address) && (
+                    <Box component={"form"} onSubmit={handleSubmit(handleSubmitData)}>
+                        <Grid container spacing={2}>
+                            <Grid item md={12} xs={12}>
+                                <AppTextInput control={control} name='title' label='Title'/>
+                            </Grid>
+                            <Grid item md={12} xs={12}>
+                                <AppTextInput control={control} name='fullName' label='Full Name'/>
+                            </Grid>
+
+
+                            <Grid item md={6} xs={12}>
+                                <AppTextInput control={control} name='county' label='County'/>
+                            </Grid>
+
+                            <Grid item md={6} xs={12}>
+                                <AppTextInput control={control} name='town' label='Town/Suburb'/>
+                            </Grid>
+
+                            <Grid item md={12} xs={12}>
+                                <AppTextInput control={control} name='neighbourhood' label='Street'/>
+                            </Grid>
+
+                            <Grid item md={12} xs={12}>
+                                <AppTextInput control={control} name='address1' label='Full Address'/>
+                            </Grid>
+
+
+                            <Grid item md={12} xs={12}>
+                                <Stack direction={"row"} justifyContent='space-around' sx={{mt: 3}}>
+                                    <Button variant='outlined' color='inherit' onClick={handleCancel}>Cancel</Button>
+                                    <LoadingButton loading={isSubmitting} type='submit' variant='contained'
+                                                   disableElevation>Submit</LoadingButton>
+                                </Stack>
+                            </Grid>
+
+                        </Grid>
+                    </Box>
+                )}
+            </Collapse>
+
+
         </Container>
     )
 }

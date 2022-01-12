@@ -1,11 +1,11 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { toast } from "react-toastify";
-import { PaginatedResponse } from "../models/pagination";
-import { store } from "../store/configureStore";
-import { history } from "../..";
+import axios, {AxiosError, AxiosResponse} from "axios";
+import {toast} from "react-toastify";
+import {PaginatedResponse} from "../models/pagination";
+import {store} from "../store/configureStore";
+import {history} from "../..";
 
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 3000));
+const sleep = () => new Promise(resolve => setTimeout(resolve, 1000));
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -40,7 +40,7 @@ axios.interceptors.response.use(async response => {
     return response;
 }, (error: AxiosError) => {
     if (error.response) {
-        const { data, status } = error.response;
+        const {data, status} = error.response;
 
         switch (status) {
             case 400:
@@ -80,16 +80,16 @@ axios.interceptors.response.use(async response => {
 })
 
 const requests = {
-    get: (url: string, params?: URLSearchParams) => axios.get(url, { params }).then(responseBody),
+    get: (url: string, params?: URLSearchParams) => axios.get(url, {params}).then(responseBody),
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
     patch: (url: string, body: {}) => axios.patch(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody),
     postForm: (url: string, data: FormData) => axios.post(url, data, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: {'Content-Type': 'multipart/form-data'}
     }).then(responseBody),
     putForm: (url: string, data: FormData) => axios.put(url, data, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: {'Content-Type': 'multipart/form-data'}
     }).then(responseBody),
 }
 
@@ -104,7 +104,7 @@ function createFormData(item: any) {
 
 const Location = {
     getLocation: (lat: number, long: number) => axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${long}&format=json`,
-        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, withCredentials: false }).then(responseBody),
+        {headers: {'Content-Type': 'application/x-www-form-urlencoded'}, withCredentials: false}).then(responseBody),
 }
 
 const Admin = {
@@ -118,7 +118,7 @@ const Admin = {
 
 const Account = {
     login: (values: any) => requests.post('account/login', values),
-    register: (values: any) => requests.post('account/register', values),
+    register: (values: any) => requests.postForm('account/register', createFormData(values)),
     currentUser: () => requests.get('account/currentUser'),
     sendMail: (values: any) => requests.postForm('account/sendMail', createFormData(values)),
 }
@@ -136,6 +136,8 @@ const Profile = {
     createAddress: (address: any) => requests.postForm('profile/addresses', createFormData(address)),
     updateAddress: (address: any) => requests.putForm('profile/addresses', createFormData(address)),
     deleteAddress: (id: number) => requests.delete(`profile/addresses/${id}`),
+    createProfile: (values: any) => requests.postForm("profile", createFormData(values)),
+    updateProfile: (values: any) => requests.putForm("profile", createFormData(values)),
 }
 
 const Basket = {
@@ -158,7 +160,7 @@ const Orders = {
     //listAll: (params: URLSearchParams) => requests.get('orders/listAll', params),
     details: (id: number) => requests.get(`orders/${id}`),
     create: (values: any) => requests.post('orders', values),
-    updateStatus: (id: number, value: string) => requests.put('orders', { id, status: value }),
+    updateStatus: (id: number, value: string) => requests.put('orders', {id, status: value}),
     getTotals: () => requests.get('orders/totals'),
 }
 

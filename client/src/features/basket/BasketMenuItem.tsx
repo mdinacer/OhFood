@@ -28,7 +28,7 @@ export default function BasketMenuItem({item, status}: Props) {
                     flexDirection: "column"
                 }}>
                     <Typography variant={"subtitle2"}>{item.name}</Typography>
-                    <Typography variant={"caption"}>{item.category}</Typography>
+                    {/*<Typography variant={"caption"}>{item.category}</Typography>*/}
                     <Typography
                         variant={"body2"}>{currencyFormat(item.price * item.quantity, "$")}</Typography>
                     <Stack direction={"row"} justifyContent={"space-between"}>
@@ -42,6 +42,7 @@ export default function BasketMenuItem({item, status}: Props) {
                                          minValue={1}
                                          loading={status.includes('pending')}/>
                         <IconButton color={"inherit"}
+                                    disabled={status.includes('pending')}
                                     onClick={() => dispatch(removeBasketItemAsync({
                                         productId: item.productId,
                                         quantity: item.quantity,

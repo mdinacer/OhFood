@@ -172,7 +172,7 @@ public class OrdersController : BaseApiController
                 {
                     FullName = orderDto.ShippingAddress.FullName,
                     Address1 = orderDto.ShippingAddress.Address1,
-                    City = orderDto.ShippingAddress.City,
+                    //City = orderDto.ShippingAddress.City,
                     IsDefault = orderDto.SaveAddress
                 };
 

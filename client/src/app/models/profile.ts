@@ -11,3 +11,10 @@ export interface Profile {
     creationDate: Date;
     lastLogin: Date;
 }
+
+export interface UpdateProfile {
+    firstName: string;
+    lastName: string;
+    phone1: string;
+    phone2: string;
+}

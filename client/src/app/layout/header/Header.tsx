@@ -115,9 +115,9 @@ export default function Header() {
                                     )}
                                 </MenuItem>
 
-                                {user && (
-                                    <NotificationMenu />
-                                )}
+                                {/*{user && (*/}
+                                {/*    <NotificationMenu />*/}
+                                {/*)}*/}
                             </Toolbar>
                         </Container>
                     </CustomAppBar>
@@ -133,8 +133,8 @@ export default function Header() {
                 onClose={toggleDrawer("right", false)}
                 sx={{
                     "& 	.MuiDrawer-paper": {
-                        backgroundColor: "white",
-                        color: "black"
+                        //backgroundColor: "white",
+                        //color: "black"
                     }
                 }} variant={"temporary"}
             >

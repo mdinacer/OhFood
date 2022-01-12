@@ -50,23 +50,23 @@ export default function PagesList({ onClose }: Props) {
                     </ListItem>
                 ))}
 
-                {isAdmin && (
-                    <ListItem
-                        key={"/admin"}
-                        component={NavLink}
-                        selected={pathname === "/admin"}
-                        to={"/admin"}
-                        sx={{
-                            py: { xs: "inherit", md: 0 },
-                            my: { xs: "inherit", md: 0 },
-                            width: "auto",
-                            color: "white",
-                            display: "block",
-                        }}
-                    >
-                        <ListItemText primary={"Admin Panel"} />
-                    </ListItem>
-                )}
+                {/*{isAdmin && (*/}
+                {/*    <ListItem*/}
+                {/*        key={"/admin"}*/}
+                {/*        component={NavLink}*/}
+                {/*        selected={pathname === "/admin"}*/}
+                {/*        to={"/admin"}*/}
+                {/*        sx={{*/}
+                {/*            py: { xs: "inherit", md: 0 },*/}
+                {/*            my: { xs: "inherit", md: 0 },*/}
+                {/*            width: "auto",*/}
+                {/*            color: "white",*/}
+                {/*            display: "block",*/}
+                {/*        }}*/}
+                {/*    >*/}
+                {/*        <ListItemText primary={"Admin Panel"} />*/}
+                {/*    </ListItem>*/}
+                {/*)}*/}
             </List>
         </Box>
 

@@ -72,6 +72,9 @@ export const accountSlice = createSlice({
             } else {
                 state.user = action.payload;
             }
+        },
+        setProfile:(state, action) => {
+            state.profile = action.payload;
         }
     },
     extraReducers: (builder => {
@@ -109,5 +112,5 @@ export const accountSlice = createSlice({
     })
 })
 
-export const {setUser, signOut} = accountSlice.actions;
+export const {setUser, signOut, setProfile} = accountSlice.actions;
 
