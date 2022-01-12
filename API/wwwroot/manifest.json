@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Oh-Food",
+  "name": "Oh-Food Restaurant, We love what we do and do what you love",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,18 +8,21 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "og-image": "https://res.cloudinary.com/du8yosjx5/image/upload/c_scale,f_auto,h_1080,q_auto:good,w_1920/v1642009208/preview.png",
+  "og-description": "A simple website for a restaurant with a delivery service, Made with React and Net6 with a Postgres Database ",
+  "og-title": "Oh-Food Restaurant, We love what we do and do what you love"
 }

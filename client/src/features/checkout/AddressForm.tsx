@@ -64,8 +64,7 @@ export default function CheckoutAddressForm({onItemSelected, setSaveDefault}: Pr
     const onSubmitForm = (data: ShippingAddress) => {
         if (selectedAddress) {
             setBusy(true);
-            const newItems = {...addresses, data}
-            setAddresses(newItems);
+            setAddressesLoaded(false);
             handleSelectAddress(data.title)
             setBusy(false);
         }
