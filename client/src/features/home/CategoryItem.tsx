@@ -126,7 +126,7 @@ export default function CategoryItem({item, handleCollapsed, collapsed}: Props) 
                         }}
                     >
 
-                        <Typography  variant="h5" sx={{width: "100%"}}
+                        <Typography variant="h4" sx={{width: "100%", fontFamily: "'Bebas Neue' !important "}}
                                     onClick={() => handleCollapsed(item.name)}>{item.name}</Typography>
 
                         {toggleCollapseButton()}
@@ -184,7 +184,9 @@ export default function CategoryItem({item, handleCollapsed, collapsed}: Props) 
                             alignItems: "center",
                         }}
                     >
-                        <Typography className={"itemName"} sx={{cursor: "pointer", width: "100%", fontFamily:"'Bebas Neue' !important ",}} variant="h4"
+                        <Typography className={"itemName"}
+                                    sx={{cursor: "pointer", width: "100%", fontFamily: "'Bebas Neue' !important ",}}
+                                    variant="h4"
                                     onClick={() => handleCollapsed(item.name)}>{item.name}</Typography>
 
                         {toggleCollapseButton()}

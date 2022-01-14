@@ -9,9 +9,7 @@
   & .MuiListItem-root {
     color: white;
 
-    &:focus{
-      background-color: yellow;
-    }
+
 
     & p {
       opacity: .5;
@@ -36,10 +34,7 @@
       transition: all .5s ease-in-out;
       & p {
         opacity: 1;
-
-        &:first-letter{
-        font-weight: bolder;
-      }
+        font-weight: 700;
       }
 
       & .MuiListItemText-primary {
