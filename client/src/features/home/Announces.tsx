@@ -39,18 +39,21 @@ export default function Announces() {
                     component="img"
                     src={announce.pictureUrl}
                 />
-                <Container
+                <Container maxWidth={"md"}
                     className="text-container"
                     sx={{
                         color: "white",
                         my: 4,
+                        py:2,
+                        px:3,
+                        borderRadius:{sm:0, md:3}
                     }}
 
                 >
-                    <h2>{announce.title}</h2>
-                    <p>
+                    <Typography variant={"h5"} gutterBottom>{announce.title}</Typography>
+                    <Typography variant={"subtitle1"}>
                         {announce.description}
-                    </p>
+                    </Typography>
                 </Container>
             </Box>
         );
@@ -59,8 +62,9 @@ export default function Announces() {
     if (!announcesLoaded) return <LoadingComponent message="Loading Services..." />;
     return (
         <Box className="announces">
-            <Container sx={{ pt: { xs: 2, md: 7 } }} maxWidth={"xl"}>
+            <Container sx={{ pt: { xs: 2, md: 7 } }} maxWidth={"lg"}>
                 <Typography
+                    gutterBottom
                     variant="h3"
                     sx={{
                         textTransform: "uppercase",

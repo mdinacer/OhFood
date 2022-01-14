@@ -35,6 +35,9 @@ export const DarkTheme = responsiveFontSizes(
                 main: "#FC9918",
                 //main: "#FC9918",
             },
+            secondary: {
+                main: "#fc2f70",
+            },
         },
     })
 );
@@ -46,7 +49,7 @@ export const LightTheme = responsiveFontSizes(createTheme({
             main: "#FC9918",
         },
         secondary: {
-            main: "#064663",
+            main: "#fc2f70",
         },
     },
 }));

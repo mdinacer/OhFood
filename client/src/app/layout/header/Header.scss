@@ -8,14 +8,40 @@
 .pages-list {
   & .MuiListItem-root {
     color: white;
+
+    &:focus{
+      background-color: yellow;
+    }
+
+    & p {
+      opacity: .5;
+      transition: all .5s ease-in-out;
+
+
+      &:hover{
+        letter-spacing: .1rem;
+      }
+    }
+
     & .MuiListItemText-primary {
       text-transform: uppercase;
       opacity: 0.5;
       font-weight: 400;
     }
 
+
+
     &.Mui-selected {
       background-color: transparent;
+      transition: all .5s ease-in-out;
+      & p {
+        opacity: 1;
+
+        &:first-letter{
+        font-weight: bolder;
+      }
+      }
+
       & .MuiListItemText-primary {
         opacity: 1;
         font-weight: 700;
@@ -23,3 +49,4 @@
     }
   }
 }
+

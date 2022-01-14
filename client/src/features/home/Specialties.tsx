@@ -33,10 +33,11 @@ export default function Specialties() {
         <Box className="specialties">
             <Container maxWidth={"xl"} sx={{
                 pt: { md: 7, xs: 2 },
-                mb: { xs: 7, md: 2 },
+                pb: { xs: 7, md: 2 },
             }}>
                 <Typography
                     variant="h3"
+                    gutterBottom
                     sx={{
                         textTransform: "uppercase",
                     }}

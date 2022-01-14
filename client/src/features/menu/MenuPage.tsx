@@ -60,6 +60,7 @@ export default function MenuPage() {
             handleCloseFiltersDrawer();
             dispatch(setProductParams({ type: category.id > 0 ? category.id : null }));
         } else {
+            setSelectedCategory(null)
             dispatch(setProductParams({ type: null }));
         }
     }
@@ -102,9 +103,11 @@ export default function MenuPage() {
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgb(0, 0, 0)),url(${getBackground()});`
                 , pt: { md: 10, xs: 3 }, pb: { md: 2, xs: 7 }
             }}>
-                <Container maxWidth={"xl"} sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <Container maxWidth={"lg"} sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
                     <Box sx={{ flex: "0 1 auto" }}>
-                        <Typography variant={"h4"} component={"h1"} gutterBottom>Menu</Typography>
+                        <Typography variant={"h3"} component={"h1"} gutterBottom>
+                            {selectedCategory && selectedCategory.id !== 0? selectedCategory.name : "Menu"}
+                        </Typography>
                         <Box sx={{ pb: 3, width: "400px", ml: "auto", mr: 3, display: { xs: "none", md: "block" } }}>
                             {searchInput()}
                         </Box>
@@ -121,13 +124,6 @@ export default function MenuPage() {
                                 <IconButton onClick={() => handleFiltersDrawer(true)}>
                                     <Menu />
                                 </IconButton>
-
-                                {/*<IconButton color={itemView === 12 ? "primary": "inherit"}  onClick={() => setItemView(12)}>*/}
-                                {/*    <ViewDay />*/}
-                                {/*</IconButton>*/}
-                                {/*<IconButton  color={itemView === 6 ? "primary": "inherit"} onClick={() => setItemView(6)}>*/}
-                                {/*    <GridView />*/}
-                                {/*</IconButton>*/}
 
                                 <IconButton onClick={() => handleSearchCollapse(!isOpen.searchCollapse)}>
                                     <Search />

@@ -36,20 +36,21 @@ export default function Hero() {
                     mb: 3,
                     py: 2,
                 }}
+
                 className="text"
             >
-                <Typography variant="h1" >
+                <Typography variant="h1" component={"h1"} >
                     Never Stop
                 </Typography>
-                <Typography variant="h3" gutterBottom>
-                    <span className="explore-text">Exploring</span> the tastes
+                <Typography variant="h4" component={"h3"} gutterBottom>
+                    Exploring the tastes
                 </Typography>
 
                 <Stack direction="row" sx={{ my: 2, ml: 2 }}>
-                    <Button color="inherit" disableElevation variant="outlined" href="#menu">
+                    <Button size={"small"} className={"exploreButton"}  color="inherit" disableElevation variant="outlined" href="#menu">
                         Explore
                     </Button>
-                    <Button component={Link} to="/menu" sx={{ mx: 2, color: "inherit" }} disableElevation variant="contained">
+                    <Button size={"small"} className={"callToAction"} component={Link} to="/menu" sx={{ mx: 2, color: "inherit" }} disableElevation variant="contained">
                         Order
                     </Button>
                 </Stack>

@@ -68,14 +68,22 @@ export default function Header() {
                                     to={"/"}
                                     noWrap
                                     sx={{
+                                        transform: "scale(1)",
                                         mr: 2,
                                         display: {xs: "none", md: "flex"},
                                         color: "#fff",
                                         textDecoration: "none",
+                                        fontFamily:"Bebas Neue, cursive !important",
                                         fontSize: "1.3rem",
-                                        fontWeight: "bold"
+                                        fontWeight: "bold",
+                                        alignItems:"center",
+                                        justifyContent:"center",
+                                        transition:"all 300ms ease-in",
+                                        "&:hover":{
+                                            transform: "scale(1.1)",
+                                        }
                                     }}
-                                ><Box component="span" sx={{color: "#FC9918"}}>OH</Box>-Food</Typography>
+                                ><Box component="span" sx={{ fontSize: "1.6rem",color: "#FC9918", fontFamily:" cursive !important",}}>OH</Box>-Food</Typography>
 
                                 <Box
                                     sx={{

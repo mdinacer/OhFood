@@ -16,17 +16,19 @@ export default function HomePage() {
                 <Hero />
             </section>
 
+            <section id="menu" aria-label="Specialties">
+                <Suspense fallback={<LoadingComponent />}>
+                    <Specialties />
+                </Suspense>
+            </section>
+
             <section aria-label="Announces">
                 <Suspense fallback={<LoadingComponent />}>
                     <Announces />
                 </Suspense>
             </section>
 
-            <section id="menu" aria-label="Specialties">
-                <Suspense fallback={<LoadingComponent />}>
-                    <Specialties />
-                </Suspense>
-            </section>
+
 
             <section className="contact">
                 <Suspense fallback={<LoadingComponent />}>

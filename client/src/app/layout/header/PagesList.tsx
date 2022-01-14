@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemText } from "@mui/material";
+import {Box, List, ListItem, ListItemText, Typography} from "@mui/material";
 import { NavLink, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../store/configureStore";
 
@@ -40,13 +40,16 @@ export default function PagesList({ onClose }: Props) {
                         to={page.path}
                         sx={{
                             px: 1,
-                            py: { xs: "inherit", md: 0 },
-                            my: { xs: "inherit", md: 0 },
+                            py: { sm: "inherit", md: 0 },
+                            my: { sm: "inherit", md: 0 },
                             width: "auto",
                             display: "block",
                         }}
                     >
-                        <ListItemText primary={page.title} />
+                        <ListItemText
+                            primary={
+                                <Typography component={"p"}>{page.title}</Typography>
+                            } />
                     </ListItem>
                 ))}
 

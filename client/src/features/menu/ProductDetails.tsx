@@ -141,7 +141,7 @@ export default function ProductDetails() {
                                     {product.category}
                                 </Typography>
 
-                                <Typography color={"primary"} variant={"h6"} gutterBottom>
+                                <Typography sx={{fontFamily:"Bebas Neue, cursive !important"}} color={"primary"} variant={"h3"} gutterBottom>
                                     {product.name}
                                 </Typography>
 
@@ -191,7 +191,7 @@ export default function ProductDetails() {
                                     loading={status.includes('pending')}
                                     onClick={handleUpdateCart}
                                     disableElevation
-                                    color='primary'
+                                    color='secondary'
                                     size='small'
                                     variant='text'
 
