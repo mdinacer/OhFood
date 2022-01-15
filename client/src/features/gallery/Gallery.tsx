@@ -11,6 +11,7 @@ import {
 import {useState} from "react";
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import "./Gallery.scss";
+import {Close} from "@mui/icons-material";
 
 function srcset(image: string, size: number, rows = 1, cols = 1) {
     return {
@@ -92,6 +93,7 @@ export default function Gallery() {
                     >
                         <Box
                             sx={{
+
                                 display: "flex",
                                 flexDirection: "column",
                                 justifyContent: "center",
@@ -110,6 +112,15 @@ export default function Gallery() {
 
                             }}
                         >
+                            <IconButton onClick={handleClose}
+                                sx={{
+                                    position: "absolute" as "absolute",
+                                    top:0, right:0,
+                                    m:1
+                                }}
+                            >
+                                <Close/>
+                            </IconButton>
                             <Box
                                 component="img"
                                 src={`${selectedItem.img}?w=800&h=600&fit=crop&auto=format`}

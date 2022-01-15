@@ -12,7 +12,7 @@ import {
     useMediaQuery
 } from "@mui/material";
 import {CategoryFull} from "../../app/models/category";
-import {ExpandMoreOutlined, OpenInBrowser} from "@mui/icons-material";
+import {ExpandMoreOutlined, OpenInNew} from "@mui/icons-material";
 import {currencyFormat} from "../../app/util/util";
 import {useTheme} from '@mui/material/styles';
 import {Link} from "react-router-dom";
@@ -40,7 +40,7 @@ export default function CategoryItem({item, handleCollapsed, collapsed}: Props) 
             {collapsed.title === item.name ? (
                 <ExpandMoreOutlined fontSize="large" color="primary"/>
             ) : (
-                <OpenInBrowser fontSize="large" color="primary"/>
+                <OpenInNew fontSize="large" color="primary"/>
             )}
         </IconButton>
     );

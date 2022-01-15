@@ -16,7 +16,7 @@ export default function ProductItem({product}: Props) {
     const dispatch = useAppDispatch();
 
     return (
-        <Card sx={{maxHeight: "350px", height: "100%", display: "flex", flexDirection: "column", pt: 1}}>
+        <Card sx={{maxHeight: "300px", height: "100%", display: "flex", flexDirection: "column", pt: 1}}>
             <CardMedia
                 sx={{flex: "0 1 140px", objectFit: "contain"}}
                 component="img"

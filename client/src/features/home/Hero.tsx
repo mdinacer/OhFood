@@ -36,8 +36,7 @@ export default function Hero() {
                     mb: 3,
                     py: 2,
                 }}
-
-                className="text"
+                className="text-container"
             >
                 <Typography variant="h1" component={"h1"} >
                     Never Stop

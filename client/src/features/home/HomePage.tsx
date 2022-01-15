@@ -28,8 +28,6 @@ export default function HomePage() {
                 </Suspense>
             </section>
 
-
-
             <section className="contact">
                 <Suspense fallback={<LoadingComponent />}>
                     <Contact />

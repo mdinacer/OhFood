@@ -8,7 +8,7 @@ interface Props {
     categories: Category[]
     handleCategoryChanged: (value: number) => void;
     handleSortChanged: (value: string) => void;
-    selectedCategoryId?: number | null
+    selectedCategoryId?: number;
 }
 
 
@@ -27,7 +27,7 @@ export default function FiltersList({categories, handleCategoryChanged, handleSo
 
     return (
         <Container className={"filters-list"}>
-            <List dense subheader={<li/>}>
+            <List dense subheader={<li/>} >
                 <ListSubheader>
                     <Typography variant={"subtitle1"}>Categories</Typography>
                 </ListSubheader>

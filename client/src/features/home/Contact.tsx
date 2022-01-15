@@ -71,37 +71,41 @@ export default function Contact() {
                             </ListItem>
 
                             <ListItem>
-                                <ListItemText
-                                    primary={<Typography>Social Media</Typography>}
-                                    secondary={
-                                        <Stack direction={"row"} justifyContent={"space-evenly"}>
-                                            <IconButton href={"https://www.facebook.com"} target={"_blank"} sx={{color: "#4267B2"}}>
-                                                <Facebook fontSize={"large"}/>
-                                            </IconButton>
+                                <Stack sx={{width:"100%"}}>
+                                    <ListItemText
+                                        primary={<Typography>Social Media</Typography>}
+                                    />
+                                    <Stack direction={"row"} justifyContent={"space-evenly"}>
+                                        <IconButton href={"https://www.facebook.com"} target={"_blank"}
+                                                    sx={{color: "#4267B2"}}>
+                                            <Facebook fontSize={"large"}/>
+                                        </IconButton>
 
-                                            <IconButton href={"https://www.instagram.com"} target={"_blank"}>
-                                                <Instagram
-                                                    sx={{
-                                                        background: "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)",
-                                                        backgroundClip:"content-box",
-                                                        borderRadius:2,
-                                                        color:"black"
-                                                    }}
-                                                    fontSize={"large"}/>
-                                            </IconButton>
+                                        <IconButton href={"https://www.instagram.com"} target={"_blank"}>
+                                            <Instagram
+                                                sx={{
+                                                    p:"3px",
+                                                    background: "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)",
+                                                    backgroundClip: "content-box",
+                                                    borderRadius: 2,
+                                                    color: "black"
+                                                }}
+                                                fontSize={"large"}/>
+                                        </IconButton>
 
-                                            <IconButton  href={"https://www.twitter.com"} target={"_blank"} sx={{color: "#1DA1F2"}}>
-                                                <Twitter fontSize={"large"}/>
-                                            </IconButton>
+                                        <IconButton href={"https://www.twitter.com"} target={"_blank"}
+                                                    sx={{color: "#1DA1F2"}}>
+                                            <Twitter fontSize={"large"}/>
+                                        </IconButton>
 
-                                            <IconButton href={"https://www.youtube.com"} target={"_blank"} sx={{color: "#FF0000"}}>
-                                                <YouTube fontSize={"large"}/>
-                                            </IconButton>
+                                        <IconButton href={"https://www.youtube.com"} target={"_blank"}
+                                                    sx={{color: "#FF0000"}}>
+                                            <YouTube fontSize={"large"}/>
+                                        </IconButton>
 
 
-                                        </Stack>
-                                    }
-                                />
+                                    </Stack>
+                                </Stack>
                             </ListItem>
                         </List>
                     </Container>
