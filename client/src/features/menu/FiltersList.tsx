@@ -27,9 +27,9 @@ export default function FiltersList({categories, handleCategoryChanged, handleSo
 
     return (
         <Container className={"filters-list"}>
-            <List dense subheader={<li/>} >
-                <ListSubheader>
-                    <Typography variant={"subtitle1"}>Categories</Typography>
+            <List dense subheader={<li/>}  >
+                <ListSubheader color={"inherit"}>
+                    <Typography fontWeight={"bold"}  variant={"subtitle1"}>Categories</Typography>
                 </ListSubheader>
                 {categories.map((category) => (
                     <ListItemButton
@@ -46,8 +46,8 @@ export default function FiltersList({categories, handleCategoryChanged, handleSo
             </List>
 
             <List dense subheader={<li/>}>
-                <ListSubheader>
-                    <Typography variant={"subtitle1"}>Sort</Typography>
+                <ListSubheader color={"inherit"}>
+                    <Typography  fontWeight={"bold"}  variant={"subtitle1"}>Sort</Typography>
                 </ListSubheader>
                 {sortOptions.map((option) => (
                     <ListItemButton

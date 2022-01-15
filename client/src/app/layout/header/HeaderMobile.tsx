@@ -64,11 +64,7 @@ export default function HeaderMobile({ user, itemsCount }: Props) {
                 </BottomNavigation>
             </Paper>
 
-            <Drawer sx={{
-                "& 	.MuiDrawer-paper": {
-                    backgroundColor: "rgba(0,0,0,.9)",
-                }
-            }} variant={"temporary"} anchor={"bottom"} open={open.menu}
+            <Drawer variant={"temporary"} anchor={"bottom"} open={open.menu}
                 onClose={() => handleMenuDrawer(false)}>
                 <Container sx={{ py: 2 }}>
                     <IconButton sx={{ width: "100%", ml: 'auto' }} onClick={() => handleMenuDrawer(false)}>
@@ -79,11 +75,7 @@ export default function HeaderMobile({ user, itemsCount }: Props) {
             </Drawer>
 
 
-            <Drawer sx={{
-                "& 	.MuiDrawer-paper": {
-                    backgroundColor: "rgba(0,0,0,.9)",
-                }
-            }} variant={"temporary"} anchor={"bottom"} open={open.user}
+            <Drawer variant={"temporary"} anchor={"bottom"} open={open.user}
                 onClose={() => handleUserDrawer(false)}>
                 <Container sx={{ py: 2 }}>
                     <IconButton sx={{ width: "100%", ml: 'auto' }} onClick={() => handleUserDrawer(false)}>
@@ -93,12 +85,7 @@ export default function HeaderMobile({ user, itemsCount }: Props) {
                 </Container>
             </Drawer>
 
-            <Drawer sx={{
-                "& 	.MuiDrawer-paper": {
-                    //backgroundColor: "white",
-                    //color: "black"
-                }
-            }} variant={"temporary"} anchor={"right"} open={open.basket}
+            <Drawer  variant={"temporary"} anchor={"right"} open={open.basket}
                 onClose={() => handleBasketDrawer(false)}>
                 <BasketMenu onClose={() => handleBasketDrawer(false)} />
             </Drawer>

@@ -4,7 +4,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import UserMenu from "./UserMenu";
-import {Badge, Box, Container, Drawer, IconButton, MenuItem, useMediaQuery,} from "@mui/material";
+import {Badge, Box, Container, Drawer, IconButton, Link, MenuItem, Stack, useMediaQuery,} from "@mui/material";
 
 import {AccountCircle, ShoppingCart} from "@mui/icons-material";
 
@@ -13,8 +13,6 @@ import PagesList from "./PagesList";
 import {styled, useTheme} from "@mui/material/styles";
 import HeaderMobile from "./HeaderMobile";
 import BasketMenu from "../../../features/basket/BasketMenu";
-import useSignalR from "../../hooks/useSignalR";
-import {Link} from "react-router-dom";
 
 
 export default function Header() {
@@ -63,27 +61,19 @@ export default function Header() {
                     <CustomAppBar elevation={1}>
                         <Container className="app-bar-container">
                             <Toolbar disableGutters variant={"dense"}>
-                                <Typography
-                                    component={Link}
-                                    to={"/"}
-                                    noWrap
-                                    sx={{
-                                        transform: "scale(1)",
-                                        mr: 2,
-                                        display: {xs: "none", md: "flex"},
-                                        color: "#fff",
-                                        textDecoration: "none",
-                                        fontFamily:"Bebas Neue, cursive !important",
-                                        fontSize: "1.3rem",
-                                        fontWeight: "bold",
-                                        alignItems:"center",
-                                        justifyContent:"center",
-                                        transition:"all 300ms ease-in",
-                                        "&:hover":{
-                                            transform: "scale(1.1)",
-                                        }
-                                    }}
-                                ><Box component="span" sx={{ fontSize: "1.6rem",color: "#FC9918", fontFamily:" cursive !important",}}>OH</Box>-Food</Typography>
+                                <Link href={"/"} sx={{
+                                    textDecoration:"none",
+                                    cursor:"pointer",
+                                    color:"white",
+                                    fontSize:"1.3rem",
+                                    fontWeight:"bold"
+                                }}>
+                                   <Stack alignItems={"center"} direction={"row"}>
+                                       <Typography fontFamily={"Bebas Neue !important"} fontSize={"1.4rem"} >Delice</Typography>
+                                       <Typography fontFamily={"Montserrat !important"} fontWeight={"bolder"} fontSize={"1.4rem"} color={"primary"}>Yum</Typography>
+                                   </Stack>
+                                </Link>
+
 
                                 <Box
                                     sx={{

@@ -45,6 +45,9 @@ export const DarkTheme = responsiveFontSizes(
 export const LightTheme = responsiveFontSizes(createTheme({
     palette: {
         mode: "light",
+        background: {
+            default: "#EEEEEE"
+        },
         primary: {
             main: "#FC9918",
         },

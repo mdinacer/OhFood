@@ -13,11 +13,25 @@ public class OrderDto
     public decimal DeliveryFee { get; set; }
     public string Status { get; set; }
     public decimal Total { get; set; }
-
 }
 
 public class OrderTotals
 {
     public int Count { get; set; }
     public decimal Total { get; set; }
+}
+
+public class AdminOrderTotals
+{
+    public int Count { get; set; }
+    public decimal Total { get; set; }
+
+    public int ConfirmedCount { get; set; }
+    public decimal ConfirmedTotal { get; set; }
+
+    public int CancelledCount { get; set; }
+    public decimal CancelledTotal { get; set; }
+
+    public int PendingCount { get; set; }
+    public decimal PendingTotal { get; set; }
 }

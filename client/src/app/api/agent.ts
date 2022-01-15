@@ -108,12 +108,15 @@ const Location = {
 }
 
 const Admin = {
-    createProduct: (product: any) => requests.postForm('products', createFormData(product)),
-    updateProduct: (product: any) => requests.putForm('products', createFormData(product)),
-    deleteProduct: (id: number) => requests.delete(`products/${id}`),
-    createAnnounce: (announce: any) => requests.postForm('announces', createFormData(announce)),
-    updateAnnounce: (announce: any) => requests.putForm('announces', createFormData(announce)),
-    deleteAnnounce: (id: number) => requests.delete(`announces/${id}`),
+    fetchOrders: (params: URLSearchParams) => requests.get('admin/orders',params),
+    updateOrderStatus: (id: number, value: string) => requests.put('admin/orders', {id, status: value}),
+    fetchOrdersTotals: () => requests.get("admin/orders/totals"),
+    createProduct: (product: any) => requests.postForm('admin/products', createFormData(product)),
+    updateProduct: (product: any) => requests.putForm('admin/products', createFormData(product)),
+    deleteProduct: (id: number) => requests.delete(`admin/products/${id}`),
+    createAnnounce: (announce: any) => requests.postForm('admin/announces', createFormData(announce)),
+    updateAnnounce: (announce: any) => requests.putForm('admin/announces', createFormData(announce)),
+    deleteAnnounce: (id: number) => requests.delete(`admin/announces/${id}`),
 }
 
 const Account = {
@@ -160,7 +163,7 @@ const Orders = {
     //listAll: (params: URLSearchParams) => requests.get('orders/listAll', params),
     details: (id: number) => requests.get(`orders/${id}`),
     create: (values: any) => requests.post('orders', values),
-    updateStatus: (id: number, value: string) => requests.put('orders', {id, status: value}),
+    cancelOrder: (id: number) => requests.post(`orders/${id}`, {}),
     getTotals: () => requests.get('orders/totals'),
 }
 

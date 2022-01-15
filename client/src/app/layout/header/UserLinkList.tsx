@@ -23,7 +23,7 @@ export default function UserLinkList({onClick}: Props) {
         <List>
             {userLinks.map(({title, path, icon}) => (
                 <ListItem sx={{
-                    textDecoration: "none", color:"white"
+                    textDecoration: "none", color:"inherit"
                 }} key={title} component={Link} to={path}  onClick={() => onClick(false)}>
                     <ListItemIcon>
                         {icon}

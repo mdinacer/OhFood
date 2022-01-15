@@ -76,23 +76,6 @@ public class OrdersController : BaseApiController
         return Ok(orderTotal);
     }
 
-
-    [Authorize(Roles = "Admin")]
-    [HttpGet("listAll")]
-    public async Task<ActionResult<PagedList<OrderDto>>> GetAllOrders([FromQuery] OrderParams orderParams)
-    {
-        var query = _context.Orders
-            .Filter(orderParams.status)
-            .Search(orderParams.SearchTerm)
-            .Sort(orderParams.OrderBy)
-            .ToOrderDto();
-        var orders =
-            await PagedList<OrderDto>.ToPagedList(query, orderParams.PageNumber, orderParams.PageSize);
-
-        Response.AddPaginationHeader(orders.MetaData);
-        return orders;
-    }
-
     [HttpGet("{id:int}", Name = "GetOrder")]
     public async Task<ActionResult<OrderDto>> GetOrder(int id)
     {
@@ -195,39 +178,24 @@ public class OrdersController : BaseApiController
 
         return BadRequest(new ProblemDetails { Title = "Problem creating order" });
     }
-
-    [Authorize(Roles = "Admin")]
-    [HttpPut]
-    public async Task<ActionResult<Product>> UpdateOrderStatus(UpdateOrderDto updateOrderDto)
+    
+    
+    [HttpPost("cancel/{id:int}")]
+    public async Task<ActionResult<Product>> CancelOrder(int id)
     {
-        var order = await _context.Orders.FindAsync(updateOrderDto.Id);
+        var order = await _context.Orders.FindAsync(id);
 
         if (order == null) return NotFound();
 
-        _mapper.Map(updateOrderDto, order);
+        order.Status = OrderStatus.Cancelled;
 
 
         var success = await _context.SaveChangesAsync() > 0;
 
         return success
             ? Ok(order)
-            : BadRequest(new ProblemDetails { Title = "Problem updating order" });
+            : BadRequest(new ProblemDetails { Title = "Problem Cancelling order" });
     }
 
-    [Authorize(Roles = "Admin")]
-    [HttpDelete("{id:int}")]
-    public async Task<ActionResult> DeleteProduct(int id)
-    {
-        var order = await _context.Orders.FindAsync(id);
-
-        if (order == null) return NotFound();
-
-        _context.Orders.Remove(order);
-
-        var success = await _context.SaveChangesAsync() > 0;
-
-        return success
-            ? Ok()
-            : BadRequest(new ProblemDetails { Title = "Problem deleting product" });
-    }
+    
 }

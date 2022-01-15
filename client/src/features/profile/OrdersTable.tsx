@@ -1,60 +1,54 @@
-import { Box, Collapse, Container, Divider, Grid, List, ListItem, Paper, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+import {Box, Collapse, Container, Divider, Grid, List, ListItem, Paper, Stack, Typography} from "@mui/material";
+import {useState} from "react";
 import agent from "../../app/api/agent";
-import { useAppDispatch } from "../../app/store/configureStore";
+import {useAppDispatch} from "../../app/store/configureStore";
 import useOrders from "../../app/hooks/useOrders";
-import { format } from "date-fns";
+import {format} from "date-fns";
 import AppPagination from "../../app/components/AppPagination";
-import { setPageNumber, updateOrder } from "../../app/slices/orderSlice";
-import { currencyFormat } from "../../app/util/util";
-import { DoDisturb, ExpandLessOutlined, ExpandMoreOutlined, Recommend } from "@mui/icons-material";
-import { LoadingButton } from "@mui/lab";
+import {setPageNumber, updateOrder} from "../../app/slices/orderSlice";
+import {currencyFormat} from "../../app/util/util";
+import {DoDisturb, ExpandLessOutlined, ExpandMoreOutlined} from "@mui/icons-material";
+import {LoadingButton} from "@mui/lab";
 import AppDialog from "../../app/components/AppDialog";
 
-interface Props {
-    isAdmin: boolean
-}
 
-export default function OrdersTable({ isAdmin }: Props) {
+export default function OrdersTable() {
     const dispatch = useAppDispatch();
     const [loading, setLoading] = useState(false);
     const [target, setTarget] = useState(0);
-    const { orders, ordersLoaded, metaData } = useOrders();
-    const [collapsed, setCollapsed] = useState<{ id: number | null }>({ id: null });
-    const [open, setOpen] = useState(false);
-    const [dialogAction, setDialogAction] = useState<{ id: number, action: string } | null>(null)
+    const {orders, ordersLoaded, metaData} = useOrders();
+    const [collapsed, setCollapsed] = useState<{ id: number | null }>({id: null});
+    const [dialogOpen, setDialogOpen] = useState(false);
 
-
-    const cancelOrder = (id: number) => {
-        setDialogAction({ id, action: "Cancelled" });
-        setOpen(true);
-    }
-    const confirmOrder = (id: number) => updateOrderStatus(id, "Confirmed")
-
-    //const resetPendingOrder = (id: number) => { updateOrderStatus(id, "Pending") }
+    const [selectedOrder, setSelectedOrder] = useState<number>(0)
 
 
     function handleDialogOnClose(value: boolean) {
-        if (value && dialogAction) {
-            updateOrderStatus(dialogAction.id, dialogAction.action);
+        if (value && selectedOrder > 0) {
+            handleCancelOrder(selectedOrder);
         }
-        setOpen(false);
+        setDialogOpen(false);
     }
 
+    const cancelOrder = (id: number) => {
+        setSelectedOrder(id);
+        setDialogOpen(true);
+    }
 
-    function updateOrderStatus(entityId: number, value: string) {
+    function handleCancelOrder(orderId: number) {
         setLoading(true);
-        setTarget(entityId);
-        agent.Orders.updateStatus(entityId, value)
-            .then(response => {
-                dispatch(updateOrder({ id: entityId, changes: { status: value } }))
+        setTarget(orderId);
+        agent.Orders.cancelOrder(orderId)
+            .then(_ => {
+                dispatch(updateOrder({id: orderId, changes: {status: "cancelled"}}))
             })
             .catch(e => console.log(e))
             .finally(() => setLoading(false));
     }
 
+
     const handleCollapsed = (id: number) =>
-        setCollapsed({ id: collapsed.id === id ? null : id });
+        setCollapsed({id: collapsed.id === id ? null : id});
 
     const showMessage = (message: string = "Loading") => (
         <Box height={"100%"} width={"100%"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
@@ -64,7 +58,7 @@ export default function OrdersTable({ isAdmin }: Props) {
 
 
     return (
-        <Box sx={{ overflow: "auto", py: 3 }}>
+        <Box sx={{overflow: "auto", py: 3}}>
 
             {!ordersLoaded && showMessage("Loading Orders")}
 
@@ -74,7 +68,7 @@ export default function OrdersTable({ isAdmin }: Props) {
                 <Grid container spacing={3}>
                     {orders.map(order => (
                         <Grid key={order.id} item xs={12}>
-                            <Paper sx={{ py: 3, height: "100%" }}>
+                            <Paper sx={{py: 3, height: "100%"}}>
                                 <Container>
                                     <Grid container spacing={1}>
                                         <Grid item md={3} xs={12}>
@@ -105,7 +99,7 @@ export default function OrdersTable({ isAdmin }: Props) {
                                         </Grid>
 
                                         <Grid item md={2} xs={6} display={"flex"} justifyContent={"flex-end"}
-                                            flexDirection={"column"}>
+                                              flexDirection={"column"}>
                                             <Typography variant={"caption"} textAlign={"right"}>
                                                 Total
                                             </Typography>
@@ -115,77 +109,39 @@ export default function OrdersTable({ isAdmin }: Props) {
                                         </Grid>
 
                                         <Grid item xs={12}>
-                                            <Divider />
-                                            {isAdmin ? (
-                                                <Stack sx={{ mt: 1 }} direction={"row"} justifyContent={"space-evenly"}
-                                                    flexWrap={"wrap"}>
-                                                    <LoadingButton size={"small"} color={"inherit"}
-                                                        onClick={() => handleCollapsed(order.id)}
-                                                        startIcon={
-                                                            collapsed.id !== order.id ? (
-                                                                <ExpandMoreOutlined fontSize="large"
-                                                                    color="primary" />
-                                                            ) : (
-                                                                <ExpandLessOutlined fontSize="large"
-                                                                    color="inherit" />
-                                                            )
-                                                        }>
-                                                        View
-                                                    </LoadingButton>
+                                            <Divider/>
+                                            <Stack
+                                                sx={{
+                                                    mt: 1,
+                                                    justifyContent: "space-between"
+                                                }}
+                                                direction={"row"}>
+                                                <LoadingButton size={"small"} color={"inherit"} startIcon={
+                                                    collapsed.id !== order.id ? (
+                                                        <ExpandMoreOutlined fontSize="large" color="primary"/>
+                                                    ) : (
+                                                        <ExpandLessOutlined fontSize="large" color="inherit"/>
+                                                    )
+                                                }
+                                                               onClick={() => handleCollapsed(order.id)}>
+                                                    View Items
+                                                </LoadingButton>
+                                                {order.status === "Pending" && (
                                                     <LoadingButton
-                                                        onClick={() => confirmOrder(order.id)}
+                                                        onClick={() => cancelOrder(order.id)}
                                                         loading={loading && target === order.id}
-                                                        size={"small"}
-                                                        color={"success"}
-                                                        startIcon={<Recommend />}>
-                                                        Confirm
+                                                        startIcon={<DoDisturb/>}
+                                                        color={"error"}>
+                                                        Cancel
                                                     </LoadingButton>
-                                                    {order.status === "Pending" && (
-                                                        <LoadingButton
-                                                            onClick={() => cancelOrder(order.id)}
-                                                            loading={loading && target === order.id}
-                                                            size={"small"}
-                                                            startIcon={<DoDisturb />}
-                                                            color={"error"}>
-                                                            Cancel
-                                                        </LoadingButton>
-                                                    )}
-
-                                                </Stack>
-                                            ) : (
-                                                <Stack
-                                                    sx={{
-                                                        mt: 1,
-                                                        justifyContent: { xs: "space-evenly", md: "space-between" }
-                                                    }}
-                                                    direction={"row"}>
-                                                    <LoadingButton color={"inherit"} startIcon={
-                                                        collapsed.id !== order.id ? (
-                                                            <ExpandMoreOutlined fontSize="large" color="primary" />
-                                                        ) : (
-                                                            <ExpandLessOutlined fontSize="large" color="inherit" />
-                                                        )
-                                                    }
-                                                        onClick={() => handleCollapsed(order.id)}>
-                                                        View Items
-                                                    </LoadingButton>
-                                                    {order.status === "Pending" && (
-                                                        <LoadingButton
-                                                            onClick={() => cancelOrder(order.id)}
-                                                            loading={loading && target === order.id}
-                                                            startIcon={<DoDisturb />}
-                                                            color={"error"}>
-                                                            Cancel
-                                                        </LoadingButton>
-                                                    )}
-                                                </Stack>
-                                            )}
+                                                )}
+                                            </Stack>
                                         </Grid>
 
                                         <Grid item xs={12}>
                                             <Collapse in={collapsed.id === order.id}>
-                                                <Divider />
-                                                <List dense sx={{ my: 1 }}>
+                                                <Divider/>
+                                                <List dense sx={{my: 1}}>
                                                     {order.items.map(item => (
                                                         <ListItem key={item.productId}>
                                                             <Grid container>
@@ -195,14 +151,14 @@ export default function OrdersTable({ isAdmin }: Props) {
                                                                 </Grid>
 
                                                                 <Grid item xs={2} display={"flex"} flexDirection={"row"}
-                                                                    alignItems={"center"} justifyContent={"center"}>
+                                                                      alignItems={"center"} justifyContent={"center"}>
                                                                     <Typography variant={"body2"}>x </Typography>
                                                                     <Typography
                                                                         variant={"body1"}>{item.quantity}</Typography>
                                                                 </Grid>
                                                                 <Grid item xs={2}>
                                                                     <Typography variant={"body1"}
-                                                                        textAlign={"right"}>{currencyFormat(item.price * item.quantity, "$")}</Typography>
+                                                                                textAlign={"right"}>{currencyFormat(item.price * item.quantity, "$")}</Typography>
                                                                 </Grid>
                                                             </Grid>
                                                         </ListItem>
@@ -220,7 +176,7 @@ export default function OrdersTable({ isAdmin }: Props) {
                         {metaData &&
                             <AppPagination
                                 metaData={metaData}
-                                onPageChange={(page: number) => dispatch(setPageNumber({ pageNumber: page }))}
+                                onPageChange={(page: number) => dispatch(setPageNumber({pageNumber: page}))}
                             />}
                     </Grid>
                 </Grid>
@@ -228,12 +184,12 @@ export default function OrdersTable({ isAdmin }: Props) {
             }
 
             <AppDialog
-                open={open}
+                open={dialogOpen}
                 title="Cancel Order"
                 onClose={handleDialogOnClose}
                 body={"Are you sure you want to cancel this order?"}
             />
 
-        </Box >
+        </Box>
     )
 }

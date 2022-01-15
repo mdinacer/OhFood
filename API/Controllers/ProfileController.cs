@@ -146,7 +146,7 @@ public class ProfileController : BaseApiController
         return defaultAddress;
     }
 
-    [HttpPut("addresses/setDefault/{id}")]
+    [HttpPut("addresses/setDefault/{id:int}")]
     public async Task<IActionResult> SetDefaultAddress(int id)
     {
         var user = await _context.Users

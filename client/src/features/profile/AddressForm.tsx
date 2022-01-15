@@ -242,8 +242,8 @@ export default function AddressForm({address, onCancel, onSubmit}: Props) {
 
 
                             <Grid item md={12} xs={12}>
-                                <Stack direction={"row"} justifyContent='space-around' sx={{mt: 3}}>
-                                    <Button variant='outlined' color='inherit'
+                                <Stack direction={"row"} justifyContent='flex-end' sx={{mt: 3}}>
+                                    <Button sx={{mx:2}} variant='outlined'
                                             onClick={handleCancel}>Cancel</Button>
                                     <LoadingButton loading={isSubmitting} type='submit' variant='contained'
                                                    disableElevation>Submit</LoadingButton>
@@ -254,8 +254,6 @@ export default function AddressForm({address, onCancel, onSubmit}: Props) {
                     </Box>
                 )}
             </Collapse>
-
-
         </Container>
     )
 }

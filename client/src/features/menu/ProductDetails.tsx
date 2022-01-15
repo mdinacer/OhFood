@@ -176,12 +176,15 @@ export default function ProductDetails() {
                                 <Button href={"/menu"} color={"inherit"} startIcon={<ChevronLeft/>}>
                                     Back
                                 </Button>
+
+
                                 {item && <LoadingButton
                                     disableElevation
                                     sx={{ml: "auto", mr: 1}}
                                     loading={status.includes('pending')}
                                     color={"error"}
-                                    variant={"text"}
+
+                                    variant={"contained"}
                                     onClick={removeItem}
                                 >
                                     <RemoveShoppingCartOutlined/>
@@ -193,7 +196,7 @@ export default function ProductDetails() {
                                     disableElevation
                                     color='secondary'
                                     size='small'
-                                    variant='text'
+                                    variant='contained'
 
                                 >
                                     <AddShoppingCartOutlined/>

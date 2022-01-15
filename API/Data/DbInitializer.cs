@@ -110,7 +110,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 9,
-                        PictureUrl = "/images/products/sandwich.webp",
+                        PictureUrl = "/images/products/doubleburger.webp",
                         Ingredients = ingredients,
                         Inventory = 100
                     },
@@ -121,7 +121,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 10,
-                        PictureUrl = "/images/products/sandwich.webp",
+                        PictureUrl = "/images/products/doubleburger.webp",
                         Ingredients = ingredients,
                         Inventory = 100
                     },
@@ -253,7 +253,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 10,
-                        PictureUrl = "/images/products/wrap.webp",
+                        PictureUrl = "/images/products/wraps.webp",
                         Ingredients = ingredients,
                         Inventory = 100
                     },
@@ -263,7 +263,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 11,
-                        PictureUrl = "/images/products/wrap.webp",
+                        PictureUrl = "/images/products/wraps.webp",
                         Ingredients = ingredients,
                         Inventory = 100
                     },
@@ -273,7 +273,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 12.99m,
-                        PictureUrl = "/images/products/wrap.webp",
+                        PictureUrl = "/images/products/wraps.webp",
                         Ingredients = ingredients,
                         Inventory = 100
                     },
@@ -283,7 +283,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 13.5m,
-                        PictureUrl = "/images/products/wrap.webp",
+                        PictureUrl = "/images/products/wraps.webp",
                         Ingredients = ingredients,
                         Inventory = 100
                     },
@@ -302,7 +302,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 10,
-                        PictureUrl = "/images/products/dessert.webp",
+                        PictureUrl = "/images/products/mousse.webp",
                         Inventory = 100
                     },
                     new()
@@ -311,7 +311,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 10,
-                        PictureUrl = "/images/products/dessert.webp",
+                        PictureUrl = "/images/products/tiramisu.webp",
                         Inventory = 100
                     },
                     new()
@@ -320,7 +320,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 13,
-                        PictureUrl = "/images/products/dessert.webp",
+                        PictureUrl = "/images/products/fruits.webp",
                         Inventory = 100
                     }
                 }
@@ -338,7 +338,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 3,
-                        PictureUrl = "/images/products/dessert.webp",
+                        PictureUrl = "/images/products/soda.webp",
                         Inventory = 100
                     },
                     new()
@@ -347,7 +347,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 5,
-                        PictureUrl = "/images/products/dessert.webp",
+                        PictureUrl = "/images/products/sodabottle.webp",
                         Inventory = 100
                     },
                     new()
@@ -356,7 +356,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 2,
-                        PictureUrl = "/images/products/dessert.webp",
+                        PictureUrl = "/images/products/water.webp",
                         Inventory = 100
                     },
                     new()
@@ -365,7 +365,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 12,
-                        PictureUrl = "/images/products/dessert.webp",
+                        PictureUrl = "/images/products/juice.webp",
                         Inventory = 100
                     },
                 }
@@ -383,7 +383,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 3,
-                        PictureUrl = "/images/products/fromage.webp",
+                        PictureUrl = "/images/products/cheese.webp",
                         Inventory = 100
                     },
 
@@ -393,7 +393,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 3,
-                        PictureUrl = "/images/products/fromage.webp",
+                        PictureUrl = "/images/products/cheese.webp",
                         Inventory = 100
                     },
 
@@ -403,7 +403,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 3,
-                        PictureUrl = "/images/products/fromage.webp",
+                        PictureUrl = "/images/products/cheese.webp",
                         Inventory = 100
                     },
 
@@ -413,7 +413,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 3,
-                        PictureUrl = "/images/products/fromage.webp",
+                        PictureUrl = "/images/products/cheese.webp",
                         Inventory = 100
                     },
 
@@ -423,7 +423,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 2,
-                        PictureUrl = "/images/products/fromage.webp",
+                        PictureUrl = "/images/products/blackbread.webp",
                         Inventory = 100
                     },
 
@@ -433,7 +433,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 4,
-                        PictureUrl = "/images/products/fromage.webp",
+                        PictureUrl = "/images/products/fries.webp",
                         Inventory = 100
                     },
 
@@ -443,7 +443,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 0,
-                        PictureUrl = "/images/products/fromage.webp",
+                        PictureUrl = "/images/products/sauces.webp",
                         Inventory = 100
                     },
 
@@ -453,7 +453,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 0,
-                        PictureUrl = "/images/products/fromage.webp",
+                        PictureUrl = "/images/products/sauces.webp",
                         Inventory = 100
                     },
 
@@ -463,7 +463,7 @@ public static class DbInitializer
                         Description =
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                         Price = 0,
-                        PictureUrl = "/images/products/fromage.webp",
+                        PictureUrl = "/images/products/sauces.webp",
                         Inventory = 100
                     },
                 }

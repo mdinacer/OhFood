@@ -1,12 +1,9 @@
 using API.Data;
 using API.DTO;
-using API.Entities;
 using API.Extensions;
 using API.Helpers;
-using API.Services;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,11 +13,9 @@ namespace API.Controllers
     {
         private readonly StoreContext _context;
         private readonly IMapper _mapper;
-        private readonly ImageService _imageService;
 
-        public ProductsController(StoreContext context, IMapper mapper, ImageService imageService)
+        public ProductsController(StoreContext context, IMapper mapper)
         {
-            _imageService = imageService;
             _mapper = mapper;
             _context = context;
         }
@@ -77,84 +72,6 @@ namespace API.Controllers
                 .ToListAsync();
 
             return Ok(categories);
-        }
-
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public async Task<ActionResult<Product>> CreateProduct([FromForm] CreateProductDto createProductDto)
-        {
-            var product = _mapper.Map<Product>(createProductDto);
-
-            if (createProductDto.File != null)
-            {
-                var imageResult = await _imageService.AddImageAsync(createProductDto.File);
-
-                if (imageResult.Error != null)
-                    return BadRequest(new ProblemDetails { Title = imageResult.Error.Message });
-
-                product.PictureUrl = imageResult.SecureUrl.ToString();
-                product.PublicId = imageResult.PublicId;
-            }
-
-            _context.Products.Add(product);
-
-            var success = await _context.SaveChangesAsync() > 0;
-
-            if (!success) return BadRequest(new ProblemDetails { Title = "Problem creating product" });
-
-            return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPut]
-        public async Task<ActionResult<Product>> UpdateProduct([FromForm] UpdateProductDto updateProductDto)
-        {
-            var product = await _context.Products.FindAsync(updateProductDto.Id);
-
-            if (product == null) return NotFound();
-
-            _mapper.Map(updateProductDto, product);
-
-            if (updateProductDto.File != null)
-            {
-                var imageResult = await _imageService.AddImageAsync(updateProductDto.File);
-
-                if (imageResult.Error != null)
-                    return BadRequest(new ProblemDetails { Title = imageResult.Error.Message });
-
-                if (!string.IsNullOrEmpty(product.PublicId))
-                    await _imageService.DeleteImageAsync(product.PublicId);
-
-                product.PictureUrl = imageResult.SecureUrl.ToString();
-                product.PublicId = imageResult.PublicId;
-            }
-
-            var success = await _context.SaveChangesAsync() > 0;
-
-            return success
-                ? Ok(product)
-                : BadRequest(new ProblemDetails { Title = "Problem updating product" });
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> DeleteProduct(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-
-            if (product == null) return NotFound();
-
-            if (!string.IsNullOrEmpty(product.PublicId))
-                await _imageService.DeleteImageAsync(product.PublicId);
-
-            _context.Products.Remove(product);
-
-            var success = await _context.SaveChangesAsync() > 0;
-
-            return success
-                ? Ok()
-                : BadRequest(new ProblemDetails { Title = "Problem deleting product" });
         }
     }
 }

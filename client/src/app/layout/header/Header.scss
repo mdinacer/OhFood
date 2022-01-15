@@ -1,14 +1,12 @@
 .header {
   & .user-menu {
     text-decoration: none;
-    color: white;
   }
 }
 
 .pages-list {
   & .MuiListItem-root {
-    color: white;
-
+    color: inherit;
 
 
     & p {
@@ -16,7 +14,7 @@
       transition: all .5s ease-in-out;
 
 
-      &:hover{
+      &:hover {
         letter-spacing: .1rem;
       }
     }
@@ -28,10 +26,10 @@
     }
 
 
-
     &.Mui-selected {
       background-color: transparent;
       transition: all .5s ease-in-out;
+
       & p {
         opacity: 1;
         font-weight: 700;

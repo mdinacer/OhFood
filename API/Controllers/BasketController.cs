@@ -10,7 +10,7 @@ namespace API.Controllers
 {
     public class BasketController : BaseApiController
     {
-        const string buyerIdVal = "buyerId";
+        private const string BuyerIdVal = "buyerId";
         private readonly StoreContext _context;
         private readonly IMapper _mapper;
 
@@ -73,13 +73,13 @@ namespace API.Controllers
                     .ThenInclude(item => item.Product)
                     .ThenInclude(p => p.Category)
                     .SingleOrDefaultAsync(basket => basket.BuyerId == buyerId);
-            Response.Cookies.Delete("buyerId");
+            Response.Cookies.Delete(BuyerIdVal);
             return null;
         }
 
         private string? GetBuyerId()
         {
-            return User.Identity?.Name ?? Request.Cookies["buyerId"];
+            return User.Identity?.Name ?? Request.Cookies[BuyerIdVal];
         }
 
         private Basket CreateBasket()
@@ -95,7 +95,7 @@ namespace API.Controllers
                 IsEssential = true,
                 Expires = DateTime.Now.AddDays(30),
             };
-            Response.Cookies.Append(buyerIdVal, buyerId, cookieOptions);
+            Response.Cookies.Append(BuyerIdVal, buyerId, cookieOptions);
             var basket = new Basket(buyerId);
             _context.Baskets.Add(basket);
             return basket;

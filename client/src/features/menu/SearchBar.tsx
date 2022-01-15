@@ -21,11 +21,13 @@ export default function SearchBar() {
             flexWrap: "nowrap",
             backgroundColor:"rgba(183,183,183,0.1)",
             borderRadius: 2,
-            maxWidth: "400px"
+            maxWidth: "400px",
+            color:"white"
         }}>
             <InputBase
+
                 value={searchTerm || ''}
-                sx={{ml: 1, flex: 1}}
+                sx={{ml: 1, flex: 1, color:"white"}}
                 placeholder="Search"
                 inputProps={{'aria-label': 'recherche'}}
                 onChange={(event: any) => {
@@ -33,11 +35,11 @@ export default function SearchBar() {
                     debouncedSearch(event);
                 }}
             />
-            <IconButton type="submit" sx={{p: '10px'}} aria-label="search"
+            <IconButton type="submit" sx={{p: '10px'}} aria-label="search" color={"inherit"}
                         onClick={() => dispatch(setProductParams({searchTerm}))}>
                 <Search/>
             </IconButton>
-            <IconButton type="submit" sx={{p: '10px'}} aria-label="search" onClick={() => {
+            <IconButton color={"inherit"} type="submit" sx={{p: '10px'}} aria-label="search" onClick={() => {
                 setSearchTerm(undefined);
                 dispatch(setProductParams({searchTerm: null}));
             }}>

@@ -87,7 +87,7 @@ export default function MenuPage() {
         <>
             <Box className={"menu"} sx={{
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgb(0, 0, 0)),url(${getBackground()});`
-                , pt: {md: 10, xs: 3}, pb: {md: 2, xs: 7}
+                , pt: {md: 10, xs: 3}, pb: {md: 2, xs: 7}, color:"#FFF",
             }}>
                 <Container maxWidth={"lg"} sx={{height: "100%", display: "flex", flexDirection: "column"}}>
                     <Box sx={{flex: "0 1 auto"}}>
@@ -106,12 +106,12 @@ export default function MenuPage() {
                             {list()}
                         </Grid>
                         <Grid item xs={12} sx={{display: {xs: "block", md: "none"}, py: 3}}>
-                            <Container sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                                <IconButton onClick={() => handleFiltersDrawer(true)}>
+                            <Container sx={{display: "flex", flexDirection: "row", justifyContent: "space-between", color:"white"}}>
+                                <IconButton color={"inherit"} onClick={() => handleFiltersDrawer(true)}>
                                     <Menu/>
                                 </IconButton>
 
-                                <IconButton onClick={() => handleSearchCollapse(!isOpen.searchCollapse)}>
+                                <IconButton color={"inherit"}  onClick={() => handleSearchCollapse(!isOpen.searchCollapse)}>
                                     <Search/>
                                 </IconButton>
                             </Container>
