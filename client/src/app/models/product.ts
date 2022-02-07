@@ -6,7 +6,7 @@ export interface Product {
     pictureUrl: string;
     category: string;
     ingredients: string;
-    inventory: number;
+    inventory?: number;
 }
 
 export interface ProductLite {

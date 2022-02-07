@@ -16,7 +16,7 @@ interface CatalogState {
 
 const productsAdapter = createEntityAdapter<Product>();
 
-function getAxiosParams(productParams: ProductParams) {
+export function getAxiosParams(productParams: ProductParams) {
     const params = new URLSearchParams();
     params.append("pageNumber", productParams.pageNumber.toString());
     params.append("pageSize", productParams.pageSize.toString());
@@ -103,6 +103,11 @@ export const catalogSlice = createSlice({
             state.productParams = {...state.productParams, ...action.payload};
         },
 
+        setPageSize: (state, action) => {
+            state.productsLoaded = false;
+            state.productParams = {...state.productParams, ...action.payload};
+        },
+
         setMetaData: (state, action) => {
             state.metaData = action.payload;
         },
@@ -111,12 +116,13 @@ export const catalogSlice = createSlice({
             state.productParams = initParams();
         },
 
-        setProduct: (state) => {
+        setProduct: (state, action) => {
             state.productsLoaded = false;
         },
-
-        removeProduct: (state) => {
-            state.productsLoaded = false;
+        updateProduct: productsAdapter.updateOne,
+        removeProduct: productsAdapter.removeOne,
+        updateCategories: (state) => {
+            state.categoriesLoaded = false;
         },
     },
     extraReducers: (builder => {
@@ -173,6 +179,9 @@ export const {
     resetProductParams,
     setMetaData,
     setPageNumber,
+    setPageSize,
     setProduct,
-    removeProduct
+    updateProduct,
+    removeProduct,
+    updateCategories
 } = catalogSlice.actions;

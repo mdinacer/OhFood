@@ -12,6 +12,7 @@ namespace API.Helpers
             CreateMap<Product, ProductLiteDto>();
             CreateMap<Category, CategoryFullDto>();
             CreateMap<Product, ProductDto>()
+                .ForMember(p => p.CategoryId, o => { o.MapFrom(p => p.Category.Id); })
                 .ForMember(p => p.Category, o => { o.MapFrom(p => p.Category.Name); });
 
             CreateMap<Reservation, ReservationDto>()
@@ -20,9 +21,13 @@ namespace API.Helpers
 
             CreateMap<UpdateReservationDto, Reservation>();
 
-            CreateMap<CreateProductDto, Product>();
-            CreateMap<UpdateProductDto, Product>();
+            CreateMap<CreateProductDto, Product>().ForMember(x => x.Category, opt => opt.Ignore());
+            CreateMap<UpdateProductDto, Product>().ForMember(x => x.Category, opt => opt.Ignore());
 
+
+            CreateMap<Category, CategoryDto>();
+            CreateMap<CreateCategoryDto, Category>();
+            CreateMap<UpdateCategoryDto, Category>();
 
             CreateMap<UpdateOrderDto, Order>()
                 .ForMember(p => p.Status, o => { o.MapFrom(p => Enum.Parse(typeof(OrderStatus), p.Status)); });

@@ -108,12 +108,15 @@ const Location = {
 }
 
 const Admin = {
-    fetchOrders: (params: URLSearchParams) => requests.get('admin/orders',params),
+    fetchOrders: (params: URLSearchParams) => requests.get('admin/orders', params),
     updateOrderStatus: (id: number, value: string) => requests.put('admin/orders', {id, status: value}),
     fetchOrdersTotals: () => requests.get("admin/orders/totals"),
     createProduct: (product: any) => requests.postForm('admin/products', createFormData(product)),
     updateProduct: (product: any) => requests.putForm('admin/products', createFormData(product)),
     deleteProduct: (id: number) => requests.delete(`admin/products/${id}`),
+    createCategory: (category: any) => requests.postForm('admin/categories', createFormData(category)),
+    updateCategory: (category: any) => requests.putForm('admin/categories', createFormData(category)),
+    deleteCategory: (id: number) => requests.delete(`admin/categories/${id}`),
     createAnnounce: (announce: any) => requests.postForm('admin/announces', createFormData(announce)),
     updateAnnounce: (announce: any) => requests.putForm('admin/announces', createFormData(announce)),
     deleteAnnounce: (id: number) => requests.delete(`admin/announces/${id}`),
@@ -124,6 +127,7 @@ const Account = {
     register: (values: any) => requests.postForm('account/register', createFormData(values)),
     currentUser: () => requests.get('account/currentUser'),
     sendMail: (values: any) => requests.postForm('account/sendMail', createFormData(values)),
+    //fbLogin:(accessToken: string) => requests.post(`/account/fbLogin?accessToken=${accessToken}`, {})
 }
 
 const Announces = {

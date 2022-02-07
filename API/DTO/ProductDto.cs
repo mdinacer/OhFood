@@ -7,6 +7,7 @@ public class ProductDto
     public string? Description { get; set; }
     public decimal Price { get; set; }
     public string? PictureUrl { get; set; }
+    public int CategoryId { get; set; }
     public string Category { get; set; }
     public string Ingredients { get; set; }
     public int Inventory { get; set; }

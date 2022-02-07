@@ -95,6 +95,19 @@ public class AdminController : BaseApiController
     {
         var product = _mapper.Map<Product>(createProductDto);
 
+        var category = await _context.Categories.SingleOrDefaultAsync(c =>
+            c.Name == createProductDto.Category);
+
+        if (category != null)
+        {
+            product.CategoryId = category.Id;
+        }
+        else
+        {
+            product.CategoryId = 0;
+            product.Category = new Category { Name = createProductDto.Category };
+        }
+
         if (createProductDto.File != null)
         {
             var imageResult = await _imageService.AddImageAsync(createProductDto.File);
@@ -112,7 +125,7 @@ public class AdminController : BaseApiController
 
         if (!success) return BadRequest(new ProblemDetails { Title = "Problem creating product" });
 
-        return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+        return CreatedAtRoute("GetProduct", new { id = product.Id }, _mapper.Map<ProductDto>(product));
     }
 
     [HttpPut("products")]
@@ -121,6 +134,23 @@ public class AdminController : BaseApiController
         var product = await _context.Products.FindAsync(updateProductDto.Id);
 
         if (product == null) return NotFound();
+
+        var category = await _context.Categories.SingleOrDefaultAsync(c =>
+            c.Name == updateProductDto.Category);
+
+        if (category != null)
+        {
+            if (category.Id != product.CategoryId)
+            {
+                product.CategoryId = category.Id;
+            }
+        }
+        else
+        {
+            product.CategoryId = 0;
+            product.Category = new Category { Name = updateProductDto.Category };
+        }
+
 
         _mapper.Map(updateProductDto, product);
 
@@ -141,7 +171,7 @@ public class AdminController : BaseApiController
         var success = await _context.SaveChangesAsync() > 0;
 
         return success
-            ? Ok(product)
+            ? Ok(_mapper.Map<ProductDto>(product))
             : BadRequest(new ProblemDetails { Title = "Problem updating product" });
     }
 
@@ -149,19 +179,98 @@ public class AdminController : BaseApiController
     [HttpDelete("products/{id:int}")]
     public async Task<ActionResult> DeleteProduct(int id)
     {
-        var order = await _context.Orders.FindAsync(id);
+        var product = await _context.Products.FindAsync(id);
 
-        if (order == null) return NotFound();
+        if (product == null) return NotFound();
 
-        _context.Orders.Remove(order);
+        if (!string.IsNullOrEmpty(product.PublicId))
+            await _imageService.DeleteImageAsync(product.PublicId);
+
+        _context.Products.Remove(product);
+
+        var result = await _context.SaveChangesAsync() > 0;
+
+        if (result) return Ok();
+
+        return BadRequest(new ProblemDetails { Title = "Problem deleting product" });
+    }
+
+
+    [HttpPost("categories")]
+    public async Task<ActionResult<CategoryDto>> CreateCategory([FromForm] CreateCategoryDto createCategory)
+    {
+        var elementExists = await _context.Categories.SingleOrDefaultAsync(c => c.Name == createCategory.Name) != null;
+
+        if (elementExists) return BadRequest(new ProblemDetails { Title = "This category already exists" });
+
+        var category = new Category { Name = createCategory.Name };
+
+        var imageResult = await _imageService.AddImageAsync(createCategory.File);
+
+        if (imageResult.Error != null)
+            return BadRequest(new ProblemDetails { Title = imageResult.Error.Message });
+
+        category.PictureUrl = imageResult.SecureUrl.ToString();
+        category.PublicId = imageResult.PublicId;
+
+        _context.Categories.Add(category);
 
         var success = await _context.SaveChangesAsync() > 0;
 
         return success
-            ? Ok()
-            : BadRequest(new ProblemDetails { Title = "Problem deleting product" });
+            ? _mapper.Map<CategoryDto>(category)
+            : BadRequest(new ProblemDetails { Title = "Problem creating Category" });
     }
 
+    [HttpPut("categories")]
+    public async Task<ActionResult<CategoryDto>> UpdateCategory([FromForm] UpdateCategoryDto updateCategory)
+    {
+        var category = await _context.Categories.SingleOrDefaultAsync(c => c.Id == updateCategory.Id);
+
+        if (category == null) return BadRequest(new ProblemDetails { Title = "This category already exists" });
+
+        _mapper.Map(updateCategory, category);
+
+        if (updateCategory.File != null)
+        {
+            var imageResult = await _imageService.AddImageAsync(updateCategory.File);
+
+            if (imageResult.Error != null)
+                return BadRequest(new ProblemDetails { Title = imageResult.Error.Message });
+
+            if (!string.IsNullOrEmpty(category.PublicId))
+                await _imageService.DeleteImageAsync(category.PublicId);
+
+            category.PictureUrl = imageResult.SecureUrl.ToString();
+            category.PublicId = imageResult.PublicId;
+        }
+
+        var success = await _context.SaveChangesAsync() > 0;
+
+        return success
+            ? Ok(_mapper.Map<CategoryDto>(category))
+            : BadRequest(new ProblemDetails { Title = "Problem updating category" });
+    }
+
+    [HttpDelete("categories/{id:int}")]
+    public async Task<IActionResult> DeleteCategory(int id)
+    {
+        var category = await _context.Categories.SingleOrDefaultAsync(c => c.Id == id);
+
+        if (category == null) return NotFound(new ProblemDetails { Title = "This category could not be found" });
+
+
+        if (!string.IsNullOrEmpty(category.PublicId))
+            await _imageService.DeleteImageAsync(category.PublicId);
+
+        _context.Categories.Remove(category);
+
+        var result = await _context.SaveChangesAsync() > 0;
+
+        if (result) return Ok();
+
+        return BadRequest(new ProblemDetails { Title = "Problem deleting category" });
+    }
 
     [HttpPost("announces")]
     public async Task<ActionResult<AnnounceDto>> CreateAnnounce([FromForm] CreateAnnounceDto createAnnounceDto)

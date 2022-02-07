@@ -12,6 +12,7 @@ import LoadingComponent from "./LoadingComponent";
 import Header from "./header/Header";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./App.scss";
+import AdminPageRoutes from "../../features/AdminPanel/AdminPageRoutes";
 
 
 const ServerError = lazy(() => import("../errors/ServerError"));
@@ -26,6 +27,7 @@ const ProfilePage = lazy(() => import("../../features/profile/ProfilePage"));
 const AddressBook = lazy(() => import("../../features/profile/AddressBook"));
 const ProfileOrdersPage = lazy(() => import("../../features/profile/ProfileOrdersPage"));
 const ProfileSettings = lazy(() => import("../../features/profile/ProfileSettings"));
+
 
 export const DarkTheme = responsiveFontSizes(
     createTheme({
@@ -218,6 +220,8 @@ function App() {
                     }
                 />
             </Routes>
+
+            <AdminPageRoutes/>
         </ThemeProvider>
     );
 }

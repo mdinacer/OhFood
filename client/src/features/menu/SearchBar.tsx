@@ -36,7 +36,7 @@ export default function SearchBar() {
                 }}
             />
             <IconButton type="submit" sx={{p: '10px'}} aria-label="search" color={"inherit"}
-                        onClick={() => dispatch(setProductParams({searchTerm}))}>
+                        onClick={() => dispatch(setProductParams({...productParams,searchTerm}))}>
                 <Search/>
             </IconButton>
             <IconButton color={"inherit"} type="submit" sx={{p: '10px'}} aria-label="search" onClick={() => {

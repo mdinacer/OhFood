@@ -45,6 +45,21 @@ export const fetchOrdersAsync = createAsyncThunk<Order[], void, { state: RootSta
     }
 )
 
+export const fetchAllOrdersAsync = createAsyncThunk<Order[], void, { state: RootState }>(
+    "admin/fetchOrdersAsync",
+    async (_, thunkApi) => {
+        const orderParams = thunkApi.getState().order.orderParams;
+        const params = getAxiosParams(orderParams);
+        try {
+            const response = await agent.Admin.fetchOrders(params);
+            thunkApi.dispatch(setMetaData(response.metaData));
+            return response.items;
+        } catch (error: any) {
+            return thunkApi.rejectWithValue({error: error.data});
+        }
+    }
+)
+
 export const fetchOrderAsync = createAsyncThunk<Order, number>(
     "admin/fetchOrderAsync",
     async (orderId: number, thunkApi) => {
